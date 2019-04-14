@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena_oshkina" id="insert_test_content_to_steps_and_subsections">
+        <!-- TODO: rearrange data insertion into different files according to destination tables -->
+
+        <!-- insert sections -->
+        <!--<insert tableName="sections">-->
+            <!--<column name="id" value="1"/>-->
+            <!--<column name="name" value="basic"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="child_id" value="2"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="sections">-->
+            <!--<column name="id" value="2"/>-->
+            <!--<column name="name" value="intermediate"/>-->
+            <!--<column name="parent_id" value="1"/>-->
+            <!--<column name="child_id" value="3"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="sections">-->
+            <!--<column name="id" value="3"/>-->
+            <!--<column name="name" value="advanced"/>-->
+            <!--<column name="parent_id" value="2"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+        <!-- insert subsections -->
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Количественные параметры информационных объектов"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="id_section" value="1"/>-->
+            <!--<column name="child_id" value="2"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Значение логического выражения"/>-->
+            <!--<column name="parent_id" value="1"/>-->
+            <!--<column name="id_section" value="1"/>-->
+            <!--<column name="child_id" value="3"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Формальные описания реальных объектов и процессов"/>-->
+            <!--<column name="parent_id" value="2"/>-->
+            <!--<column name="id_section" value="1"/>-->
+            <!--<column name="child_id" value="4"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Файловая система организации данных"/>-->
+            <!--<column name="parent_id" value="3"/>-->
+            <!--<column name="id_section" value="1"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Алгоритм для конкретного исполнителя с фиксированным"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="id_section" value="2"/>-->
+            <!--<column name="child_id" value="6"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Кодирование и декодирование информации"/>-->
+            <!--<column name="parent_id" value="5"/>-->
+            <!--<column name="id_section" value="2"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+        <!--<insert tableName="subsections">-->
+            <!--<column name="name" value="Линейный алгоритм, записанный на алгоритм. языке"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="id_section" value="3"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+        <!-- insert steps -->
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="1"/>-->
+            <!--<column name="child_id" value="2"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step2"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="1"/>-->
+            <!--<column name="subsection_id" value="1"/>-->
+            <!--<column name="child_id" value="3"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step3"/>-->
+            <!--<column name="type" value="training"/>-->
+            <!--<column name="parent_id" value="2"/>-->
+            <!--<column name="subsection_id" value="1"/>-->
+            <!--<column name="child_id" value="4"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step4"/>-->
+            <!--<column name="type" value="interactive"/>-->
+            <!--<column name="parent_id" value="3"/>-->
+            <!--<column name="subsection_id" value="1"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="2"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="3"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="4"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="5"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="6"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+
+
+
+        <!--<insert tableName="steps">-->
+            <!--<column name="name" value="step1"/>-->
+            <!--<column name="type" value="theory"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="subsection_id" value="7"/>-->
+            <!--<column name="child_id" value="0"/>-->
+        <!--</insert>-->
+
+        
+
+        <!-- insert cards -->
+        <!--<insert tableName="cards">-->
+            <!--<column name="note" value=" Единицы измерения информации;\nЕсли рассматривать сообщения информации как-->
+             <!--последовательность знаков, то их можно представлять битами, а измерять в байтах, килобайтах, мегабайтах,-->
+             <!--гигабайтах, терабайтах и петабайтах. Советую запомнить данные равенства:\n1 байт=8 битов\n-->
+             <!--1 килобайт (Кб)=1024 байта =210 байтов\n-->
+             <!--1 мегабайт (Мб)=1024 килобайта =210 килобайтов=220 байтов\n-->
+             <!--1 гигабайт (Гб)=1024 мегабайта =210 мегабайтов=230 байтов\n-->
+             <!--1 терабайт (Тб)=1024 гигабайта =210 гигабайтов=240 байтов\n-->
+             <!--Запомните, приставка КИЛО в информатике – это не 1000, а 1024, то есть 210\n"/>-->
+            <!--<column name="image" value=""/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="child_id" value="2"/>-->
+            <!--<column name="step_id" value="1"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="cards">-->
+            <!--<column name="note" value="Формулы для вычисления информационных объемов\nЗнать нужно две:\n-->
+            <!--I=K∗i\n-->
+            <!--N=2i\n-->
+            <!--Поговорим о первой (используется намного чаще второй).\n-->
+            <!--I - вес текстовой информации (в битах)\n-->
+            <!--K - количество символов\n-->
+            <!--i - вес одного символа\n-->
+            <!--Отсюда следует, что вес текстовой информации равен произведению количества символов на вес одного символа.\n-->
+            <!--Пример задачи:\n-->
+            <!--Статья, набранная на компьютере, содержит 16 страниц, на каждой странице 30 строк, в каждой строке 32 символа.-->
+            <!--Определите информационный объём статьи в одной из кодировок Unicode, в которой каждый символ кодируется 16 битами.\n-->
+            <!--1) 24 Кбайт         2) 30 Кбайт         3) 480 байт          4) 240 байт\n-->
+            <!--Найдем общее количество символов на одной странице, для этого умножим количество строк на странице на-->
+            <!--количество символов в строке — 30 * 32 = 960 символов.\n-->
+            <!--Найдем общее количество символов во всем тексте, для этого умножим количество страниц на количество-->
+             <!--символов на одной странице — 16 * 960 =  15360 символов.\n-->
+            <!--Так как каждый символ кодируется 16 битами, а 16 бит = 2 байта, то весь текст займет 15360 * 2 байта =-->
+            <!--30720 байта. Как видим, из предложенных вариантов ответа в байтах полученного нами нет, поэтому переведем-->
+             <!--полученный результат в килобайты. Для этого разделим 30720 на 1024: 30720 / 1024 = 30Кбайт.\n"/>-->
+            <!--<column name="image" value=""/>-->
+            <!--<column name="parent_id" value="1"/>-->
+            <!--<column name="child_id" value="3"/>-->
+            <!--<column name="step_id" value="1"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="cards">-->
+            <!--<column name="note" value="Теперь о второй формуле. Для решения обратных задач, когда известна-->
+            <!--неопределенность (N) или полученное в результате ее снятия количество информации (i) и нужно определить-->
+             <!--какое количество равновероятных альтернатив соответствует возникновению этой неопределенности, используют-->
+             <!--обратную формулу Хартли\n-->
+             <!--N=2i , где\n-->
+             <!--N -  количество равновероятных альтернатив\n-->
+             <!--i - неопределенность\n-->
+             <!--Например, если известно, что в результате определения того, что интересующий нас Коля Иванов-->
+              <!--живет на втором этаже, было получено 3 бита информации, то количество этажей в доме можно определить-->
+               <!--по формуле (3), как N=23\n-->
+               <!--Сейчас мы поговорим о степенях двойки, знание которых поможет на экзамене, потому что, как вы-->
+                 <!--знаете, на ОГЭ пользоваться калькулятором нельзя, а искать степень придется.\n"/>-->
+            <!--<column name="image" value="https://ucarecdn.com/a14a7dab-4bf1-4a80-84c5-a93507beaf18/"/>-->
+            <!--<column name="parent_id" value="2"/>-->
+            <!--<column name="child_id" value="0"/>-->
+            <!--<column name="step_id" value="1"/>-->
+        <!--</insert>-->
+
+
+    </changeSet>
+</databaseChangeLog>

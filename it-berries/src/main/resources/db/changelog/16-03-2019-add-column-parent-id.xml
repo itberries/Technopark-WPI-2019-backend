@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena-oshkina" id="addColumn-parent-id-to-sections">
+        <addColumn tableName="sections">
+            <column name="parent_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="parent_id" tableName="sections"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="elena-oshkina" id="addColumn-parent-id-to-subsections">
+        <addColumn tableName="subsections">
+            <column name="parent_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="parent_id" tableName="subsections"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="elena-oshkina" id="addColumn-final-step-id-to-subsections">
+        <addColumn tableName="subsections">
+            <column name="final_step_id" type="int"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="final_step_id"
+                                 baseTableName="subsections"
+                                 constraintName="fk_cards_step_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="steps"/>
+        <rollback>
+            <dropColumn columnName="final_step_id" tableName="subsections"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

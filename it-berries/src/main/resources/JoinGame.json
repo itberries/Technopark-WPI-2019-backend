@@ -1,0 +1,5 @@
+{
+  "type" : "joinGame",
+  "gameType": "match",
+  "stepId": 2
+}

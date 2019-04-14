@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="create_theory_table">
+        <createTable tableName="theory">
+            <column name="id" type="int"/>
+            <column name="id_subsection" type="int"/>
+            <column name="text" type="text"/>
+            <column name="img" type="text"/>
+            <column name="page" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="uniqueTheory"
+                             tableName="theory"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="theory"/>
+
+        <addForeignKeyConstraint baseColumnNames="id_subsection"
+                                 baseTableName="theory"
+                                 constraintName="fk_theory_subsections"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subsections"/>
+
+        <rollback>
+            <dropTable tableName="theory"/>
+            <dropForeignKeyConstraint baseTableName="theory" constraintName="fk_theory_subsections"/>
+            <dropUniqueConstraint constraintName="uniqueTheory"
+                                  tableName="theory"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="changelog/02-03-2019-create-users-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/02-03-2019-create-tasks-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/02-03-2019-create-users-tasks-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/09-03-2019-create-sections-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/09-03-2019-create-subsections-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/09-03-2019-create-theory-table.xml" relativeToChangelogFile="true"/>
+
+    <include file="changelog/10-03-2019-insert-test-content.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-add-steps-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-add-cards-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-add-column-parent-id.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-create-users-subsections-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-create-users-steps-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/16-03-2019-alter-tables-add-child-id.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20-03-2019-create-users-state-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/23-03-2019-create-tables-for-mini-games.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/01-04-2019-insert-original-content.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

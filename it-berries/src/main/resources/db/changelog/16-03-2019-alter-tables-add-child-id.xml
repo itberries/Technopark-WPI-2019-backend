@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="alter_tables_add_column_child_id_to_sections">
+        <addColumn tableName="sections">
+            <column name="child_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="child_id" tableName="sections"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="dmitrii_borodin" id="alter_tables_add_column_child_id_to_subsections">
+        <addColumn tableName="subsections">
+            <column name="child_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="child_id" tableName="subsections"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="dmitrii_borodin" id="alter_tables_add_column_child_id_to_steps">
+        <addColumn tableName="steps">
+            <column name="child_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="child_id" tableName="stepResponses"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="dmitrii_borodin" id="alter_tables_add_column_child_id_to_cards">
+        <addColumn tableName="cards">
+            <column name="child_id" type="int"/>
+        </addColumn>
+
+        <rollback>
+            <dropColumn columnName="child_id" tableName="cards"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena_oshkina" id="insert_test_content_to_mini_games">
+
+
+        <!-- insert types of games -->
+        <!--<insert tableName="mini_games_types">-->
+            <!--<column name="type" value="match"/>-->
+        <!--</insert>-->
+
+
+        <!--<insert tableName="mini_games">-->
+            <!--<column name="step_id" value="3"/>-->
+            <!--<column name="type_id" value="1"/>-->
+            <!--<column name="parent_id" value="0"/>-->
+            <!--<column name="note"-->
+                    <!--value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;1024 бита&quot;},{&quot;1 Мбайт&quot;:&quot;8 бит&quot;},{&quot;1 Гбайт&quot;:&quot;1024 Мбайта&quot;}]}"/>-->
+        <!--</insert>-->
+
+
+        <!--<insert tableName="answers_on_match">-->
+
+            <!--<column name="answer"-->
+                    <!--value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;8 бит&quot;},{&quot;1 Мбайт&quot;:&quot;1024 байта&quot;},{&quot;1 Гбайт&quot;:&quot;1024 Мбайта&quot;}]}"/>-->
+
+            <!--<column name="game_id" value="1"/>-->
+        <!--</insert>-->
+
+    </changeSet>
+</databaseChangeLog>

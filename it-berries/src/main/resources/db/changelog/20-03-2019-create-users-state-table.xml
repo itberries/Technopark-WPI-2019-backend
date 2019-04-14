@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="create_users_states_table">
+        <createTable tableName="users_states">
+            <column name="id" type="int"/>
+            <column name="user_id" type="int"/>
+            <column name="step_id" type="int"/>
+            <column name="section_id" type="int"/>
+            <column name="subsection_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="uniqueUsersStates"
+                             tableName="users_states"/>
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="users_states"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="users_states"
+                                 constraintName="fk_users_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="section_id"
+                                 baseTableName="users_states"
+                                 constraintName="fk_sections_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sections"/>
+
+        <addForeignKeyConstraint baseColumnNames="subsection_id"
+                                 baseTableName="users_states"
+                                 constraintName="fk_subsections_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subsections"/>
+
+        <addForeignKeyConstraint baseColumnNames="step_id"
+                                 baseTableName="users_states"
+                                 constraintName="fk_steps_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="steps"/>
+
+        <rollback>
+            <dropTable tableName="users_states"/>
+            <dropForeignKeyConstraint baseTableName="users_states" constraintName="fk_users_id"/>
+            <dropForeignKeyConstraint baseTableName="users_states" constraintName="fk_sections_id"/>
+            <dropForeignKeyConstraint baseTableName="users_states" constraintName="fk_subsections_id"/>
+            <dropForeignKeyConstraint baseTableName="users_states" constraintName="fk_steps_id"/>
+            <dropUniqueConstraint constraintName="uniqueUsersStates"
+                                  tableName="users_states"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

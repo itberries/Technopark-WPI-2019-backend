@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:10
+    restart: always
+    container_name: database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: shut-up-just-push
+      POSTGRES_USER: shut-up-just-push
+      POSTGES_PASSWORD: shut-up-just-push
+    command: postgres -N 1000
+    #volumes:
+     # - 'var/data/postgres:/var/lib/postgresql/data'
+  it-berries-spring-boot-app:
+    image: shut-up-just-push
+    restart: always
+    ports:
+      - "8080:8080"

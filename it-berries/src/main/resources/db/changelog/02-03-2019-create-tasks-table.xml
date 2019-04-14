@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="create_tasks_table">
+        <createTable tableName="tasks">
+            <column name="id" type="int"/>
+            <column name="type" type="nvarchar(255)"/>
+            <column name="level" type="int"/>
+            <column name="subject" type="nvarchar(255)"/>
+            <column name="text" type="text"/>
+            <column name="photo" type="text"/>
+            <column name="answer" type="text"/>
+            <column name="score" type="int"/>
+        </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="tasks"/>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="uniqueTask"
+                             tableName="tasks"/>
+        <rollback>
+            <dropTable tableName="tasks"/>
+            <dropUniqueConstraint constraintName="uniqueTask"
+                                  tableName="tasks"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

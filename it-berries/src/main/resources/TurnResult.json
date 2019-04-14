@@ -1,0 +1,8 @@
+{
+  "type": "turnResult",
+  "payload": {
+    "data": "false"
+  },
+  "gameType": "match",
+  "stepId": 3
+}

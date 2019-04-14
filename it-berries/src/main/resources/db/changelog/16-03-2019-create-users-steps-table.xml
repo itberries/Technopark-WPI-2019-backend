@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena-oshkina" id="create-table-user-steps">
+        <createTable tableName="users_steps">
+            <column name="id" type="int"/>
+            <column name="user_id" type="int"/>
+            <column name="step_id" type="int"/>
+            <column name="subsection_id" type="int"/>
+        </createTable>
+
+
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_users_steps_id"
+                       tableName="users_steps"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="users_steps"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="users_steps"
+                                 constraintName="fk_users_steps_user_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="users_steps" constraintName="fk_users_steps_user_id"/>
+            <dropTable tableName="users_steps"/>
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>

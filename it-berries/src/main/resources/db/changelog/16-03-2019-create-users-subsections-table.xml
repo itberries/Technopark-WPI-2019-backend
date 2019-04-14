@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="create_users_subsections_table">
+        <createTable tableName="users_subsections">
+            <column name="id" type="int"/>
+            <column name="user_id" type="int"/>
+            <column name="section_id" type="int"/>
+            <column name="subsection_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="uniqueUsersSubsections"
+                             tableName="users_subsections"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="users_subsections"
+                                 constraintName="fk_users_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="section_id"
+                                 baseTableName="users_subsections"
+                                 constraintName="fk_sections_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sections"/>
+
+        <addForeignKeyConstraint baseColumnNames="subsection_id"
+                                 baseTableName="users_subsections"
+                                 constraintName="fk_subsections_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subsections"/>
+
+        <rollback>
+            <dropTable tableName="users_subsections"/>
+            <dropForeignKeyConstraint baseTableName="users_subsections" constraintName="fk_users_id"/>
+            <dropForeignKeyConstraint baseTableName="users_subsections" constraintName="fk_sections_id"/>
+            <dropForeignKeyConstraint baseTableName="users_subsections" constraintName="fk_subsections_id"/>
+            <dropUniqueConstraint constraintName="uniqueUsersSubsections"
+                                  tableName="users_subsections"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

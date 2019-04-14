@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena_oshkina" id="create_mini_games_types_table">
+        <createTable tableName="mini_games_types">
+            <column name="id" type="int"/>
+            <column name="type" type="text"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_mini_games_types"
+                             tableName="mini_games_types"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="mini_games_types"/>
+
+
+
+        <rollback>
+            <dropUniqueConstraint constraintName="unique_mini_games_types" tableName="mini_games_types"/>
+            <dropTable tableName="mini_games_table"/>
+        </rollback>
+
+    </changeSet>
+
+
+    <changeSet author="elena_oshkina" id="create_mini_games_table">
+        <createTable tableName="mini_games">
+            <column name="id" type="int"/>
+            <column name="note" type="text"/>
+            <column name="image" type="text"/>
+            <column name="parent_id" type="int"/>
+            <column name="child_id" type="int"/>
+            <column name="step_id" type="int"/>
+            <column name="type_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_mini_games"
+                             tableName="mini_games"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="mini_games"/>
+
+        <addForeignKeyConstraint baseColumnNames="step_id"
+                                 baseTableName="mini_games"
+                                 constraintName="fk_step_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="steps"/>
+
+        <addForeignKeyConstraint baseColumnNames="type_id"
+                                 baseTableName="mini_games"
+                                 constraintName="fk_type_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mini_games_types"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="mini_games" constraintName="fk_step_id"/>
+            <dropForeignKeyConstraint baseTableName="mini_games" constraintName="fk_type_id"/>
+            <dropUniqueConstraint constraintName="unique_mini_games" tableName="mini_games"/>
+            <dropTable tableName="mini_games"/>
+        </rollback>
+
+    </changeSet>
+
+    <changeSet author="elena_oshkina" id="create_answers_on_match_table">
+        <createTable tableName="answers_on_match">
+            <column name="id" type="int"/>
+            <column name="answer" type="text"/>
+            <column name="game_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_answers_on_match"
+                             tableName="answers_on_match"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="answers_on_match"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="answers_on_match"
+                                 constraintName="fk_game_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mini_games"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="answers_on_match" constraintName="fk_game_id"/>
+            <dropUniqueConstraint constraintName="unique_answers_on_match" tableName="answers_on_match"/>
+            <dropTable tableName="answers_on_match"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

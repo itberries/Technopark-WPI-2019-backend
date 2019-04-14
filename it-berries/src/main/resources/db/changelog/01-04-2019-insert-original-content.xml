@@ -1,0 +1,2502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="insert_original_content">
+
+
+        <!-- insert types of games -->
+        <insert tableName="mini_games_types">
+            <column name="type" value="match"/>
+        </insert>
+
+        <!-- insert sections -->
+        <insert tableName="sections">
+            <column name="id" value="1"/>
+            <column name="name" value="basic"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="2"/>
+        </insert>
+        <insert tableName="sections">
+            <column name="id" value="2"/>
+            <column name="name" value="intermediate"/>
+            <column name="parent_id" value="1"/>
+            <column name="child_id" value="3"/>
+        </insert>
+        <insert tableName="sections">
+            <column name="id" value="3"/>
+            <column name="name" value="advanced"/>
+            <column name="parent_id" value="2"/>
+            <column name="child_id" value="0"/>
+        </insert>
+
+        <!-- insert subsections with steps and cards -->
+        <!-- basic section -->
+        <insert tableName="subsections">
+            <column name="id" value="1"/>
+            <column name="name" value="Информация и ее свойства"/>
+            <column name="parent_id" value="0"/>
+            <column name="id_section" value="1"/>
+            <column name="child_id" value="2"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="1"/>
+                <column name="name" value="Информация и сигнал"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="2"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="1"/>
+                    <column name="note" value="Информация (от лат. informatio - осведомление, разъяснение) - широкое
+                                                понятие, имеющее много трактовок. В обыденной жизни под информацией
+                                                понимают всякого рода сообщения, сведения о чем-либо, которые получают
+                                                и передают люди. Содержится в речи людей, текстах книг, звуках и видах
+                                                природы, показаниях приборов."/>
+                    <column name="image" value="http://economic-definition.com/Images/Forex_Otzovik/270/970/3684052398-Informaciya..jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="2"/>
+                    <column name="step_id" value="1"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="2"/>
+                    <column name="note" value="Каждый материальный объект, с которым происходят изменения, становится
+                                                источником информации либо об окружающей среде, либо о происходящих в
+                                                этом объекте процессах. Эту информацию мы получаем в виде сигналов -
+                                                изменений физических величин (давления, температуры, цвета и т.д.)
+                                                Различают световые, звуковые, тепловые, механические и другие типы
+                                                сигналов."/>
+                    <column name="image" value="https://ds03.infourok.ru/uploads/ex/11a4/0002e44b-20d6bb97/640/img8.jpg"/>
+                    <column name="parent_id" value="1"/>
+                    <column name="child_id" value="3"/>
+                    <column name="step_id" value="1"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="3"/>
+                    <column name="note" value="Информация для человека - это содержание сигналов (сообщения),
+                                                воспринимаемых человеком непосредственно или с помощью специальных
+                                                устройств, расширяющее его знания об окружающем мире и протекающих
+                                                в нем процессах."/>
+                    <column name="image" value="https://lawbooks.news/files/uch_group50/uch_pgroup107/uch_uch496/image/image001.jpg"/>
+                    <column name="parent_id" value="2"/>
+                    <column name="child_id" value="4"/>
+                    <column name="step_id" value="1"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="4"/>
+                    <column name="note" value="Сигналы могут быть непрерывными и дискретными. Непрерывный сигнал
+                                                принимает бесконечное множество значений из некоторого диапазона.
+                                                Между значениями, которые он принимает, нет разрывов. Дискретный сигнал
+                                                 принимает конечное число значений. Все значения дискретного сигнала
+                                                 можно пронумеровать целыми числами."/>
+                    <column name="image" value="http://mabi.vspu.ru/files/2017/12/Bezyimyannyiy-9-1.png"/>
+                    <column name="parent_id" value="3"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="1"/>
+                </insert>
+            <insert tableName="steps">
+                <column name="id" value="2"/>
+                <column name="name" value="Игра: информация и сигнал"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="1"/>
+                <column name="child_id" value="3"/>
+            </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="1"/>
+                    <column name="step_id" value="2"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                        value="{&quot;data&quot;:[{&quot;Дни недели&quot;:&quot;дискретный&quot;},{&quot;Рота солдат&quot;:&quot;дискретный&quot;},{&quot;Положения выключателя&quot;:&quot;дискретный&quot;},{&quot;Вещественные числа&quot;:&quot;непрерывный&quot;},{&quot;Временная линия&quot;:&quot;непрерывный&quot;},{&quot;Звуковая дорожка&quot;:&quot;непрерывный&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;Дни недели&quot;:&quot;дискретный&quot;},{&quot;Рота солдат&quot;:&quot;дискретный&quot;},{&quot;Положения выключателя&quot;:&quot;дискретный&quot;},{&quot;Вещественные числа&quot;:&quot;непрерывный&quot;},{&quot;Временная линия&quot;:&quot;непрерывный&quot;},{&quot;Звуковая дорожка&quot;:&quot;непрерывный&quot;}]}"/>
+
+                    <column name="game_id" value="1"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="169"/>
+                    <column name="note" value="Определи, в какой тип сигнала преобразуется информация - непрерывный или дискретный"/>
+                    <column name="image" value="https://ds05.infourok.ru/uploads/ex/0324/0002398b-69c5d8f3/1/img3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="2"/>
+                </insert>
+            <insert tableName="steps">
+                <column name="id" value="3"/>
+                <column name="name" value="Виды информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="2"/>
+                <column name="child_id" value="4"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="5"/>
+                    <column name="note" value="Сигналы внешнего мира поступают в мозг человека через его органы чувств
+                                                для анализа и осмысления. По способу восприятия человеком информация
+                                                может быть разделена на визуальную, аудиальную, обонятельную, вкусовую,
+                                                тактильную."/>
+                    <column name="image" value="http://images.myshared.ru/4/289017/slide_3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="6"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="6"/>
+                    <column name="note" value="Визуальная информация - та информация, которую мы воспринимаем с помощью
+                                                органов зрения: буквы, цифры рисунки, цвет, форма, расположение предметов."/>
+                    <column name="image" value="https://cf.ppt-online.org/files2/slide/b/bklNsS6HYfuQzp3jVARGW4TO1xhyMFwIZJCBgomXa/slide-4.jpg"/>
+                    <column name="parent_id" value="5"/>
+                    <column name="child_id" value="7"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="7"/>
+                    <column name="note" value="Аудиальная информация - звуковая информация, которую мы воспринимаем с
+                                                помощью органов слуха: речь, музыка, звуковые сигналы, шум. "/>
+                    <column name="image" value="https://omkling.com/wp-content/uploads/2009/05/suggestija.jpg"/>
+                    <column name="parent_id" value="6"/>
+                    <column name="child_id" value="8"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="8"/>
+                    <column name="note" value="Обонятельная информация - информация, которую мы воспринимаем с помощью
+                                                органов обоняния: запахи."/>
+                    <column name="image" value="http://animalworld.com.ua/images/2010/March/Raznoe/1/obonjanie_1.jpg"/>
+                    <column name="parent_id" value="7"/>
+                    <column name="child_id" value="9"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="9"/>
+                    <column name="note" value="Вкусовая информация - с помощью вкусовых рецепторов языка можно получить
+                                                информацию о том, каков предмет - горький, кислый, сладкий, соленый."/>
+                    <column name="image" value="http://humansenses.ru/wp-content/uploads/2017/03/vkus_1-640x428.jpg"/>
+                    <column name="parent_id" value="8"/>
+                    <column name="child_id" value="10"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="10"/>
+                    <column name="note" value="Тактильная информация - информация, получаемая с помощью органов
+                                                осязания (кончики пальцев и весь кожный покров) - информация о
+                                                температуре предмета (горячий, холодный), качестве поверхности
+                                                (гладкий, шероховатый) и т.д."/>
+                    <column name="image" value="http://robotlandia.ru/demo/azinf/info/pic/0208.gif"/>
+                    <column name="parent_id" value="9"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="4"/>
+                <column name="name" value="Игра: виды информации"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="3"/>
+                <column name="child_id" value="5"/>
+            </insert>
+
+                <insert tableName="mini_games">
+                    <column name="id" value="2"/>
+                    <column name="step_id" value="4"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;Черный квадрат&quot;:&quot;визуальная&quot;},{&quot;Шум города&quot;:&quot;аудиальная&quot;},{&quot;Аромат духов&quot;:&quot;обонятельная&quot;},{&quot;Горький шоколад&quot;:&quot;вкусовая&quot;},{&quot;Скользкий пол&quot;:&quot;тактильная&quot;},{&quot;Розовый пони&quot;:&quot;визуальная&quot;},{&quot;Шепот на ухо&quot;:&quot;аудиальная&quot;},{&quot;Аромат духов&quot;:&quot;обонятельная&quot;},{&quot;Кислый лимон&quot;:&quot;вкусовая&quot;},{&quot;Гладкий стол&quot;:&quot;тактильная&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;Черный квадрат&quot;:&quot;визуальная&quot;},{&quot;Шум города&quot;:&quot;аудиальная&quot;},{&quot;Аромат духов&quot;:&quot;обонятельная&quot;},{&quot;Горький шоколад&quot;:&quot;вкусовая&quot;},{&quot;Скользкий пол&quot;:&quot;тактильная&quot;},{&quot;Розовый пони&quot;:&quot;визуальная&quot;},{&quot;Шепот на ухо&quot;:&quot;аудиальная&quot;},{&quot;Аромат духов&quot;:&quot;обонятельная&quot;},{&quot;Кислый лимон&quot;:&quot;вкусовая&quot;},{&quot;Гладкий стол&quot;:&quot;тактильная&quot;}]}"/>
+
+                    <column name="game_id" value="2"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="170"/>
+                    <column name="note" value="Определи, к какому виду относится информация"/>
+                    <column name="image" value="https://ds02.infourok.ru/uploads/ex/0f21/00052bb8-e69acef9/img3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="4"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="5"/>
+                <column name="name" value="Свойства информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="4"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="11"/>
+                    <column name="note" value="Объективность, достоверность, полноту, актуальность, полезность и
+                                                понятность называют свойствами информации. Одна и та же информация
+                                                может обладать разными свойствами для разных людей."/>
+                    <column name="image" value="https://sites.google.com/site/3kursmimi/_/rsrc/1394989050343/1-informacia-svojstva-informacii/12.png?height=270&amp;width=400"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="12"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="12"/>
+                    <column name="note" value="Информация объективна, если она не зависит от чьего-либо мнения, суждения.
+                                                Объективную информацию можно получить с помощью измерительных приборов.
+                                                Но, отражаясь в сознании конкретного человека, информация перестает быть
+                                                 объективной, становится субъективной, так как преобразовывается в
+                                                 зависимости от опыта, знаний, пристрастий конкретного человека."/>
+                    <column name="image" value="http://images.myshared.ru/4/235660/slide_17.jpg"/>
+                    <column name="parent_id" value="11"/>
+                    <column name="child_id" value="13"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="13"/>
+                    <column name="note" value="Информация достоверна, если она отражает истинное положение дел.
+                                                Достоверная информация помогает нам принять правильное решение.
+                                                Недостоверной информация может быть в случае преднамеренного искажения,
+                                                в результате воздействия помех, при преуменьшении или преувеличении
+                                                значения реального факта."/>
+                    <column name="image" value="https://st03.kakprosto.ru/tumb/680/images/article/2011/9/2/1_525518283e692525518283e6fd.jpg"/>
+                    <column name="parent_id" value="12"/>
+                    <column name="child_id" value="14"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="14"/>
+                    <column name="note" value="Информация полна, если ее достаточно для понимания ситуации и принятия
+                                                решения. Неполная информация может привести к ошибочному выводу или решению."/>
+                    <column name="image" value="http://images.myshared.ru/4/235660/slide_19.jpg"/>
+                    <column name="parent_id" value="13"/>
+                    <column name="child_id" value="15"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="15"/>
+                    <column name="note" value="Информация актуальна, если она важна, существенна для настоящего времени.
+                     Только своевременно полученная информация может принести необходимую пользу. Информация неактуальна,
+                      если она является устаршевшей или преждевременной."/>
+                    <column name="image" value="http://images.myshared.ru/4/235660/slide_20.jpg"/>
+                    <column name="parent_id" value="14"/>
+                    <column name="child_id" value="16"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="16"/>
+                    <column name="note" value="Полезность информации оценивается по тем задачам, которые можно решить с
+                    ее помощью. Оценка полезности информации всегда субъективна. То, что полезно для одного человека,
+                    совершенно бесполезно для другого."/>
+                    <column name="image" value="http://images.myshared.ru/4/235660/slide_21.jpg"/>
+                    <column name="parent_id" value="15"/>
+                    <column name="child_id" value="17"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="17"/>
+                    <column name="note" value="Информация понятна, если она выражена на языке, доступном для получателя.
+                    Так, вы не сможете воспользоваться самой актуальной и достоверной информацией, если она будет
+                    выражена на незнакомом вам языке, т.е. вам непонятна."/>
+                    <column name="image" value="http://images.myshared.ru/4/235660/slide_22.jpg"/>
+                    <column name="parent_id" value="16"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="2"/>
+            <column name="name" value="Информационные процессы"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="1"/>
+            <column name="child_id" value="3"/>
+        </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="6"/>
+                <column name="name" value="Понятие информационного процесса"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="7"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="18"/>
+                    <column name="note" value="Последовательное изменений состояний в развитии чего-либо называется
+                    процессом. Процессы, связанные с изменением информации или действиями с использованием информации,
+                    называют информационными процессами. Можно выделить основные информационные процессы: сбор
+                    информации, представление информации, обработка информации, обработка информации, хранение
+                    информации, передача информации. Деятельность человека, связанную с информационными процессами
+                    называют информационной деятельностью."/>
+                    <column name="image" value="http://images.myshared.ru/5/339114/slide_2.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="6"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="7"/>
+                <column name="name" value="Сбор информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="6"/>
+                <column name="child_id" value="8"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="19"/>
+                    <column name="note" value="Решение практически любой задачи начинается со сбора информации. Особая
+                    ценность собранной информации состоит в том, что она может служить источником новых знаний об окружающем
+                    нас мире. Сбор информации может осуществляться различными способами: от расспроса знакомых и близких до
+                    использования специальных вычислительных устройств."/>
+                    <column name="image" value="http://www.grandars.ru/images/1/review/id/262/913c7c7488.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="7"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="8"/>
+                <column name="name" value="Обработка информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="7"/>
+                <column name="child_id" value="9"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="20"/>
+                    <column name="note" value="Обработка информации - это целенаправленный процесс изменения содержания
+                    или формы представления информации. Можно выделить два типа обработки информации:\n
+                    1. обработка, связанная с получением нового содержания, новой информации;\n
+                    2. обработка, связанная с изменением формы представления информации, не изменяющая ее содержания."/>
+                    <column name="image" value="https://center-yf.ru/img/obrabotka-informacii.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="21"/>
+                    <column name="step_id" value="8"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="21"/>
+                    <column name="note" value="К первому типу обработки информации относятся: преобразование по правилам
+                    (в том числе вычисление по формулам), исследование объектов познания по их моделям, логические
+                    рассуждения, обобщение и др."/>
+                    <column name="image" value="https://vchemraznica.ru/wp-content/uploads/2016/05/preedm_issl.jpg"/>
+                    <column name="parent_id" value="20"/>
+                    <column name="child_id" value="22"/>
+                    <column name="step_id" value="8"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="22"/>
+                    <column name="note" value="Ко второму типу обработки информации можно отнести: структурирование
+                    (организацию информации по некоторому правилу, связывающему ее в единое целое), кодирование
+                    (переход от одной формы представления информации к другой, более удобной для восприятия, хранения,
+                    передачи или обработки информации), отбор информации, требуемой для решения некоторой задачи, из
+                    информационного массива."/>
+                    <column name="image" value="http://mabi.vspu.ru/files/2017/10/big-data.jpg"/>
+                    <column name="parent_id" value="21"/>
+                    <column name="child_id" value="23"/>
+                    <column name="step_id" value="8"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="23"/>
+                    <column name="note" value="Большая часть информации в учебниках представлена в форме текста на
+                    естественном языке. Представить изучаемый материал в общих, главных чертах, структурировать его,
+                    показав связи между отдельными частями, позволяют графические схемы. Одной из разновидностей таких
+                    схем является граф. Граф состоит из вершин, связанных линиями. Вершины графа могут изображаться
+                    кругами, овалами, точками, прямоугольниками и т.д. Линии, связывающие вершины, могут быть
+                    направленными (со стрелкой) или ненаправленными (без стрелки). В первом случае их называют дугами,
+                    во втором - ребрами."/>
+                    <column name="image" value="https://banner2.kisspng.com/20180501/tpe/kisspng-generalized-petersen-graph-graph-theory-vertex-5ae7eebd1e3f63.0145530115251493731239.jpg"/>
+                    <column name="parent_id" value="22"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="8"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="9"/>
+                <column name="name" value="Хранение информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="8"/>
+                <column name="child_id" value="10"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="24"/>
+                    <column name="note" value="Хранение информации всегда связано с ее носителем - материальным объектом,
+                    на котором можно тем или иным способом зафиксировать информацию. Сохранить информацию - значит тем
+                    или иным образом зафиксировать ее на некотором носителе. Существует множество различных носителей:
+                    бумажные, электронные(магнитные диски, оптические диски, флэш-карты и др.), память(человеческая и
+                    компьютерная)"/>
+                    <column name="image" value="http://s3.thingpic.com/images/1Y/8AjduU9Z9s1yz3Qe2seC6EY6.jpeg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="25"/>
+                    <column name="step_id" value="9"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="25"/>
+                    <column name="note" value="Хранилищами информации для человечества являются библиотеки, архивы,
+                    патентные бюро, картинные галереи и музеи, видеотеки и фонотеки. Гигантским хранилищем информации
+                    является компьютерная сеть Интернет."/>
+                    <column name="image" value="https://novator.io/wp-content/uploads/2017/08/o-GOOGLE-DATA-CENTERS-facebook.jpg"/>
+                    <column name="parent_id" value="24"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="9"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="10"/>
+                <column name="name" value="Передача информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="9"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="26"/>
+                    <column name="note" value="Передача информации происходит при чтении книг, при просмотре телепередач,
+                    при разговоре по телефону, общении в компьютерной сети Интернет и может быть описана следующей схемой:\n
+                    1. информация от источника поступает в кодирующее устройство;\n
+                    2. в кодирующем устройстве информация преобразуется в форму, удобную для передачи;\n
+                    3. закодированная информация поступает от источника к приемнику (получателю) по соответствующему
+                    каналу передачи - каналу связи;\n 4. приемник содержит декодирующее устройство; в этом устройстве
+                    происходит преобразование закодированной информации, поступившей по каналу связи, к исходной форме."/>
+                    <column name="image" value="https://sites.google.com/site/komputernyeseti2/_/rsrc/1330146243846/peredaca-informacii/informationtransfer.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="10"/>
+                </insert>
+
+
+        <insert tableName="subsections">
+            <column name="id" value="3"/>
+            <column name="name" value="Всемирная паутина"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="2"/>
+            <column name="child_id" value="4"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="11"/>
+                <column name="name" value="Что такое WWW?"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="12"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="27"/>
+                    <column name="note" value="Свободный доступ к информации, невзирая на границы и расстояния,
+                    стал возможен благодаря World Wide Web (WWW, Web) - всемирному хранилищу информации,
+                    существующему на технической базе сети Интернет."/>
+                    <column name="image" value="https://cdn4.explainthatstuff.com/www-conceptual-representation.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="28"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="28"/>
+                    <column name="note" value="WWW или Всемирная паутина:\n 1. представляет собой множество
+                    информационных ресурсов, организованных в единое целое;\n 2. объединяет многочисленные ресурсы,
+                    размещенные в компьютерах по всему миру;\n 3. организована так, что в ней информационные ресурсы
+                    представлены не в линейной последовательности, а снабжены ссылками (гиперссылками), явно
+                    указывающими возможные переходы, связи между ресурсами."/>
+                    <column name="image" value="https://simonhaughton.typepad.com/.a/6a0120a530561e970b0133f3303d60970b-500wi"/>
+                    <column name="parent_id" value="27"/>
+                    <column name="child_id" value="29"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="29"/>
+                    <column name="note" value="Информация в WWW организована в виде web-страниц, которые могут
+                    объединяться в более крупные составляющие - web-сайты (несколько страниц, связанных между собой по содержанию)."/>
+                    <column name="image" value="https://content-1.foto.my.mail.ru/mail/fathersergey45/_blogs/i-368.jpg"/>
+                    <column name="parent_id" value="28"/>
+                    <column name="child_id" value="30"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="30"/>
+                    <column name="note" value="Каждый сайт и каждая страница имеют свой адрес, по которому к ним можно
+                    обратиться. Такой адрес называется URL (Uniform Resource Locator). В общем виде URL описывается
+                    следующим образом: схема - логин - пароль - хост - порт - URL-путь - параметры - якорь."/>
+                    <column name="image" value="https://geekhacker.ru/wp-content/uploads/2017/11/image3-18.png"/>
+                    <column name="parent_id" value="29"/>
+                    <column name="child_id" value="31"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="31"/>
+                    <column name="note" value="Под схемой понимается схема обращения к ресурсу. Логин представляет собой
+                    имя пользователя, используемое для доступа к ресурсу, пароль - пароль указанного пользователя. Хост
+                    - полностью прописанное имя сайта или IP-адрес хоста в форме четырех групп десятичных чисел от 0
+                    до 255, разделенных точками. Порт - порт хоста подключения. URL-путь - уточняющая информация о
+                    месте нахождения ресурса, зависит от протокола, указанного в схеме. Параметры - строка запроса с
+                    параметрами, передаваемыми на сайт. Якорь - слово с предшествующим символом #, может указывать на
+                    заголовок в тексте страницы сайта."/>
+                    <column name="image" value="https://geekhacker.ru/wp-content/uploads/2017/11/image3-18.png"/>
+                    <column name="parent_id" value="30"/>
+                    <column name="child_id" value="32"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="32"/>
+                    <column name="note" value="Каждый web-сайт имеет главную страницу, на которых могут быть размещены
+                    ссылки на другие страницы этого или других сайтов - гиперссылки, от которых идут соответствующие
+                    связи со страницами сайтов - гиперсвязи. При этом в качестве гиперссылок может использоваться не
+                    только текст, но и любое графическое изображение. Такую организацию называют гипертекстом."/>
+                    <column name="image" value="http://seoslim.ru/wp-content/uploads/2017/12/chto-oznachaet-slovo-gipertekst.jpg"/>
+                    <column name="parent_id" value="31"/>
+                    <column name="child_id" value="33"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="33"/>
+                    <column name="note" value="Перемещаться по страницам пользователю помогают специальные программы -
+                    браузеры (от английского browse - изучать). Поиск нужного документа в WWW происходит с помощью
+                    браузера разными способами:\n 1. путем указания адрес документа;\n 2. путем перемещения по паутине
+                    гиперсвязей; путем использования поисковых систем."/>
+                    <column name="image" value="https://ktonanovenkogo.ru/image/brauzery.jpg"/>
+                    <column name="parent_id" value="32"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="12"/>
+                <column name="name" value="Поисковые системы"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="11"/>
+                <column name="child_id" value="13"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="34"/>
+                    <column name="note" value="Все системы поиска информации во Всемирной паутине располагаются на
+                    специально выделенных компьютерах с мощными каналами связи - серверами. Ежеминутно они обслуживают
+                    огромное количество клиентов."/>
+                    <column name="image" value="https://works.doklad.ru/images/b_WBz8swNHk/m12463294.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="35"/>
+                    <column name="step_id" value="12"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="35"/>
+                    <column name="note" value="Действие поисковых систем основано на постоянном изучении всех страниц
+                    Всемирной паутины. Для каждого документа составляется его поисковый образ - набор ключевых слов,
+                    отражающих содержимое документов. В связи с постоянным обновлением поисковые системы постоянно
+                    возвращаются к изученным страницам, чтобы зафиксировать изменения. Информация о ключевых словах
+                    сохраняется в поисковой системе."/>
+                    <column name="image" value="https://st3.depositphotos.com/1005979/15901/i/1600/depositphotos_159011986-stock-photo-keywords-letters-descriptive-search-results.jpg"/>
+                    <column name="parent_id" value="34"/>
+                    <column name="child_id" value="36"/>
+                    <column name="step_id" value="12"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="36"/>
+                    <column name="note" value="При поступлении запроса от пользователя поисковая система на основании
+                    имеющейся информации формирует список страниц, удовлетворяющих параметрам запроса. Найденные
+                    документы упорядочиваются в зависимости от местоположения ключевых слов, частоты их появления в
+                    тексте и других характеристик."/>
+                    <column name="image" value="http://webdela.ru/upload/medialibrary/f41/f41cd231e001c9d3dc2890db5d48fac2.jpg"/>
+                    <column name="parent_id" value="35"/>
+                    <column name="child_id" value="37"/>
+                    <column name="step_id" value="12"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="37"/>
+                    <column name="note" value="Существует множество поисковых систем. Несмотря на общий принцип работы,
+                    поисковые системы различают по языкам запроса, зонам поиска, глубине поиска внутри документа,
+                    методам упорядочивания информации и другим характеристикам. Крупнешей поисковой системой является
+                    Google. Крупнейшие отечественные поисковые системы - Яндекс, Mail.ru, Rambler."/>
+                    <column name="image" value="http://i-marketinga.net/wp-content/uploads/2012/12/4.png"/>
+                    <column name="parent_id" value="36"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="12"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="13"/>
+                <column name="name" value="Поисковые запросы"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="12"/>
+                <column name="child_id" value="0"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="38"/>
+                    <column name="note" value="Приступая к поиску, пользователь вводит одно или несколько ключевых слов
+                    и выбирает тип поиска. В большинстве поисковых систем есть три основных типа поиска:\n 1. поиск по
+                    любому из слов - результатом поиска является огромный список всех страниц, содержащих хотя бы одно
+                    из ключевых слов; может быть использован, когда пользовательне уверен в ключевых словах;\n 2. поиск
+                    по всем словам - в этом режиме поиска формируется список всех страниц, содержащий все ключевые слова
+                    в любом порядке;\n 3. поиск точно по фразе - в результате поиска составляется список всех страниц,
+                    содержащих фразу, точно совпадающую с ключевой (знаки препинания игнорируются)."/>
+                    <column name="image" value="https://i1.wp.com/tipsite.ru/wp-content/uploads/2016/05/%D0%B2%D0%B8%D0%B4%D1%8B-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D1%8B%D1%85-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2.jpg?resize=450%2C320"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="39"/>
+                    <column name="step_id" value="13"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="39"/>
+                    <column name="note" value="Если найдено слишком много страниц, то можно добавить еще одно ключевое
+                    слово и повторить поиск. Для этого во многих поисковых системах есть функция поиска среди найденного.
+                    Также можно вводить поисковые запросы с использованием логических связок, аналогичных по смыслу
+                    союзам &quot;и&quot;, &quot;или&quot;, частице &quot;не&quot; русского языка."/>
+                    <column name="image" value="http://иванов-ам.рф/informatika_07_fgos/ur_05/ur_05_06.jpg"/>
+                    <column name="parent_id" value="38"/>
+                    <column name="child_id" value="40"/>
+                    <column name="step_id" value="13"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="40"/>
+                    <column name="note" value="Смысл логических связок становится более понятным, если проиллюстрировать
+                    их с помощью графической схемы - кругов Эйлера. Представим множества документов, в которых
+                    присутствуют слова &quot;канарейки&quot;, &quot;щеглы&quot;, двумя кругами на плоскости, которые разместим внутри круга,
+                    изображающего все документы WWW. Тогда множества документов, соответствующих нашим запросам,
+                    будут представленными закрашенными областями."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/13.2.jpg"/>
+                    <column name="parent_id" value="39"/>
+                    <column name="child_id" value="41"/>
+                    <column name="step_id" value="13"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="41"/>
+                    <column name="note" value="Если в результате поиска вы не нашли ни одного подходящего документа, нужно:\n
+                    1. проверить правильность написания ключевых слов;\n 2. проверить правильность использования
+                    логических связок;\n 3. подобрать более удачные синонимы;\n 4. изменить логику запроса."/>
+                    <column name="image" value="https://maxrtraining.com/wp-content/uploads/2018/04/%D0%92%D0%B0%D1%88%D0%B8-%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D1%8B-%D0%B7%D0%B0-%D0%B3%D0%BE%D0%B4.jpeg"/>
+                    <column name="parent_id" value="40"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="13"/>
+                </insert>
+
+
+        <insert tableName="subsections">
+            <column name="id" value="4"/>
+            <column name="name" value="Представление информации"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="3"/>
+            <column name="child_id" value="5"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="14"/>
+                <column name="name" value="Знаки и знаковые системы"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="15"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="42"/>
+                    <column name="note" value="Знак представляет собой заменитель объекта - предмета, явления, действия,
+                    свойства или отношения. Знак (набор знаков) позволяет передающему информацию вызвать в сознании
+                    принимающего информацию образ объекта."/>
+                    <column name="image" value="https://phct-lab.ru/assets/images/_knowledge/21307-1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="43"/>
+                    <column name="step_id" value="14"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="43"/>
+                    <column name="note" value="Знак - явное или неявное соглашение о приписывании некоторому чувственно
+                    воспринимаемому объекту определенного смысла. Соглашение явное, если позволяет догадаться о его смысле;
+                    знаки в этом случае называют пиктограммами. Если связь между формой и значением знака устанавливается
+                    по договоренности (неявное соглашение), то такие знаки называют символами."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/15.1.jpg"/>
+                    <column name="parent_id" value="42"/>
+                    <column name="child_id" value="44"/>
+                    <column name="step_id" value="14"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="44"/>
+                    <column name="note" value="Люди используют отдельные знаки и знаковые системы. Знаковая система
+                    определяется множеством всех входящих в нее знаков (алфавитом) и правилами оперирования этими
+                    знаками. Пример: человеческий язык."/>
+                    <column name="image" value="http://player.myshared.ru/4/114420/slides/slide_12.jpg"/>
+                    <column name="parent_id" value="43"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="14"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="15"/>
+                <column name="name" value="Естественные и формальные языки"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="14"/>
+                <column name="child_id" value="16"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="45"/>
+                    <column name="note" value="Языки, используемые для общения людей, называются естественными языками.
+                    Их насчитывается несколько тысяч. Естественные языки характеризуются:\n широкой сферой применения
+                    (естественный язык известен всему национальному сообществу);\n наличием большого количества правил,
+                    одни из которых сформулированы явно (правила грамматики), другие неявно (правила смысла и употребления);\n
+                    гибкостью (естественный язык применим для описания любых, в том числе новых, ситуаций);\n
+                    открытостью (естественный язык позволяет говорящему порождать новые и при этом понятные для
+                    собеседника знаки/слова, а также использовать существующие знаки в новых значениях);\n
+                    динамичностью (естественный язык быстро приспосабливается к многообразным потребностям
+                    межличностного взаимодействия людей)."/>
+                    <column name="image" value="http://cdn01.ru/files/users/images/29/07/290706c252f9f7dd598b0101aac35a22.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="46"/>
+                    <column name="step_id" value="15"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="46"/>
+                    <column name="note" value="Развитие науки и техники повлекло создание формальных языков, применяемых
+                     специалистами в профессиональной деятельности. При этом многие формальные языки имеют международное
+                     употребление. Формальный язык - это такой язык, в котором одинаковые сочетания знаков всегда
+                     имеют одинаковый смысл. К формальным языкам относят системы математических, химических символов,
+                     нотная грамота и многие другие. Особенностью формальных языков является то, что все правила в них
+                     задаются в явной форме."/>
+                    <column name="image" value="http://cdn01.ru/files/users/images/29/07/290706c252f9f7dd598b0101aac35a22.jpg"/>
+                    <column name="parent_id" value="45"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="15"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="16"/>
+                <column name="name" value="Формы представления информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="15"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="47"/>
+                    <column name="note" value="Одна и та же информация может быть выражена разными способами. Человек
+                    может представить информацию в знаковой или образной форме. Представление информации в той или иной
+                    форме иначе называется кодированием. Представление информации с помощью некоторой знаковой системы
+                    дискретно (составлено из отдельных значений). Образное представление информации непрерывно."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/18.1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="16"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="5"/>
+            <column name="name" value="Двоичное кодирование"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="4"/>
+            <column name="child_id" value="6"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="17"/>
+                <column name="name" value="Двоичное кодирование"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="18"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="48"/>
+                    <column name="note" value="В общем случае, чтобы представить информацию в дискретной форме, ее следует
+                    выразить с помощью символов какого-нибудь естественного или формального языка. Таких языков тысячи
+                    и каждый имеет свой алфавит. Алфавит - конечный набор отличных друг от друга символов (знаков),
+                    используемых для представления информации. Мощность алфавита - количество входящих в него символов
+                    (знаков)."/>
+                    <column name="image" value="http://images.myshared.ru/17/1165203/slide_1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="49"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="49"/>
+                    <column name="note" value="Алфавит, содержащий два символа, называется двоичным алфавитом.
+                    Представление информации с помощью двоичного алфавита называют двоичным кодированием.
+                    Закодировав таким способом информацию, мы получим ее двоичный код."/>
+                    <column name="image" value="http://mabi.vspu.ru/files/2017/12/ur_07_03.jpg"/>
+                    <column name="parent_id" value="48"/>
+                    <column name="child_id" value="50"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="50"/>
+                    <column name="note" value="Рассмотрим в качестве символов двоичного алфавита цифры 0 и 1. Покажем,
+                    что любой алфавит можно заменить двоичным алфавитом. Прежде всего, присвоим каждому сигналу
+                    рассматриваемого алфавита порядковый номер. Номер представим с помощью двоичного алфавита.
+                    Полученный двоичный код будем считать кодом исходного символа."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/20.2.jpg"/>
+                    <column name="parent_id" value="49"/>
+                    <column name="child_id" value="51"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="51"/>
+                    <column name="note" value="Если мощность исходного алфавита больше двух, то для кодирования символа
+                    этого алфавита потребуется не один, а несколько двоичных символов. Другими словами, порядковому
+                    номеру каждого символа исходного алфавита будет поставлена в соответствие цепочка (последовательность)
+                    из нескольких двоичных символов."/>
+                    <column name="image" value="https://arhivurokov.ru/multiurok/html/2017/07/23/s_597400d215164/663607_9.jpeg"/>
+                    <column name="parent_id" value="50"/>
+                    <column name="child_id" value="52"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="52"/>
+                    <column name="note" value="Правило получения двоичных кодов для символов алфавита мощностью больше
+                    двух можно представить схемой:"/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/20.3.jpg"/>
+                    <column name="parent_id" value="51"/>
+                    <column name="child_id" value="53"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="53"/>
+                    <column name="note" value="Двоичные символы (0,1) здесь берутся в заданном алфавитном порядке и
+                    размещаются слева направо. Двоичные коды (цепочки символов) читаются сверху вниз. Все цепочки
+                    (кодовые комбинации) из двух двоичных символов позволяют представить четыре различных символа
+                    произвольного алфавита:"/>
+                    <column name="image" value="https://image.jimcdn.com/app/cms/image/transf/dimension=490x10000:format=png/path/s4a06f4bd1cf81757/image/i5f16ac438b8ce861/version/1478786233/image.png"/>
+                    <column name="parent_id" value="52"/>
+                    <column name="child_id" value="54"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="54"/>
+                    <column name="note" value="Цепочки из трех двоичных символов получаются дополнением двухразрядных
+                    двоичных кодов справа символом 0 или 1. В итоге кодовых комбинаций из трех двоичных символов
+                    получается 8 - вдвое больше, чем из двух двоичных символов:"/>
+                    <column name="image" value="https://image.jimcdn.com/app/cms/image/transf/dimension=490x10000:format=png/path/s4a06f4bd1cf81757/image/ie666fc4206661482/version/1478786266/image.png"/>
+                    <column name="parent_id" value="53"/>
+                    <column name="child_id" value="55"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="55"/>
+                    <column name="note" value="Соответственно, четырехразрядный двоичный код позволяет получить 16
+                    кодовых комбинаций, пятиразрядный - 32, шестиразрядный - 64 и т.д. Длину двоичной цепочки -
+                    количество символов в двоичном коде - называют разрядностью двоичного кода."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/20.6.jpg"/>
+                    <column name="parent_id" value="54"/>
+                    <column name="child_id" value="56"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="56"/>
+                    <column name="note" value="Если количество кодовых комбинаций обозначить буквой N, а разрядность
+                    двоичного кода буквой i, то выявленная закономерность в общем виде будет записана так: N = 2^i."/>
+                    <column name="image" value="http://images.myshared.ru/17/1080334/slide_2.jpg"/>
+                    <column name="parent_id" value="55"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="18"/>
+                <column name="name" value="Универсальность двоичного кодирования"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="17"/>
+                <column name="child_id" value="19"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="57"/>
+                    <column name="note" value="Символы произвольного алфавита могут быть преобразованы в двоичный код.
+                    Таким образом, с помощью двоичного кода может быть представлена любая информация на естественных и
+                    формальных языках, а также изображения и звуки. Это и есть универсальность двоичного кодирования."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/21.1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="58"/>
+                    <column name="step_id" value="18"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="58"/>
+                    <column name="note" value="Двоичные коды широко используются в компьютерной технике, требуя только
+                    двух состояний электронной схемы - &quot;включено&quot; (соответствует цифре 1) и &quot;выключено&quot; (цифра 0).
+                    Простота технической реализации - главное достоинство двоичного кодирования. Недостаток двоичного
+                    кодирования - большая длина получаемого кода."/>
+                    <column name="image" value="http://e-derslik.edu.az/books/251/assets/img/samples/unit-1/page15/1.jpg"/>
+                    <column name="parent_id" value="57"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="18"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="19"/>
+                <column name="name" value="Равномерные и неравномерные коды"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="18"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="59"/>
+                    <column name="note" value="Различают равномерные и неравномерные коды. Равномерные содержат в
+                    кодовых комбинациях одинаковое число символов, неравномерные - разное. Пример неравномерного кода -
+                    азбука Морзе, где каждый символ - последовательность коротких и длинных сигналов. Неравномерное
+                    кодирование позволяет повысить скорость передачи сообщений за счет того, что наиболее часто
+                    встречающиеся в передаваемой информации символы имеют самые короткие кодовые комбинации."/>
+                    <column name="image" value="http://images.myshared.ru/10/950524/slide_11.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="19"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="6"/>
+            <column name="name" value="Измерение информации"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="5"/>
+            <column name="child_id" value="7"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="20"/>
+                <column name="name" value="Алфавитный подход к измерению информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="6"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="21"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="60"/>
+                    <column name="note" value="Алфавитный подход позволяет измерить информационный объем сообщения,
+                    представленного на некотором языке (естественном или формальном), независимо от его содержания.
+                    Для количественного выражения любой величины необходима, прежде всего, единица измерения.
+                    Измерение осуществляется путем сопоставления измеряемой величины с единицей измерения. Сколько
+                    раз единица измерения &quot;укладывается&quot; в измеряемой величине, таков и результат измерения."/>
+                    <column name="image" value="http://images.myshared.ru/5/419231/slide_2.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="61"/>
+                    <column name="step_id" value="20"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="61"/>
+                    <column name="note" value="При алфавитном подходе считается, что каждый символ  некоторого сообщения
+                    имеет определенный информационный вес - несет фиксированное количество информации. Все символы
+                    одного алфавита имеют один и тот же вес, зависящий от мощности алфавита. Информационный вес
+                    символа двоичного алфавита принят за минимальную единицу измерения информации и называется 1 бит.
+                    (binary digit - &quot;двоичная цифра&quot;)"/>
+                    <column name="image" value="http://school497.ru/download/u/02/img/7_1.gif"/>
+                    <column name="parent_id" value="60"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="20"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="21"/>
+                <column name="name" value="Информационный вес символа произвольного алфавита"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="6"/>
+                <column name="parent_id" value="20"/>
+                <column name="child_id" value="22"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="62"/>
+                    <column name="note" value="Мощность исходного алфавита N связана с разрядностью двоичного кода i,
+                    требуемой для кодирования всех символов исходного алфавита, соотношением: N = 2^i.
+                    Разрядность двоичного кода принято считать информационным весом символа алфавита.
+                    Информационный вес символа алфавита выражается в битах."/>
+                    <column name="image" value="https://ds03.infourok.ru/uploads/ex/0023/00056ada-c2ba97d1/1/img3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="21"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="22"/>
+                <column name="name" value="Информационный объем сообщения"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="6"/>
+                <column name="parent_id" value="21"/>
+                <column name="child_id" value="23"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="63"/>
+                    <column name="note" value="Информационный объем сообщения (количество информации в сообщении),
+                    представленного символами естественного или формального языка, складывается из информационных
+                    весов составляющих его символов. Информационный объем сообщения L равен произведению количества
+                    символов в сообщении K на информационный вес алфавита i: L = K * i."/>
+                    <column name="image" value="http://informatika-ru.ucoz.com/kart/7kl/1.4-3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="22"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="23"/>
+                <column name="name" value="Единицы измерения информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="6"/>
+                <column name="parent_id" value="22"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="64"/>
+                    <column name="note" value="В наше время подготовка текстов в основном осуществляется с помощью компьютеров.
+                    Можно говорить о &quot;компьютерном алфавите&quot;, включающем следующие символы: строчные и
+                    прописные русские и латинские буквы, цифры, знаки препинания, знаки арифметических операций,
+                    скобки и др. Такой алфавит содержит 256 символов. Поскольку 256 = 2^8, информационный вес
+                    каждого символа этого алфавита равен 8 битам. Величина, равная восьми битам, называется байтом.
+                    1 байт - информационный вес символа алфавита мощностью 256. На практике для измерения информационных
+                    объемов используются более крупные единицы измерения (килобайт, мегабайт, гигабайт, терабайт и др.)"/>
+                    <column name="image" value="http://murnik.ru/wp-content/uploads/2016/12/edinitsyi-izmereniya-informatsii.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="23"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="7"/>
+            <column name="name" value="Основные компоненты комьютера"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="6"/>
+            <column name="child_id" value="8"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="24"/>
+                <column name="name" value="Устройства компьютера и их функции"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="7"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="65"/>
+                    <column name="note" value="Любой компьютер состоит из процессора, памяти, устройств ввода и вывода
+                    информации. Функции, выполняемые этими устройствами, в некотором смысле подобны функциям мыслящего
+                    человека. Но даже столь очевидное сходство не позволяет нам отождествлять человека с машиной хотя
+                    бы потому, что человек управляет своими действиями сам, а работа компьютера подчинена заложенной
+                    в него программе."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/29.1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="66"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="66"/>
+                    <column name="note" value="Центральным устройством компьютера является процессор. Он организует
+                    прием данных, считывание из оперативной памяти очередной команды, ее анализ и выполнение, а также
+                    отправку результатов работы на требуемое устройство. Основными характеристиками процессора являются
+                    его тактовая частота и разрядность."/>
+                    <column name="image" value="http://geekkies.in.ua/wp-content/uploads/2017/06/cto-takoe-processor_1-630x315.png"/>
+                    <column name="parent_id" value="65"/>
+                    <column name="child_id" value="67"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="67"/>
+                    <column name="note" value="Процессор обрабатывает поступающие к нему электрические сигналы (импульсы).
+                    Промежуток времени между двумя последовательными электрическими импульсами называется тактом.
+                    На выполнение процессором каждой операции выделяется определенное число тактов. Тактовая частота
+                    процессора равна количеству тактов обработки данных, которое процессор производит за 1 секунду.
+                    Чем больше тактовая частота, тем быстрее работает компьютер. Тактовая частота современных процессоров
+                    уже превышает 2000 МГц = 2 ГГц (гигагерца)."/>
+                    <column name="image" value="http://images.myshared.ru/7/784816/slide_4.jpg"/>
+                    <column name="parent_id" value="66"/>
+                    <column name="child_id" value="68"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="68"/>
+                    <column name="note" value="Разрядность процессора - это максимальная длина двоичного кода, который
+                    может обрабатываться или передаваться одновременно. Разрядность процессоров современных компьютеров
+                    достигает 64."/>
+                    <column name="image" value="https://compcpu.ru/wp-content/uploads/2017/12/razryadnost-protsessora-e1512401645934.jpg"/>
+                    <column name="parent_id" value="67"/>
+                    <column name="child_id" value="69"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="69"/>
+                    <column name="note" value="Память компьютера предназначена для записи (приема), хранения и выдачи
+                    данных. Представим ее в виде листа в клетку. Тогда каждая клетка этого листа будет изображать
+                    бит памяти - наименьший элемент памяти компьютера. В одном бите памяти содержится один бит информацией."/>
+                    <column name="image" value="http://okeygeek.ru/wp-content/uploads/2016/10/3-7.jpg"/>
+                    <column name="parent_id" value="68"/>
+                    <column name="child_id" value="70"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="70"/>
+                    <column name="note" value="Различают внутреннюю и внешнюю память. Внутренней называется память,
+                    встроенная в компьютер и непосредственно управляемая процессором. Во внутренней памяти
+                    хранятся исполняемые в данный момент программы и оперативно необходимые для этого данные.
+                    Внутренняя память компьютера позволяет передавать процессору и принимать от него данные примерно
+                    с такой же скоростью, с какой процессор их обрабатывает. Поэтому такая память называется оперативной.
+                    В современных компьютерах объем такой памяти исчисляется гигабайтами."/>
+                    <column name="image" value="http://www.dendrit.ru/files/_thumbs/_slaydz9.jpg"/>
+                    <column name="parent_id" value="69"/>
+                    <column name="child_id" value="71"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="71"/>
+                    <column name="note" value="Электрические импульсы, в форме которых информация сохраняется в оперативной
+                    памяти, существуют только тогда, когда компьютер включен. После выключения компьютера вся информация,
+                    содержащаяся в оперативной памяти, теряется."/>
+                    <column name="image" value="https://i.ytimg.com/vi/CGYv--UUT5Y/maxresdefault.jpg"/>
+                    <column name="parent_id" value="70"/>
+                    <column name="child_id" value="72"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="72"/>
+                    <column name="note" value="К внутренней памяти относится также ПЗУ - постоянное запоминающее устройство.
+                    В нем хранится информация, необходимая для первоначальной загрузки компьютера в момент включения питания.
+                    После выключения компьютера информация в ПЗУ сохраняется."/>
+                    <column name="image" value="https://media2.24aul.ru/imgs/5465c9e97a26e31d447d0717/"/>
+                    <column name="parent_id" value="71"/>
+                    <column name="child_id" value="73"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="73"/>
+                    <column name="note" value="Для долговечного хранения программ и данных предназначена внешняя (долговременная) память.
+                    Внешняя память позволяет сохранять огромные объемы информации. Информация во внешней памяти после выключения
+                    компьютера сохраняется. РАзличают носители информации - магнитные и оптические диски, энергонезависимые
+                    электронные диски (карты флэш-памяти и флэш-диски) и накопители (дисководы) - устройства, обеспечивающие
+                    запись данных на носители и считывающие данные с носителей. Жесткий диск - устройство, совмещающее в
+                    себе накопитель (дисковод) и носитель (непосредственно диск)."/>
+                    <column name="image" value="http://computerologia.ru/wp-content/uploads/2016/04/burg8.jpg"/>
+                    <column name="parent_id" value="72"/>
+                    <column name="child_id" value="74"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="74"/>
+                    <column name="note" value="При запуске пользователем некоторой программы, хранящейся во внешней
+                    памяти, она загружается в оперативную память и начинает выполняться."/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/115e/000f6725-e2435598/img7.jpg"/>
+                    <column name="parent_id" value="73"/>
+                    <column name="child_id" value="75"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="75"/>
+                    <column name="note" value="Приложив значительные усилия, человек может преобразовать информацию в
+                    двоичный код. Но ему довольно трудно читать такой код. И совсем невозможно понять информацию,
+                    представленную в виде электрических импульсов. Входящие в состав компьютера устройства ввода &quot;переводят&quot;
+                    информацию с естественного языка на язык компьютера, устройства вывода делают обратную процедуру.
+                    Примеры устройств ввода: клавиатура, мышь, микрофон. Устройства вывода: монитор, принтер."/>
+                    <column name="image" value="http://060.shko.la/_/rsrc/1322509259634/stranicki-ucitelej/stranicka-ucitela-informatiki/ustrojstva-vvoda-i-vyvoda-informacii/02copy.jpg"/>
+                    <column name="parent_id" value="74"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="8"/>
+            <column name="name" value="Персональный компьютер"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="7"/>
+            <column name="child_id" value="9"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="25"/>
+                <column name="name" value="Системный блок"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="8"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="26"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="76"/>
+                    <column name="note" value="Основной частью персонального компьютера является ситемный блок. В
+                    системном блоке находятся:\n 1. материнская плата - к ней подключены все остальные устройства
+                    системного блока; через материнскую плату происходит обмен информацией между устройствами,
+                    их питание электроэнергией;\n 2. оперативная память (RAM);\n 3. жесткий диск - магнитный диск в
+                    герметичном корпусе, служащий для длительного хранения информации;\n 4. дисковод и накопитель;\n "/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/30.1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="77"/>
+                    <column name="step_id" value="25"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="77"/>
+                    <column name="note" value="5. видеокарта (Video Card) - предназначена для связи системного блока и
+                    монитора; передает изображение на монитор и производит часть вычислений по подготовке вывода изображения
+                    на экран монитора;\n 6. звуковая карта (Sound Card) - предназначена для подготовки звуков,
+                    воспроизводимых колонками, в том числе для записи звука с микрофона;\n 7. сетевая карта -
+                    служит для соединения компьютера с другими компьютерами по компьютерной сети;\n 8. блок питания -
+                    преобразует ток электрической сети в ток, подходящий для внутренних компонентов компьютера;\n 9.
+                    порты компьютера - разъемы на системном блоке, предназначенные для подключения внешних устройств."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/30.1.jpg"/>
+                    <column name="parent_id" value="76"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="25"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="26"/>
+                <column name="name" value="Внешние устройства"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="8"/>
+                <column name="parent_id" value="25"/>
+                <column name="child_id" value="27"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="78"/>
+                    <column name="note" value="Все устройства компьютера, которые не входят в состав системного блока,
+                    будем называть внешними. К основным внешним устройствам принято относить клавиатуру, мышь и монитор."/>
+                    <column name="image" value="https://fs00.infourok.ru/images/doc/232/79731/3/img9.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="79"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="79"/>
+                    <column name="note" value="Клавиатура является устройством ввода информации в компьютер.
+                    Стандартная клавиатура имеет 104 клавиши, которые можно условно разделить на несколько групп:\n
+                    1. функциональные клавиши F1 - F12, расположенные в верхней части клавиатуры, предназначены для
+                    выполнения ряда команд с некоторыми программами;\n 2. символьные (алфавитно-цифровые) клавиши -
+                    клавиши с цифрами, русскими и английскими буквами и другими символами, а также клавишей &quot;пробел&quot;;\n
+                    3. клавиши управления курсором - черточкой, отмечающей на экране монитора место ввода очередного символа.
+                    К ним относят четыре клавиши со стрелками, а также клавиши PageUp, PageDown, Home, End, перемещающие
+                    курсор вниз/вверх на страницу, в начало/конец текста."/>
+                    <column name="image" value="https://items.s2.citilink.ru/1061657_v01_b.jpg"/>
+                    <column name="parent_id" value="78"/>
+                    <column name="child_id" value="80"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="80"/>
+                    <column name="note" value="4. дополнительные клавиши, расположенные с правой стороны, работающие в двух
+                    режимах в зависимости от нажатия клавиши NumLock: при включенном режиме NumLock - это панель с
+                    цифрами и знаками арифметических операций, при выключенном режиме - панель управления курсором;\n
+                    5. специальные клавиши Enter, Esc, Shift, Delete, Backspace, Insert и др. - клавиши специальных действий
+                    (например, Enter завершает ввод команды и запускает ее выполнение, Esc служит для отказа от
+                    выполнения действия)."/>
+                    <column name="image" value="https://c.dns-shop.ru/thumb/st1/fit/wm/800/650/ec03c13e8e0e4cf780f9724aa91a1758/95052dd9ca42ff32ac46e056fada314209d3a0c5c02949da75b4ba0368f3fb58.jpg"/>
+                    <column name="parent_id" value="79"/>
+                    <column name="child_id" value="81"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="81"/>
+                    <column name="note" value="Манипулятор &quot;мышь&quot; является основным указательным устройством
+                    ввода в компьютер. Пришел на смену трэкболлу в более старых военных компьютерах."/>
+                    <column name="image" value="https://habrastorage.org/getpro/geektimes/post_images/d3b/444/6cc/d3b4446cc7d01430c9c5e585792fb0fa.jpg"/>
+                    <column name="parent_id" value="80"/>
+                    <column name="child_id" value="82"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="82"/>
+                    <column name="note" value="Для ввода в компьютер всевозможных графических изображений и текстов
+                    непосредственно с бумажного оригинала используют сканер."/>
+                    <column name="image" value="http://cttp.ru/userfiles/image/raznoe/skaner-shtrih-koda.jpg"/>
+                    <column name="parent_id" value="81"/>
+                    <column name="child_id" value="83"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="83"/>
+                    <column name="note" value="Ввод звуковой информации в компьютер осуществляется через микрофон,
+                    подключенный к звуковой карте."/>
+                    <column name="image" value="http://snimikino.com/wp-content/uploads/2013/01/tipyi-mikrofonov-kakie-podoydut-dlya-videosemki.jpg"/>
+                    <column name="parent_id" value="82"/>
+                    <column name="child_id" value="84"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="84"/>
+                    <column name="note" value="Монитор - основное устройство вывода информации для компьютера. На экран
+                    монитора выводится вся информация о работе компьютера - он позволяет отслеживать, что происходит
+                    в компьютере в данное время, каким вычислительным процессом занят компьютер."/>
+                    <column name="image" value="https://img1.moyo.ua/img/category_text_images/images/image3%28135%29.jpg"/>
+                    <column name="parent_id" value="83"/>
+                    <column name="child_id" value="85"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="85"/>
+                    <column name="note" value="Для вывода информации на бумагу предназначены принтеры. Принтеры бывают
+                    черно-белыми и цветными. Также они различаются по способу действия. Принтеры ударного действия
+                    наносят удар по красящей ленте, соприкасающейся с бумагой. В матричном принтере удар по красящей
+                    ленте наносит группа иголок, установленных в печатающей головке. Принтеры безударного действия
+                    распыляют на бумагу чернила (струйные принтеры) или сухой тонер (лазерные принтеры). Чернила и тонер
+                    находятся в сменных картриджах."/>
+                    <column name="image" value="http://aprinter.ru/image/catalog/printersorg.jpg"/>
+                    <column name="parent_id" value="84"/>
+                    <column name="child_id" value="86"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="86"/>
+                    <column name="note" value="Для вывода звуковой информации используются акустические колонки или
+                    наушники, которые подключаются к звуковой плате."/>
+                    <column name="image" value="https://i.ytimg.com/vi/L_5BROcY2UE/hqdefault.jpg"/>
+                    <column name="parent_id" value="85"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="27"/>
+                <column name="name" value="Компьютерные сети"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="8"/>
+                <column name="parent_id" value="26"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="87"/>
+                    <column name="note" value="Существуют компьютеры, работающие автономно, и компьютеры, объединенные
+                    в компьютерные сети. Сети нужны для обмена информацией между компьютерами, совместного использования
+                    общих программ, данных и устройств. Например, если в кабинете информатики ученики могут работать с
+                    одними и теми же данными, то их компьютеры объединены в локальную сеть."/>
+                    <column name="image" value="http://images.myshared.ru/6/743524/slide_2.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="88"/>
+                    <column name="step_id" value="27"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="88"/>
+                    <column name="note" value="Интернет - это глобальная компьютерная сеть, связывающая между собой
+                    миллионы компьютеров и сетей со всего мира. Основу Интернета составляют мощные компьютеры,
+                    расположенные по всему миру и соединенные между собой надежными и высокоскоростными каналами связи.
+                    К этим компьютерам присоединяются региональные сети, через которые к Интернету можно подключиться с
+                    любого персонального компьютера."/>
+                    <column name="image" value="http://www.5byte.ru/11/images/komtehn6.gif"/>
+                    <column name="parent_id" value="87"/>
+                    <column name="child_id" value="89"/>
+                    <column name="step_id" value="27"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="89"/>
+                    <column name="note" value="Компьютеры, подключенные к сети, условно можно разделить на две категории.
+                    Те компьютеры сети, которые хранят, сортируют и поставляют общую для сети информацию, управляют
+                    общими устройствами, называются серверами. Компьютеры, которые эту информацию используют,
+                    называются клиентами."/>
+                    <column name="image" value="http://www.informator.ru/NS/flsrv.gif"/>
+                    <column name="parent_id" value="88"/>
+                    <column name="child_id" value="90"/>
+                    <column name="step_id" value="27"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="90"/>
+                    <column name="note" value="Основная характеристика подключения компьютера к сети Интернет - скорость
+                    передачи данных по имеющемуся каналу связи. Она измеряется в битах в секунду (бит/с), а также
+                    Кбит/с (1 Кбит = 1024 бита), Мбит/с и Гбит/с."/>
+                    <column name="image" value="https://arhivurokov.ru/multiurok/html/2017/04/22/s_58fb9a8583d19/img9.jpg"/>
+                    <column name="parent_id" value="89"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="27"/>
+                </insert>
+
+
+        <insert tableName="subsections">
+            <column name="id" value="9"/>
+            <column name="name" value="ПО компьютера"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="8"/>
+            <column name="child_id" value="10"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="28"/>
+                <column name="name" value="Понятие программного обеспечения"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="9"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="29"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="91"/>
+                    <column name="note" value="Программа - это описание на формальном языке, &quot;понятном&quot;
+                    компьютеру, последовательности действий, которые необходимо выполнить над данными для решения
+                    поставленной задачи. Совокупность всех программ, предназначенных для выполнения на компьютере,
+                    называют программным обеспечением компьютера."/>
+                    <column name="image" value="https://younglinux.info/sites/default/files/images/kturtle/programmer1.preview.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="92"/>
+                    <column name="step_id" value="28"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="92"/>
+                    <column name="note" value="Без программного обеспечения работа компьютера невозможна. Поэтому
+                    компьютер рассматривают как систему - единое целое, состоящее из взаимосвязанных частей:
+                    аппаратного обеспечения (технические устройства) и программного обеспечения. Все многообразие
+                    компьютерных программ можно разделить на три группы: системное ПО, прикладное ПО, системы программирования."/>
+                    <column name="image" value="http://images.myshared.ru/4/162922/slide_2.jpg"/>
+                    <column name="parent_id" value="91"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="28"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="29"/>
+                <column name="name" value="Системное программное обеспечение"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="9"/>
+                <column name="parent_id" value="28"/>
+                <column name="child_id" value="30"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="93"/>
+                    <column name="note" value="Системное программное обеспечение включает в себя операционную систему и
+                    сервисные программы. Опреационная система - комплекс программ, обеспечивающих совместное
+                    функционирование всех устройств компьютера и предоставляющих доступ к ресурсам компьютера."/>
+                    <column name="image" value="https://konspekta.net/mydocxru/baza11/118069890218.files/image285.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="94"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="94"/>
+                    <column name="note" value="Компьютер - сложная система, состоящая из множества аппаратных (физических)
+                    и программных (информационных) объектов. К физическим объектам относят устройства памяти, монитор,
+                    клавиатуру, принтеры и др.; к информационным объектам относят всевозможные программы и данные."/>
+                    <column name="image" value="http://robotlandia.ru/demo/comp/pic/0101.jpg"/>
+                    <column name="parent_id" value="93"/>
+                    <column name="child_id" value="95"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="95"/>
+                    <column name="note" value="Средства, обеспечивающие взаимосвязь между физическим и информационными
+                    объектами, называют интерфейсом. Аппаратный интерфейс - средства, обеспечивающие взаимодействие
+                    между устройствами компьютера. Для обеспечения совместного функционирования аппаратного обеспечения
+                    компьютера в состав ОС входят драйверы устройств - специальные программы, управляющие работой
+                    подключенных к компьютеру устройств. Каждому устройству соответствует свой драйвер, поставляемый
+                    производителем устройства."/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/w/w9rWE57xOjPK4vmutGAFX6JYkCMaZNeQVncRHq/slide-8.jpg"/>
+                    <column name="parent_id" value="94"/>
+                    <column name="child_id" value="96"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="96"/>
+                    <column name="note" value="Пользовательский интерфейс - средства, обеспечивающие взаимодействие
+                    человека и компьютера. В операционную систему входят программы, поддерживающие диалог пользователя
+                    с компьютером: желая совершить некоторое действие, пользователь через подобный интерфейс дает ОС нужную команду."/>
+                    <column name="image" value="https://arhivurokov.ru/kopilka/uploads/user_file_568fe89765d50/img_user_file_568fe89765d50_6.jpg"/>
+                    <column name="parent_id" value="95"/>
+                    <column name="child_id" value="97"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="97"/>
+                    <column name="note" value="К сервисным программам относят различные программы, обслуживающие диски
+                    (проверка, восстановление, очистка и др.), программы-архиваторы, программы для борьбы с
+                    компьютерными вирусами, коммуникационные программы и многие другие."/>
+                    <column name="image" value="https://ds02.infourok.ru/uploads/ex/07fb/000599c2-d940287f/img5.jpg"/>
+                    <column name="parent_id" value="96"/>
+                    <column name="child_id" value="98"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="98"/>
+                    <column name="note" value="Архиваторы - специальные программы, осуществляющие сжатие программ и данных.
+                    Архиваторы обеспечивают уменьшение информации, что позволяет экономить память и быстрее передавать
+                    данные по сети."/>
+                    <column name="image" value="http://yuzhe.ru/wp-content/uploads/2014/03/%D0%B0%D1%80%D1%85%D0%B8%D0%B2%D0%B0%D1%82%D0%BE%D1%80%D1%8B.jpg"/>
+                    <column name="parent_id" value="97"/>
+                    <column name="child_id" value="99"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="99"/>
+                    <column name="note" value="Компьютерный вирус - специально написанная вредоносная программа, способная
+                    нанести ущерб данным на компьютере или вывести его из строя. Для обнаружения и удаления компьютерных
+                    вирусов, а также для защиты от них специалистами разрабатываются антивирусные программы. Наиболее
+                    известные из них: Антивирус Касперского, DoctorWeb. AVG, McAfee, Avast, Panda."/>
+                    <column name="image" value="http://geek-nose.com/wp-content/uploads/2016/02/rejting-antivirusov-2016-%E2%84%9612.jpg"/>
+                    <column name="parent_id" value="98"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="30"/>
+                <column name="name" value="Системы программирования"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="9"/>
+                <column name="parent_id" value="29"/>
+                <column name="child_id" value="31"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="100"/>
+                    <column name="note" value="Программирование - процесс создания программ, разработки всех типов
+                    программного обеспечения. Специалистов, разрабатывающих программное обеспечение, называют программистами."/>
+                    <column name="image" value="https://geekbrains-uploads.s3.amazonaws.com/geekbrains/public/ckeditor_assets/pictures/1600/content_programming-love.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="101"/>
+                    <column name="step_id" value="30"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="101"/>
+                    <column name="note" value="Для записи программ используют специальные формальные языки - языки
+                    программирования. Они состоят из фиксированного множества слов и четких правил, по которым
+                    составляются программы. Комплекс программных средств, предназначенных для разработки программ
+                    на языке программирования, называют системами программирования."/>
+                    <column name="image" value="https://sdvv.ru/upload/iblock/17a/17af076f7f71df9ffb20f64219843f7e.jpg"/>
+                    <column name="parent_id" value="100"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="30"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="31"/>
+                <column name="name" value="Прикладное программное обеспечение"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="9"/>
+                <column name="parent_id" value="30"/>
+                <column name="child_id" value="32"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="102"/>
+                    <column name="note" value="Программы, с помощью которых пользователь может работать с разными видами
+                    информации, не прибегая к программированию, принято называть прикладными программами или приложениями.
+                    Можно выделить приложения общего назначения и приложения специализированного назначения."/>
+                    <column name="image" value="http://infoegehelp.ru/my_image_zadachi/ppo.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="103"/>
+                    <column name="step_id" value="31"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="103"/>
+                    <column name="note" value="Приложения общего назначения требуются для работы с любыми видами информации.
+                    Виды прилодений общего назначения: текстовые редакторы (например, Notepad++, Sublime Text), электронные
+                    таблицы (MS Excel, Open Office Excel), графические редакторы (Paint), мультимедийные проигрыватели
+                    (Microsoft Media Player, Winamp, MX Player, Media Player Classic), редакторы презентаций (MS Powerpoint,
+                    Open Office Powerpoint, Prezi), системы управления базами данных (MS Access, MS SQL Management Studio,
+                    MySQL Server)."/>
+                    <column name="image" value="https://ds03.infourok.ru/uploads/ex/0444/00056efb-b51cd282/8/img11.jpg"/>
+                    <column name="parent_id" value="102"/>
+                    <column name="child_id" value="104"/>
+                    <column name="step_id" value="31"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="104"/>
+                    <column name="note" value="Приложения специального назначения предназначены для профессионального
+                    использования в различных сферах деятельности квалифицированными пользователями. Виды приложений:
+                    издательские системы, бухгалтерские программы, системы автоматизированного проектирования (САПР),
+                    программы компьютерного моделирования, математические пакеты, геоинформационные системы, медицинские
+                    экспертные системы."/>
+                    <column name="image" value="https://ds03.infourok.ru/uploads/ex/0444/00056efb-b51cd282/8/img12.jpg"/>
+                    <column name="parent_id" value="103"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="31"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="32"/>
+                <column name="name" value="Правовые нормы использования программного обеспечения"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="9"/>
+                <column name="parent_id" value="31"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="105"/>
+                    <column name="note" value="Программы по их правовому статусу можно разделить на:\n 1. ПО,
+                    являющееся частной собственностью авторов или правообладателей;\n 2. свободное ПО. Программы,
+                    входящие в первую группу, можно разделить на коммерческие, условно бесплатные и свободно распространяемые."/>
+                    <column name="image" value="https://cf.ppt-online.org/files2/slide/1/1HXhtbgydz4YPmf0kluxepWArJVUGSK7aEQBj8/slide-6.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="106"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="106"/>
+                    <column name="note" value="Коммерческие программы продаются в специальной упаковке с сопровождающей
+                    документацией. В соответствии с лицензионным соглашением, разработчики программы гарантируют
+                    корректное функционирование программы и несут за это ответственность."/>
+                    <column name="image" value="http://wpcafe.org/wp-content/uploads/516.png"/>
+                    <column name="parent_id" value="105"/>
+                    <column name="child_id" value="107"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="107"/>
+                    <column name="note" value="Условно бесплатные программы (shareware) предлагаются разработчиками
+                    бесплатно в целях рекламы и продвижения на рынок. Эти программы имеют ограниченный срок действия
+                    или ограниченные функциональные возможности. Если пользователь сообщит в программу оплаченный вовремя
+                    код, функции программы активизируются."/>
+                    <column name="image" value="http://readfile.ru/uploads/posts/2017-12/1513328251_shareware.jpg"/>
+                    <column name="parent_id" value="106"/>
+                    <column name="child_id" value="108"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="108"/>
+                    <column name="note" value="К свободно распространяемым программам (freeware) относят новые еще не
+                    доработанные версии программных продуктов, программы, являющиеся частью принципиально новых технологий,
+                    дополнения к ранее выпущенным программам, устаревшие версии программы, драйверы к новым устройствам
+                    и некоторые другие программы."/>
+                    <column name="image" value="https://ichip.ru/blobimgs/uploads/2011/10/bc819d71f6b0d7a3adb4fc2c879f433f.jpeg"/>
+                    <column name="parent_id" value="107"/>
+                    <column name="child_id" value="109"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="109"/>
+                    <column name="note" value="Свободное программное обеспечение обеспечивает всем желающим доступ к
+                    исходным кодам программы, что позволяет пользователю использовать программу в любых целях, изучать
+                    и изменять программу, копировать, распростанять как саму программу, так и ее измененную версию."/>
+                    <column name="image" value="https://www.simpletutorials.ru/wp-content/uploads/2014/09/software0.jpg"/>
+                    <column name="parent_id" value="108"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="10"/>
+            <column name="name" value="Файлы и файловые структуры"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="9"/>
+            <column name="child_id" value="0"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="33"/>
+                <column name="name" value="Логические имена устройств внешней памяти"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="10"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="34"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="110"/>
+                    <column name="note" value="К каждому компьютеру может быть подключено несколько устройств внешней
+                    памяти. Основным устройством внешней памяти ПК является жесткий диск. Если жесткий диск имеет
+                    достаточно большую емкость, то его можно разделить на несколько логических разделов."/>
+                    <column name="image" value="https://remontcompa.ru/uploads/posts/2013-03/1362887945_54e.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="111"/>
+                    <column name="step_id" value="33"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="111"/>
+                    <column name="note" value="Наличие нескольких логических разделов на одном жестком диске обеспечивает
+                    пользователю следующие преимущества:\n 1. можно хранить операционную систему в одном логическом разделе,
+                    а данные - в другом, что позволит переустанавливать систему, не затрагивая данные;\n
+                    2. на одном жестком диске в различные логические разделы можно установить операционные системы;\n
+                    3. обслуживание одного логического раздела не затрагивает другие разделы."/>
+                    <column name="image" value="http://images.myshared.ru/6/774256/slide_14.jpg"/>
+                    <column name="parent_id" value="110"/>
+                    <column name="child_id" value="112"/>
+                    <column name="step_id" value="33"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="112"/>
+                    <column name="note" value="Каждое подключаемое к компьютеру устройство внешней памяти, а также
+                    каждый логический раздел жесткого диска имеет логическое имя. В ОС Windows приняты логические имена
+                    устройств внешней памяти, состоящие из одной латинской буквы и двоеточия:\n 1. для дисководов дискет - A: и B:;\n
+                    2. для жестких дисков и логических разделов - C:, D:, E: и т.д.;\n 3. для оптических дисков - имена,
+                    следующие по алфавиту за последним именем жесткого диска (напр. F:);\n 4. для подключенной памяти -
+                    имя, следующее по алфавиту за именем последнего оптического диска (напр. G:)."/>
+                    <column name="image" value="http://images.myshared.ru/11/1015852/slide_3.jpg"/>
+                    <column name="parent_id" value="111"/>
+                    <column name="child_id" value="113"/>
+                    <column name="step_id" value="33"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="113"/>
+                    <column name="note" value="В операционной системе Linux приняты другие наименования логических разделов,
+                    например, логические разделы, принадлежащие первому жесткому диску, получают имена hda1, hda2 и т.д.,
+                    второму - hdb1, hdb2 и т.д."/>
+                    <column name="image" value="https://linux-notes.org/wp-content/uploads/2014/05/Kak-ispol-zovat-komandu-FDISK-na-Linux.gif"/>
+                    <column name="parent_id" value="112"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="33"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="34"/>
+                <column name="name" value="Файл"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="10"/>
+                <column name="parent_id" value="33"/>
+                <column name="child_id" value="35"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="114"/>
+                    <column name="note" value="Файл - поименованная область внешней памяти. Файловая система - часть ОС,
+                    определяющая способ организации, хранения и именования файлов на носителях информации. Файл
+                    характеризуется набором параметров (имя, размер, дата создания, дата последней модификации),
+                    и атрибутами, используемыми ОС для его обработки (архивный, системный, скрытый, только для чтения).
+                    РАзмер фалйа выражается в байтах."/>
+                    <column name="image" value="http://images.myshared.ru/4/265579/slide_2.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="115"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="115"/>
+                    <column name="note" value="Файлы, содержащие данные - графические, текстовые, называют документами,
+                    а файлы, содержащие прикладные программы - файлами-приложениями. Файлы документы создаются и
+                    обрабатываются с помощью файлов приложений."/>
+                    <column name="image" value="http://procomputer.su/images/likbez/fajlovaya-sistema/file/file-logo.jpg"/>
+                    <column name="parent_id" value="114"/>
+                    <column name="child_id" value="116"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="116"/>
+                    <column name="note" value="Имя файла, как правило, состоит из двух частей, разделенных точкой:
+                    собственно имени файла и расширения (не обязательны, но широко используются, позволяют ОС открыть файл автоматически).
+                    В современных ОС имя файла может включать до 255 символов, причем в них можно использовать буквы
+                    национального алфавита и цифры, расширение обычно содержит 3-4 символа."/>
+                    <column name="image" value="https://fs3.ppt4web.ru/images/132018/191263/310/img2.jpg"/>
+                    <column name="parent_id" value="115"/>
+                    <column name="child_id" value="117"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="117"/>
+                    <column name="note" value="В ОС Windows в имени файла запрещается использование символов \,/,:,*,?,&quot;,&lt;,&gt;,|.
+                    В Linux разрешены все символы, кроме /, но некоторые символы в ОС могут иметь определенный смысл.
+                    При этом Linux различает строчные и прописные буквы, т.е. file.txt и fiLe.txt - разные файлы в Linux."/>
+                    <column name="image" value="https://fs3.ppt4web.ru/images/132018/191263/310/img2.jpg"/>
+                    <column name="parent_id" value="116"/>
+                    <column name="child_id" value="118"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="118"/>
+                    <column name="note" value="В ОС Linux выделяют следующие типы файлов:\n 1. обычные файлы (файлы с
+                    программами и данными);\n 2. каталоги - файлы, содержащие информацию о каталогах;\n 3. ссылки - файлы,
+                    содержащие ссылки на другие файлы;\n 4. специальные файлы устройств - файлы, испоьзуемые для
+                    представления физических устройств компьютера."/>
+                    <column name="image" value="https://younglinux.info/sites/default/files/images/linux-bash/filestype.png"/>
+                    <column name="parent_id" value="117"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="35"/>
+                <column name="name" value="Каталоги"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="10"/>
+                <column name="parent_id" value="34"/>
+                <column name="child_id" value="36"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="119"/>
+                    <column name="note" value="На каждом компьютерном носителе информации может храниться большое
+                    количество файлов. Для удобства поиска информации файлы по определенным признакам объединяют в группы,
+                    называемыt каталогами или папками. Каталог - поименованная совокупность файлов и подкаталогов
+                    (вложенных каталогов). Каталог самого верхнего уровня называется корневым каталогом."/>
+                    <column name="image" value="http://images.myshared.ru/4/111923/slide_7.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="120"/>
+                    <column name="step_id" value="35"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="120"/>
+                    <column name="note" value="В ОС Windows любой информационный носитель имеет корневой каталог, который
+                    создается ОС без участия пользователя. Обозначаются корневые каталоги добавлением к логическому имени
+                    соответствующего устройства внешней памяти знака &quot;\&quot; (обратный слэш): A:\, B:\, C:\ и т.д."/>
+                    <column name="image" value="http://procomputer.su/images/likbez/fajlovaya-sistema/folder/derevo-katalog-papka.png"/>
+                    <column name="parent_id" value="119"/>
+                    <column name="child_id" value="121"/>
+                    <column name="step_id" value="35"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="121"/>
+                    <column name="note" value="В Linux каталоги жестких дисков или их логических разделов не принадлежат
+                    верхнему уровню файловой системы (не являются корневыми каталогами). Они &quot;монтируются&quot; в каталог
+                    mnt. Другие устройства внешней памяти (гибкие, оптические и флэш-диски) &quot;монтируются&quot; в каталог media.
+                    Каталоги mnt и media в свою очередь, монтируются в корневой каталог &quot;/&quot; (прямой слэш)."/>
+                    <column name="image" value="https://it.rfei.ru/static/realms/rfei_it/courses/98GP/tst-lk3-3-1.gif"/>
+                    <column name="parent_id" value="120"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="35"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="36"/>
+                <column name="name" value="Файловая структура диска"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="10"/>
+                <column name="parent_id" value="35"/>
+                <column name="child_id" value="37"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="122"/>
+                    <column name="note" value="Файловая структура диска - совокупность файлов на диске и взаимосвязей
+                    между ними. Файловые структуры бывают простыми и многоуровневыми (иерархическими)."/>
+                    <column name="image" value="https://arhivurokov.ru/videouroki/html/2014/12/17/98696109/img10.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="123"/>
+                    <column name="step_id" value="36"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="123"/>
+                    <column name="note" value="Простые файловые структуры могут использоваться для дисков с небольшим
+                    (до нескольких десятков) количеством файлов. В этом случае оглавление диска представляет собой
+                    линейную последовательность имен файлов. Его можно сравнить с оглавлением детской книжки,которое
+                    содержит названия входящих в нее рассказов и номера страниц."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/41.1.jpg"/>
+                    <column name="parent_id" value="122"/>
+                    <column name="child_id" value="124"/>
+                    <column name="step_id" value="36"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="124"/>
+                    <column name="note" value="Иерархические файловые структуры используются для хранения большого
+                    (сотни и тысячи) количества файлов. Иерархия - расположение частей (элементов) целого в порядке
+                    от высшего к низшим. Корневой каталог содержит каталоги второго уровня и файлы, каждый из каталогов
+                    второго уровня может содержать вложенные каталоги и файлы и т.д. Графическое изображение иерархической
+                    файловой структуры - дерево."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_7_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/41.2.jpg"/>
+                    <column name="parent_id" value="123"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="36"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="37"/>
+                <column name="name" value="Полное имя файла"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="10"/>
+                <column name="parent_id" value="36"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="125"/>
+                    <column name="note" value="Чтобы обратиться к нужному файлу, хранящемуся на некотором диске, можно указать путь
+                    к файлу - имена всех каталогов от корневого до того, в котором непосредственно лежит файл.
+                    Последовательно записанные путь к файлу и имя файла составляют полное имя файла. Не может быть двух
+                    файлов, имеющих одинаковые полные имена. Пример полного имени в ОС Windows: C:\Images\photo\image.jpg.
+                    Пример в ОС Linux: /home/methods/text."/>
+                    <column name="image" value="http://komputercnulja.ru/wp-content/uploads/2012/08/%D1%84%D1%818.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="37"/>
+                </insert>
+
+
+        <!-- intermediate section -->
+
+        <insert tableName="subsections">
+            <column name="id" value="11"/>
+            <column name="name" value="Системы счисления"/>
+            <column name="id_section" value="2"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="12"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="38"/>
+                <column name="name" value="Общие сведения о системах счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="39"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="126"/>
+                    <column name="note" value="Система счисления - это знаковая система, в которой приняты определенные
+                    правила записи чисел. Знаки, с помощью которых записывают числа, называют цифрами, а их совокупность -
+                    алфавитом системы счисления."/>
+                    <column name="image" value="https://schoolotvety.ru/wp-content/uploads/2018/04/znaki_sistem_schisleniya.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="127"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="127"/>
+                    <column name="note" value="Системы счисления различаются выбором узловых чисел (чисел, которые обозначаются цифрами)
+                    и способами образования алгоритмических чисел (чисел, получаемых из операций над узловыми числами).
+                    Можно выделить следующие виды систем счисления:\n 1. унарная система;\n 2. непозиционные системы;\n
+                    3. позиционные системы;"/>
+                    <column name="image" value="http://5informatika.net/datas/informatika/Vozniknovenie-sistem-schislenija/0005-005-Tipy-sistem-schislenija.jpg"/>
+                    <column name="parent_id" value="126"/>
+                    <column name="child_id" value="128"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="128"/>
+                    <column name="note" value="Простейшая и самая древняя система - так называемая унарная система счисления -
+                    в ней для записи любых чисел используется всего один символ - палочка, узелок и т.п. "/>
+                    <column name="image" value="http://5informatika.net/datas/informatika/Vozniknovenie-sistem-schislenija/0003-003-Unarnaja-sistema-schislenija.jpg"/>
+                    <column name="parent_id" value="127"/>
+                    <column name="child_id" value="129"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="129"/>
+                    <column name="note" value="Система счисления называется непозиционной, если количественный эквивалент
+                    (количественное значение) цифры в числе не зависит от ее положения в записи числа. Система счисления
+                    называется позиционной, если количественный эквивалент цифры зависит от ее позиции в записи числа.
+                    (например, 21 и 12 - разные числа). Основание позиционной системы счисления равно количеству цифр,
+                    составляющих ее алфавит."/>
+                    <column name="image" value="https://sites.google.com/site/sekretydvoicnojss/_/rsrc/1487905904386/cto-takoe-sistema-scislenia/%D1%81%D1%813.JPG"/>
+                    <column name="parent_id" value="128"/>
+                    <column name="child_id" value="130"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="130"/>
+                    <column name="note" value="Десятичная система счисления, которой мы привыкли пользоваться в повседневной
+                    жизни, с которой мы знакомы с детства, в которой мы производим все наши вычисления - пример позиционной
+                    системы счисления. Алфавит десятичной системы составляют цифры от 0 до 9. Алгоритмические числа получают
+                    следующим образом: значения цифр умножают на &quot;веса&quot; соответствующих разрядов, все полученные значения складываются."/>
+                    <column name="image" value="http://images.myshared.ru/4/216031/slide_3.jpg"/>
+                    <column name="parent_id" value="129"/>
+                    <column name="child_id" value="131"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="131"/>
+                    <column name="note" value="Основанием позиционной системы счисления может служить любое натуральное число q > 1.
+                    Алфавитом произвольной позиционной системы счисления с основанием q служат числа 0 ... q-1, каждое из
+                    которых может быть записано с помощью одного уникального символа; младшей цифрой всегда является 0."/>
+                    <column name="image" value="http://images.myshared.ru/17/1022598/slide_3.jpg"/>
+                    <column name="parent_id" value="130"/>
+                    <column name="child_id" value="132"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="132"/>
+                    <column name="note" value="В позиционной системе счисления с основанием q любое число может быть
+                    представлено в виде:"/>
+                    <column name="image" value="http://images.myshared.ru/17/1067694/slide_8.jpg"/>
+                    <column name="parent_id" value="131"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="39"/>
+                <column name="name" value="Двоичная система счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="38"/>
+                <column name="child_id" value="40"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="133"/>
+                    <column name="note" value="Двоичной системой счисления называется позиционная система счисления с
+                    основанием 2. Для записи чисел в двоичной системе счисления используются цифры 0 и 1. На основании
+                    формулы из предыдущего раздела для целых двоичных чисел можно записать:\n
+                    A(n-1)A(n-2)..A1A0 = A(n-1) * 2 ^ (n-1) + A(n-2) * 2 ^ (n-2) + ... + A0 * 2^0. "/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/u/ufDJcjVPrG27lZ1MQ6iFmytpLdOUAxSHICgbqo/slide-15.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="134"/>
+                    <column name="step_id" value="39"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="134"/>
+                    <column name="note" value="Такая форма записи &quot;подсказывает&quot; правило перевода натуральных
+                    двоичных чисел в десятичную систему счисления: необходимо вычислить сумму степеней двойки,
+                    соответствующих единицам в свернутой форме записи двоичного числа."/>
+                    <column name="image" value="https://arhivurokov.ru/kopilka/uploads/user_file_53a2d73d06fee/img_user_file_53a2d73d06fee_1_2.jpg"/>
+                    <column name="parent_id" value="133"/>
+                    <column name="child_id" value="135"/>
+                    <column name="step_id" value="39"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="135"/>
+                    <column name="note" value="Для перевода целого десятичного числа в двоичную систему счисления нужно
+                    последовательно выполнять деление данного числа и получаемых частных на 2 до тех пор, пока не получим
+                    частное, равное нулю. Исходное число в двоичной системе счисления составляется последовательной
+                    записью полученных остатков, начиная с последнего."/>
+                    <column name="image" value="http://www.intuit.ru/sites/default/files/tex_cache/15ac8c88172eb05fa8c1c5adc2300405.png"/>
+                    <column name="parent_id" value="134"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="39"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="40"/>
+                <column name="name" value="Восьмеричная система счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="39"/>
+                <column name="child_id" value="41"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="136"/>
+                    <column name="note" value="Восьмеричной системой счисления называется позиционная система счисления
+                    с основанием 8. Для записи чисел в такой системе используют цифры от 0 до 7. На основании формулы
+                    из предыдущего раздела для восьмеричных чисел можно записать:\n
+                    A(n-1)A(n-2)..A1A0 = A(n-1) * 8 ^ (n-1) + A(n-2) * 8 ^ (n-2) + ... + A0 * 8^0. "/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/u/ufDJcjVPrG27lZ1MQ6iFmytpLdOUAxSHICgbqo/slide-15.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="137"/>
+                    <column name="step_id" value="40"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="137"/>
+                    <column name="note" value="Для целого восьмеричного числа перевод в десятичную систему осуществляется
+                    переходом к его развернутой форме и вычислению значения получившегося выражения. Для перевода десятичного
+                    числа в восьмеричную систему счисления следует последовательно выполнять деление данного числа и
+                    получаемых частных на 8 до тех пор, пока не получим частное, равное нулю. Исходное число в восьмеричной
+                    системе счисления составляется последовательной записью полученных остатков, начиная с последнего."/>
+                    <column name="image" value="https://ege-study.ru/wp-content/uploads/2015/09/perevod2.jpg"/>
+                    <column name="parent_id" value="136"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="40"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="41"/>
+                <column name="name" value="Шестнадцатеричная система счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="40"/>
+                <column name="child_id" value="42"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="138"/>
+                    <column name="note" value="Основание q=16. Алфавит: 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F. Только девять
+                    цифр имеют общепринятое значение, для записи цифр эквивалентным числам от 10 до 15 используют буквы
+                    латинского алфавита. Алгоритм перевода из десятичной системы в шестнадцатеричную и обратно аналогичен
+                    двоичной и восьмеричной системам."/>
+                    <column name="image" value="http://www.zaurtl.ru/UkVT/VTPic/Perev3.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="41"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="42"/>
+                <column name="name" value="Правило перевода целых десятичных чисел в систему счисления с основанием q"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="41"/>
+                <column name="child_id" value="43"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="139"/>
+                    <column name="note" value="Для перевода целого десятичного числа в систему счисления с основанием q
+                    следует:\n 1. последовательно выполнять деление данного числа и получаемых целых частных на основание
+                    новой системы счисления до тех пор, пока не получим частное, равное нулю;\n 2. полученные остатки,
+                    являющиеся цифрами числа в новой системе сичсления, привести в соответствии с алфавитом новой системы
+                    счисления;\n 3. составить число в новой системе счисления, записывая его, начиная с последнего полученного остатка."/>
+                    <column name="image" value="http://images.myshared.ru/17/1056561/slide_4.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="42"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="43"/>
+                <column name="name" value="Двоичная арифметика"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="11"/>
+                <column name="parent_id" value="42"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="140"/>
+                    <column name="note" value="Арифметика двоичной системы счисления основывается на использовании
+                    следующих таблиц сложения и умножения:"/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/g/ghiPR6sISWC8JaqOm7UDpYG0EZ1uTczlb5VFyA/slide-11.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="141"/>
+                    <column name="step_id" value="43"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="141"/>
+                    <column name="note" value="В двоичной системе счисления умножение сводится к сдвигам множимого и сложениям."/>
+                    <column name="image" value="https://life-prog.ru/algoritmleng/untitled3.jpg"/>
+                    <column name="parent_id" value="140"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="43"/>
+                </insert>
+
+        <insert tableName="subsections">
+            <column name="id" value="12"/>
+            <column name="name" value="Элементы алгебры логики"/>
+            <column name="id_section" value="2"/>
+            <column name="parent_id" value="11"/>
+            <column name="child_id" value="0"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="44"/>
+                <column name="name" value="Высказывание"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="12"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="45"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="142"/>
+                    <column name="note" value="Алгебра в широком смысле этого слова - наука об общих операциях, аналогичных
+                    сложению и умножению, которые могут выполняться над разнообразными математическими объектами. Для
+                    информатики важен раздел математики, называемый алгеброй логики, где объектами являются высказывания.
+                    Высказывание - предложение на любом языке, содержание которого можно однозначно определить, как истинное или ложное."/>
+                    <column name="image" value="http://images.myshared.ru/17/1091881/slide_1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="143"/>
+                    <column name="step_id" value="44"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="143"/>
+                    <column name="note" value="В русском языке высказывания выражают повествовательными предложениями. Но
+                    не всякое повествовательное предложение является высказыванием. Например, предложение &quot;Это предложение
+                    является ложным&quot; не является высказыванием, так как относительно него нельзя сказать, истинно оно или ложно,
+                    чтобы не получить противоречие. Побудительные и вопросительные предложения высказываниями не являются."/>
+                    <column name="image" value="https://arhivurokov.ru/videouroki/html/2014/03/20/98678443/img3.jpg"/>
+                    <column name="parent_id" value="142"/>
+                    <column name="child_id" value="144"/>
+                    <column name="step_id" value="44"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="144"/>
+                    <column name="note" value="Высказывания могут строиться с использованием знаков различных формальных
+                    языков - математики, физики и т.п. Например, &quot;Na - металл&quot; (истинное высказывание) или
+                    &quot;2 + 2 &lt; 3&quot; (ложное высказывание)."/>
+                    <column name="image" value="http://www.e-derslik.edu.az/books/58/assets/img/page36/1.jpg"/>
+                    <column name="parent_id" value="143"/>
+                    <column name="child_id" value="145"/>
+                    <column name="step_id" value="44"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="145"/>
+                    <column name="note" value="Обоснование истинности или ложности высказываний решается теми науками, к
+                    сфере которых они относятся. Алгебра логики отстраняется от смысла высказываний, ее интересует
+                    только истинность или ложность данного высказывания. В алгебре логики высказывания обозначают
+                    буквами и называют логическими переменными. Если высказывание истинно, оно получает значение 1
+                    (напр. А=1), если ложно - 0 (B=0), 0 и 1 в этом случае - логические значения. Алгебра логики
+                    определяет правила записи, вычисления значений, упрощения и преобразования высказываний."/>
+                    <column name="image" value="http://mir-logiki.ru/sites/default/files/pictures/algebra_visk/1.jpg"/>
+                    <column name="parent_id" value="144"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="44"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="45"/>
+                <column name="name" value="Логические операции"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="12"/>
+                <column name="parent_id" value="44"/>
+                <column name="child_id" value="46"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="146"/>
+                    <column name="note" value="Высказывания бывают простые (никакая часть высказывания сама по себе не
+                    является высказыванием) и сложные (высказывания, которые строятся с помощью простых с использованием
+                    логических операций)"/>
+                    <column name="image" value="http://images.myshared.ru/9/923651/slide_9.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="147"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="147"/>
+                    <column name="note" value="Конъюнкция - логическая операция, ставящая в соответствие каждым двум
+                    высказываниям новое высказывание, являющееся истинным тогда и только тогда, когда оба высказывания
+                    истинны. Для записи используют знаки: И, ^, *, &amp;, например: А &amp; B. При этом операция может
+                    быть описана такой таблицей истинности:"/>
+                    <column name="image" value="http://ru.solverbook.com/my_images/pic778.png"/>
+                    <column name="parent_id" value="146"/>
+                    <column name="child_id" value="148"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="148"/>
+                    <column name="note" value="Дизъюнкция - логическая операция, которая каждым двум высказываниям ставит
+                    в соответствие новое высказывание, являющееся ложным тогда и только тогда, когда оба исходных
+                    высказывания ложны. Для записи используют знаки: ИЛИ, |, +, v, например: А ИЛИ B. При этом операция
+                    может быть описана такой таблицей истинности:"/>
+                    <column name="image" value="http://uchlogic.narod.ru/m2.gif"/>
+                    <column name="parent_id" value="147"/>
+                    <column name="child_id" value="149"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="149"/>
+                    <column name="note" value="Инверсия - логическая операция, которая каждому высказыванию ставит в
+                    соответствие новое высказывание, значение которого противоположно исходному. Для записи используют
+                    знаки: НЕ, ¬, ˜, !, например: НЕ А. При этом операция определяется следующей таблицей истинности:"/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/u/uVB9QDxI5AZN4YF3K7yCGMRSwXeTH6Osvkdi0L8PJ/slide-3.jpg"/>
+                    <column name="parent_id" value="148"/>
+                    <column name="child_id" value="150"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="150"/>
+                    <column name="note" value="Любое сложное высказывание можно записать в виде логического выражения -
+                    выражения, содержащего логические переменные, знаки логических выражений и скобки. Логические
+                    выражения выполняютс в следующем порядке очередности: инверсия, конъюнкция, дизъюнкция. Изменить
+                    порядок выполнения можно с помощью скобок."/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/e/EwNs5IiPpO1FCYrBKyVnRAJlWotq3kSUgLa7dTvx9/slide-6.jpg"/>
+                    <column name="parent_id" value="149"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="46"/>
+                <column name="name" value="Построение таблиц истинности логических выражений"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="12"/>
+                <column name="parent_id" value="45"/>
+                <column name="child_id" value="47"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="151"/>
+                    <column name="note" value="Для логического выражения можно построить таблицу истинности, показывающую,
+                    какие значения принимает выражения при всех наборах исходных переменных. Для построения таблицы
+                    истинности нужно:\n 1. подсчитать n - число переменных в выражении;\n 2. подсчитать общее число
+                    логических операций в выражении;\n 3. установить последовательность выполнения логических операций
+                    с учетом скобок и приоритетов;\n 4. определить число столбцов в таблице: число переменных + число операций; "/>
+                    <column name="image" value="https://sites.google.com/site/webkvestsistemyscislenia/_/rsrc/1505482372764/pismennaa-numeracia-u-drevnih-narodov/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.JPG"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="152"/>
+                    <column name="step_id" value="46"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="152"/>
+                    <column name="note" value="5. заполнить шапку таблицы, включив в нее переменные и операции в
+                    соответствии с последовательностью, установленной в п.3;\n 6. определить число строк в таблице
+                    m = 2^n;\n 7. выписать наборы входных переменных с учетом того, что они представляют собой ряд
+                    n-разрядных двоичных чисел от 0 до 2^n - 1;\n 8. провести заполнение таблицы по столбцам, выполняя
+                    логические операции в соответствии с установленной последовательностью."/>
+                    <column name="image" value="http://188.254.49.110:9000/EOS/images/kontent/informatika/11kl/chapter2/2/1.jpg"/>
+                    <column name="parent_id" value="151"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="46"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="47"/>
+                <column name="name" value="Свойства логических операций"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="12"/>
+                <column name="parent_id" value="46"/>
+                <column name="child_id" value="48"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="153"/>
+                    <column name="note" value="Основные свойства логических операций называют законами алгебры логики:\n
+                    1. переместительный (коммутативный) закон: A &amp; B = B &amp; A (для умножения), A v B = B v A (для сложения);\n
+                    2. сочетательный (ассоциативный) закон: (A &amp; B) &amp; C = A &amp; (B &amp; C) (для умножения),
+                    (A v B) v C = A v (B v C) (для сложения);"/>
+                    <column name="image" value="http://sdo.school100.org.ru//file.php/68/KPGIA9/zakony_logiki/zakony_logiki.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="154"/>
+                    <column name="step_id" value="47"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="154"/>
+                    <column name="note" value="3. распределительный (дистрибутивный) закон: A &amp; (B v C) = (A &amp; B) v (A &amp; C)
+                    (для умножения), A v (B &amp; C) = (A v B) &amp; (A v C) (для сложения);\n 4. закон двойного отрицания:
+                     НЕ (НЕ А) = А;\n 5. закон исключенного третьего: A &amp; (НЕ А) = 0 (для умножения), A v (НЕ А) = 1 (для сложения);"/>
+                    <column name="image" value="http://sdo.school100.org.ru//file.php/68/KPGIA9/zakony_logiki/zakony_logiki.jpg"/>
+                    <column name="parent_id" value="153"/>
+                    <column name="child_id" value="155"/>
+                    <column name="step_id" value="47"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="155"/>
+                    <column name="note" value="6. закон повторения: A &amp; A = A (для умножения),
+                     A v A = A (для сложения);\n 7. законы операций с 0 и 1: A &amp; 0 = 0, A &amp; 1 = A (для умножения),
+                      A v 0 = A, A v 1 = 1 (для сложения);\n 8. законы общей инверсии (законы Де-Моргана):
+                      НЕ(A &amp; B) = НЕ А v НЕ B (для умножения), НЕ (A v B) = НЕ А &amp; НЕ B (для сложения)."/>
+                    <column name="image" value="http://sdo.school100.org.ru//file.php/68/KPGIA9/zakony_logiki/zakony_logiki.jpg"/>
+                    <column name="parent_id" value="154"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="47"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="48"/>
+                <column name="name" value="Логические элементы"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="12"/>
+                <column name="parent_id" value="47"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="156"/>
+                    <column name="note" value="Любая информация может быть представлена в дискретной форме - в виде
+                    фиксированного набора отдельных значений. Устройства, которые обрабатывают такие значения (сигналы)
+                    называются дискретными. Дискретный преобразователь, который выдает после обработки двоичных сигналов
+                    значение одной из логических операций, называется логическим элементом."/>
+                    <column name="image" value="http://www.radioradar.net/files/Image/hand_book/hand_books/logical_elements_radio_electronics_designation/pic5.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="157"/>
+                    <column name="step_id" value="48"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="157"/>
+                    <column name="note" value="Логический элемент И (конъюнктор) реализует операцию логического умножения.
+                    Единица на выходе этого элемента появится только тогда, когда на всех входах будут единицы."/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/0fc4/0000e69b-5e6e5b9a/640/img3.jpg"/>
+                    <column name="parent_id" value="156"/>
+                    <column name="child_id" value="158"/>
+                    <column name="step_id" value="48"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="158"/>
+                    <column name="note" value="Логический элемент ИЛИ (дизъюнктор) реализует операцию логического сложения.
+                    Если хотя бы на одном из входов будет единица, то на выходе элемента также будет единица."/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/0fc4/0000e69b-5e6e5b9a/img4.jpg"/>
+                    <column name="parent_id" value="157"/>
+                    <column name="child_id" value="159"/>
+                    <column name="step_id" value="48"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="159"/>
+                    <column name="note" value="Логический элемент НЕ (инвертор) реализует операцию отрицания.
+                    Если на входе элемента 0, то на выходе будет 1 и наоборот."/>
+                    <column name="image" value="https://ykl-res.azureedge.net/faf65252-0853-4e1c-82c7-0ad019a71fa4/3.png"/>
+                    <column name="parent_id" value="158"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="48"/>
+                </insert>
+
+
+
+        <!-- advanced section -->
+
+        <insert tableName="subsections">
+            <column name="id" value="13"/>
+            <column name="name" value="Основы моделирования"/>
+            <column name="id_section" value="3"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+        </insert>
+            <insert tableName="steps">
+                <column name="id" value="49"/>
+                <column name="name" value="Модели и моделирование"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="13"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="50"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="160"/>
+                    <column name="note" value="Одним из методов познания объектов окружающего мира является моделирование,
+                    состоящее в создании и исследовании упрощенных заменителей реальных объектов. Объект-заменитель
+                    принято называть моделью, а исходный объект - прототипом или объектом-оригиналом."/>
+                    <column name="image" value="https://nakhgeoclub.files.wordpress.com/2014/04/b982c0aa40c1a0e8f1b3d593c2b601f7.jpg?w=640"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="161"/>
+                    <column name="step_id" value="49"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="161"/>
+                    <column name="note" value="Модель - это новый объект, который отражает существенные с точки зрения
+                    цели моделирования признаки изучаемого предмета, процесса или явления. Моделирование - метод познания,
+                    заключающийся в создании и исследовании моделей."/>
+                    <column name="image" value="http://images.myshared.ru/6/758807/slide_2.jpg"/>
+                    <column name="parent_id" value="160"/>
+                    <column name="child_id" value="162"/>
+                    <column name="step_id" value="49"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="162"/>
+                    <column name="note" value="Признаки прототипа модели можно полностью скопировать, тогда модель называется
+                    натурной. Можно также описать эти признаки, тогда эта модель становится информационной."/>
+                    <column name="image" value="https://cf.ppt-online.org/files1/slide/q/Qf1I57gYilDP89MZOptKj4T3swhVL0kJNCndomSbxU/slide-5.jpg"/>
+                    <column name="parent_id" value="161"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="49"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="50"/>
+                <column name="name" value="Этапы построения информационной модели"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="13"/>
+                <column name="parent_id" value="49"/>
+                <column name="child_id" value="51"/>
+            </insert>
+
+                <insert tableName="cards">
+                    <column name="id" value="163"/>
+                    <column name="note" value="Любая модель строится для решения некоторой задачи. Построение информационной
+                    модели начинается с анализа условия задачи, выраженного на естественном языке. В результате анализа
+                    формируют объект моделирования и цель моделирования."/>
+                    <column name="image" value="https://sites.google.com/site/modelirovanieformalizacia/_/rsrc/1494997107131/modelirovanie-kak-metod-poznania/etapy-postroenia-informacionnoj-modeli/photofacefun_com_1494474708.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="164"/>
+                    <column name="step_id" value="50"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="164"/>
+                    <column name="note" value="После определения цели моделирования в объекте моделирования выделяются свойства,
+                    основные части и связи между ними, существенные с точки зрения цели, Должно быть четко определено,
+                    какие исходные данные известны, и что требуется получить. Должны быть указаны связи между исходными
+                    данными и результатами."/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/0fc2/0000e699-ed651097/img3.jpg"/>
+                    <column name="parent_id" value="163"/>
+                    <column name="child_id" value="165"/>
+                    <column name="step_id" value="50"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="165"/>
+                    <column name="note" value="Следующим этапом построения информационной модели является формализация -
+                    замена реального объекта его формальным описанием, т.е. его информационной моделью."/>
+                    <column name="image" value="http://www.лена24.рф/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0_9_%D0%BA%D0%BB_%D0%91%D0%BE%D1%81%D0%BE%D0%B2%D0%B0/2.1.jpg"/>
+                    <column name="parent_id" value="164"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="50"/>
+                </insert>
+
+            <insert tableName="steps">
+                <column name="id" value="51"/>
+                <column name="name" value="Классификация информационных моделей"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="13"/>
+                <column name="parent_id" value="50"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="166"/>
+                    <column name="note" value="Существует множество вариантов классификации информационных моделей. Если
+                    взять за основу предметную область, можно выделить физические, экологические, экономические,
+                    социологические и другие модели."/>
+                    <column name="image" value="https://sites.google.com/site/modelirovanieformalizacia/_/rsrc/1494997116607/modelirovanie-kak-metod-poznania/klassifikacia-informacionnyh-modelej/photofacefun_com_1494474989.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="167"/>
+                    <column name="step_id" value="51"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="167"/>
+                    <column name="note" value="В зависимости от учета фактора времени выделяют динамические (изменяющиеся
+                    с течением времени) и статические (не изменяющиеся с течением времени) модели."/>
+                    <column name="image" value="https://ykl-res.azureedge.net/ee213c4c-ccc2-44bc-ba60-e0d46f94844c/untitled.PNG"/>
+                    <column name="parent_id" value="166"/>
+                    <column name="child_id" value="168"/>
+                    <column name="step_id" value="51"/>
+                </insert>
+                <insert tableName="cards">
+                    <column name="id" value="168"/>
+                    <column name="note" value="В зависимости от формы представления информации об объекте моделирования
+                    различают знаковые, образные и смешанные (образно-знаковые) виды информационных моделей."/>
+                    <column name="image" value="https://sites.google.com/site/pogovorim223/_/rsrc/1468873679480/home/modeli/shema/model11.jpg"/>
+                    <column name="parent_id" value="167"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="51"/>
+                </insert>
+
+
+        <!-- insert user states -->
+        <insert tableName="users_states">
+            <column name="user_id" value="64559520"/>
+            <column name="step_id" value="1"/>
+            <column name="subsection_id" value="1"/>
+            <column name="section_id" value="1"/>
+        </insert>
+        <insert tableName="users_states">
+            <column name="user_id" value="37924905"/>
+            <column name="step_id" value="1"/>
+            <column name="subsection_id" value="1"/>
+            <column name="section_id" value="1"/>
+        </insert>
+
+
+    </changeSet>
+</databaseChangeLog>
