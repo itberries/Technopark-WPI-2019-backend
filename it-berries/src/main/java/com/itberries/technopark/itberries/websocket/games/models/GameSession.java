@@ -1,13 +1,19 @@
 package com.itberries.technopark.itberries.websocket.games.models;
 
+import com.itberries.technopark.itberries.websocket.events.Turn;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameSession {
     private WebSocketSession webSocketSession;
     private LocalDateTime localDateTime;
     private boolean gameCompleted;
+    private  List<Turn> turns = new ArrayList<>();
 
     public GameSession(WebSocketSession webSocketSession) {
         this.webSocketSession = webSocketSession;
@@ -16,6 +22,14 @@ public class GameSession {
     public GameSession(WebSocketSession webSocketSession, LocalDateTime localDateTime) {
         this.webSocketSession = webSocketSession;
         this.localDateTime = localDateTime;
+    }
+
+    public List<Turn> getTurns() {
+        return turns;
+    }
+
+    public void setTurns(List<Turn> turns) {
+        this.turns = turns;
     }
 
     public boolean isGameCompleted() {
