@@ -76,6 +76,13 @@ public class UserServiceImpl implements IUserService {
                         return userStateDAO.setUserState(userId,userState);
                     }
                 }
+            } else {
+                if ((section != null) && (section.getChildId() == 0)) {
+                    userState.setUserId(userId);
+                    userState.setHasPassedApplication(true);
+
+                    return userStateDAO.setUserState(userId,userState);
+                }
             }
         }
         return false;
@@ -208,6 +215,7 @@ public class UserServiceImpl implements IUserService {
                     us.setSectionId(section.getId());
                     us.setSubsectionId(subsection.getId());
                     us.setStepId(Long.parseLong(step.getId().toString()));
+                    us.setHasPassedApplication(false);
 
                     userDAO.setScore(0,id);
 

@@ -16,6 +16,7 @@ public class UserStateRowMapper implements RowMapper<UserState> {
         us.setSectionId(resultSet.getLong("section_id"));
         us.setSubsectionId(resultSet.getLong("subsection_id"));
         us.setStepId(resultSet.getLong("step_id"));
+        us.setHasPassedApplication(resultSet.getBoolean("has_passed_application"));
 
         return us;
     }

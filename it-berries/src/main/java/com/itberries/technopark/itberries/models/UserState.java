@@ -6,6 +6,7 @@ public class UserState {
     private Long sectionId;
     private Long subsectionId;
     private Long stepId;
+    private Boolean hasPassedApplication;
 
     public Long getId() {
         return id;
@@ -45,5 +46,13 @@ public class UserState {
 
     public void setStepId(Long stepId) {
         this.stepId = stepId;
+    }
+
+    public Boolean getHasPassedApplication() {
+        return hasPassedApplication;
+    }
+
+    public void setHasPassedApplication(Boolean hasPassedApplication) {
+        this.hasPassedApplication = hasPassedApplication;
     }
 }

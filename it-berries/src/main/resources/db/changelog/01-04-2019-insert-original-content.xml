@@ -2489,12 +2489,14 @@
             <column name="step_id" value="1"/>
             <column name="subsection_id" value="1"/>
             <column name="section_id" value="1"/>
+            <column name="has_passed_application" value="false"/>
         </insert>
         <insert tableName="users_states">
             <column name="user_id" value="37924905"/>
             <column name="step_id" value="1"/>
             <column name="subsection_id" value="1"/>
             <column name="section_id" value="1"/>
+            <column name="has_passed_application" value="false"/>
         </insert>
 
 

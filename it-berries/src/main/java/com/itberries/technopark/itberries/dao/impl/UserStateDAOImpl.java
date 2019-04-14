@@ -27,7 +27,7 @@ public class UserStateDAOImpl implements IUserStateDAO {
 
     @Override
     public UserState getUserState(Long userId) {
-        final String sql = "SELECT us.id, us.user_id, us.section_id, us.subsection_id, us.step_id \n" +
+        final String sql = "SELECT us.id, us.user_id, us.section_id, us.subsection_id, us.step_id, us.has_passed_application \n" +
                 "FROM users_states AS us \n" +
                 "WHERE us.user_id = :userId";
         try {
@@ -40,13 +40,14 @@ public class UserStateDAOImpl implements IUserStateDAO {
 
     @Override
     public boolean setUserState(Long userId, UserState userState) {
-        final String sql = "UPDATE users_states SET section_id = :sectId, subsection_id = :subsectionId, step_id = :stepId" +
+        final String sql = "UPDATE users_states SET section_id = :sectId, subsection_id = :subsectionId, step_id = :stepId, has_passed_application = :hasPassed" +
                 " WHERE user_id = :userId";
         try {
             Integer affectedRows = jdbcTemplate.update(sql, new MapSqlParameterSource()
                     .addValue("sectId", userState.getSectionId())
                     .addValue("subsectionId", userState.getSubsectionId())
                     .addValue("stepId", userState.getStepId())
+                    .addValue("hasPassed", userState.getHasPassedApplication())
                     .addValue("userId", userId));
             return (affectedRows == 1);
         } catch (DataAccessException ex) {
@@ -69,8 +70,8 @@ public class UserStateDAOImpl implements IUserStateDAO {
 
     @Override
     public void initUserState(Long userId) {
-        final String sql = "INSERT into users_states (user_id, step_id, section_id, subsection_id)\n" +
-                "VALUES (:userId, 1, 1, 1)";
+        final String sql = "INSERT into users_states (user_id, step_id, section_id, subsection_id, has_passed_application)\n" +
+                "VALUES (:userId, 1, 1, 1, false)";
         jdbcTemplate.update(sql, new MapSqlParameterSource().addValue("userId", userId));
     }
 }

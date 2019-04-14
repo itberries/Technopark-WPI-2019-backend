@@ -13,6 +13,7 @@
             <column name="step_id" type="int"/>
             <column name="section_id" type="int"/>
             <column name="subsection_id" type="int"/>
+            <column name="has_passed_application" type="boolean"/>
         </createTable>
 
         <addUniqueConstraint columnNames="id"
