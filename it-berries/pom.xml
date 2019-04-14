@@ -71,6 +71,12 @@
             <artifactId>spring-websocket</artifactId>
             <version>5.1.5.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -86,7 +92,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.6.3</version>
                 <configuration>
-                    <propertyFile>src/main/resources/application.properties</propertyFile>
+                    <propertyFile>src/main/resources/application-dev.properties</propertyFile>
                 </configuration>
                 <!--<executions>-->
                     <!--<execution>-->
