@@ -22,13 +22,13 @@ public class ChainAnswerList {
     public static void main(String[] args) {
         ChainAnswerList chainAnswerList = new ChainAnswerList();
         List<String> data = new ArrayList<>();
-        data.add(".txt");
-        data.add("://");
         data.add("http");
+        data.add("://");
         data.add("circ");
-        data.add("/");
         data.add(".org");
+        data.add("/");
         data.add("slon");
+        data.add(".txt");
         chainAnswerList.setData(data);
 
         Gson gson = new Gson();

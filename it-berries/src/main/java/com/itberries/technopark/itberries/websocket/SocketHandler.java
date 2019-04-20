@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.itberries.technopark.itberries.models.User;
-import com.itberries.technopark.itberries.websocket.events.JoinGame;
-import com.itberries.technopark.itberries.websocket.events.Message;
-import com.itberries.technopark.itberries.websocket.events.Turn;
+import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +45,7 @@ public class SocketHandler extends TextWebSocketHandler {
         try {
             Message message = objectMapper.readValue(jsonTextMessage.getPayload(), Message.class);
 
-            if (message.getClass() == Turn.class) {
+            if (message.getClass() == TurnChain.class || message.getClass() == TurnMatch.class) {
                 IGamePlayService.handleGameTurn((Turn) message, session, user);
                 System.out.println("turn message recived");
             } else if (message.getClass() == JoinGame.class) {

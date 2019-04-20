@@ -4,6 +4,7 @@ import com.itberries.technopark.itberries.models.User;
 import com.itberries.technopark.itberries.websocket.events.JoinGame;
 import com.itberries.technopark.itberries.websocket.events.Message;
 import com.itberries.technopark.itberries.websocket.events.Turn;
+import com.itberries.technopark.itberries.websocket.events.TurnMatch;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;

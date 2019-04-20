@@ -1,5 +1,7 @@
 package com.itberries.technopark.itberries.websocket.games.services;
 
+import com.itberries.technopark.itberries.websocket.games.models.GamePlayerStatus;
+
 import java.io.IOException;
 
 public interface ICheckAnswerService {

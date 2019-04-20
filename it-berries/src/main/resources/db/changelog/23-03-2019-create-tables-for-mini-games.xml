@@ -107,4 +107,37 @@
         </rollback>
 
     </changeSet>
+
+
+    <changeSet author="elena_oshkina" id="create_answers_on_chain_table">
+        <createTable tableName="answers_on_chain">
+            <column name="id" type="int"/>
+            <column name="answer" type="text"/>
+            <column name="game_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_answers_on_chain"
+                             tableName="answers_on_chain"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="answers_on_chain"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="answers_on_chain"
+                                 constraintName="fk_game_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mini_games"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="answers_on_chain" constraintName="fk_game_id"/>
+            <dropUniqueConstraint constraintName="unique_answers_on_chain" tableName="answers_on_chain"/>
+            <dropTable tableName="answers_on_chain"/>
+        </rollback>
+
+    </changeSet>
 </databaseChangeLog>
