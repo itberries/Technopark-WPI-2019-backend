@@ -633,7 +633,7 @@
                 <column name="type" value="theory"/>
                 <column name="subsection_id" value="3"/>
                 <column name="parent_id" value="12"/>
-                <column name="child_id" value="14"/>
+                <column name="child_id" value="52"/>
             </insert>
 
                 <insert tableName="cards">
