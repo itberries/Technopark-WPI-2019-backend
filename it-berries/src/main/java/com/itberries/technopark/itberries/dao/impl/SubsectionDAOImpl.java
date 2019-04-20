@@ -107,4 +107,20 @@ public class SubsectionDAOImpl implements ISubsectionDAO {
         }
 
     }
+
+    @Override
+    public List<Subsection> getSubsectionsBySectionId(Long sectionId) {
+        try {
+            final String sql = "SELECT subsect.id, subsect.id_section, subsect.name, subsect.parent_id, subsect.child_id\n" +
+                    "FROM subsections subsect\n" +
+                    "WHERE subsect.id_section = :sectionId";
+
+            SqlParameterSource namedParameters = new MapSqlParameterSource("sectionId", sectionId);
+
+            return jdbcTemplate.query(sql, namedParameters,new BeanPropertyRowMapper(Subsection.class));
+
+        } catch (DataAccessException ex) {
+            throw new ThereIsNoSectionsException();
+        }
+    }
 }

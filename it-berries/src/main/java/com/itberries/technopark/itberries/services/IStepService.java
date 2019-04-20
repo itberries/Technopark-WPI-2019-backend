@@ -30,6 +30,8 @@ public interface IStepService {
      * @return список карточек
      */
     List<Card> getCardsByStepId(Integer stepId);
+
+    List<Long> getOrderedStepsIdentifiers(Long id);
 }
 
 

@@ -10,6 +10,7 @@ public interface ISubsectionDAO {
     Subsection getSubsectionByParentId(Long parentId);
     Subsection getSubsectionBySectionIdAndParentId(Long sectionId, Long parentId);
     List<Subsection> getSubsectionsBySectionName(String name);
+    List<Subsection> getSubsectionsBySectionId(Long sectionId);
 
     List<Theory> getTheoryPagesForSubsectionBySubsectionId(Long id);
 }

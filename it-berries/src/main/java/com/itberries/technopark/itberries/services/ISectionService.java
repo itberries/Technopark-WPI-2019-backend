@@ -10,6 +10,8 @@ public interface ISectionService {
     List<Section> getSections();
     List<Subsection> getSubsectionsBySectionId(Long id);
 
+    List<Long> getOrderedSectionsIdentifiers();
+
     boolean doesSectionExist(Long id);
     boolean doesSubsectionMatchSection(Long id_subsection, Long id);
 

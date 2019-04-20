@@ -26,7 +26,7 @@ public class SectionController {
     @ResponseBody
     @ApiOperation(value = "Получить все секции с подсекциями")
     List<Section> getSections() {
-
+        List<Long> sectionIds = iSectionService.getOrderedSectionsIdentifiers();
         return iSectionService.getSections();
     }
 
