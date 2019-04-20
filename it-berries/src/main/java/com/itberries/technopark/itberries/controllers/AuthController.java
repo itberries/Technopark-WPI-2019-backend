@@ -25,6 +25,7 @@ public class AuthController {
     String authenticateUser(HttpServletRequest request, HttpServletResponse httpServletResponse, HttpSession httpSession) {
         request.getRequestURL();
         logger.info(String.format("Query String:%s", request.getQueryString()));
+
         //return " <meta http-equiv=\"refresh\" content=\"0; url=https://itberries-frontend.now.sh/\" />";
 //        return "<!DOCTYPE html>\n" +
 //                "<html lang=\"en\">\n" +
