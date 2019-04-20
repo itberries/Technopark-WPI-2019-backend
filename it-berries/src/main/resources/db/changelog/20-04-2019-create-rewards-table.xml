@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena_oshkina" id="create_rewards_table">
+        <createTable tableName="rewards">
+            <column name="id" type="int"/>
+            <column name="image_url" type="text"/>
+            <column name="note" type="text"/>
+        </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="rewards"/>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="uniqueRewards"
+                             tableName="rewards"/>
+        <rollback>
+            <dropUniqueConstraint constraintName="uniqueRewards"
+                                  tableName="rewards"/>
+            <dropTable tableName="rewards"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet author="elena_oshkina" id="add_data_to_rewards_table">
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward1.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward2.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward3.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward4.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward5.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward6.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward7.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward8.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+        <insert tableName="rewards">
+            <column name="image_url" value="https://it-berries.ru/rewards/reward9.png"/>
+            <column name="note" value="Вы молодец!"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

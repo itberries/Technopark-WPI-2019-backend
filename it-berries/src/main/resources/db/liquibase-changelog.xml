@@ -22,4 +22,6 @@
     <include file="changelog/23-03-2019-create-tables-for-mini-games.xml" relativeToChangelogFile="true"/>
     <include file="changelog/01-04-2019-insert-original-content.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20-04-2019-insert-data-for-mini-chain-games.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20-04-2019-create-rewards-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20-04-2019-create-users-rewards-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
