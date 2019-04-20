@@ -7,8 +7,8 @@ import java.io.IOException;
 public interface ICheckAnswerService {
     /**
      * Проверить ответ  (зависит от типа игры)
-     * @param gameId - индентификатор игры, для которой нужно проверить ответ
+     * @param correctAnswer - индентификатор игры, для которой нужно проверить ответ
      */
-    boolean checkAnswerByGameId(Long gameId, String answer) throws IOException;
+    boolean checkAnswerByGameId(String correctAnswer, String answer) throws IOException;
 
 }

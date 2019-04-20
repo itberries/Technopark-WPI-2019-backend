@@ -26,15 +26,16 @@ public class CheckAnswerChainService implements ICheckAnswerService {
     }
 
     @Override
-    public boolean checkAnswerByGameId(Long gameId, String answer) throws IOException {
-        String answerByGameId = iAnswerOnChainDAO.findAnswerByGameId(gameId);
+    public boolean checkAnswerByGameId(String correctAnswer, String answer) throws IOException {
+
         //верный ответ из БД
-        ChainAnswerList correctChainAnswerList = gson.fromJson(answerByGameId, ChainAnswerList.class);
+        ChainAnswerList correctChainAnswerList = gson.fromJson(correctAnswer, ChainAnswerList.class);
         //ответ пользователя
-        List<String> userData = gson.fromJson(answer, new TypeToken<List<String>>(){}.getType());
+        List<String> userData = gson.fromJson(answer, new TypeToken<List<String>>() {
+        }.getType());
         List<String> correctData = correctChainAnswerList.getData();
-        for(int i = 0; i< userData.size(); i++) {
-            if(!userData.get(i).equals(correctData.get(i))){
+        for (int i = 0; i < userData.size(); i++) {
+            if (!userData.get(i).equals(correctData.get(i))) {
                 return false;
             }
         }

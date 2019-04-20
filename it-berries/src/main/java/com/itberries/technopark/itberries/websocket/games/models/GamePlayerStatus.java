@@ -34,18 +34,33 @@ public class GamePlayerStatus {
      */
     private Long gameId;
 
+
+    /**
+     * Правильный ответ на конкретную игру
+     */
+    private String correctAnswer;
+
     public GamePlayerStatus(String type,
                             int correctAnswers,
                             int totalQuestions,
                             String task,
                             Long stepId,
-                            Long gameId) {
+                            Long gameId, String correctAnswer) {
         this.type = type;
         this.correctAnswers = correctAnswers;
         this.totalQuestions = totalQuestions;
         this.task = task;
         this.stepId = stepId;
         this.gameId = gameId;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
     public Long getGameId() {
