@@ -1,0 +1,6 @@
+{
+  "type": "turnChain",
+  "payload": {
+    "data": ["http","://","circ",".org","/","slon",".txt"]
+  }
+}
