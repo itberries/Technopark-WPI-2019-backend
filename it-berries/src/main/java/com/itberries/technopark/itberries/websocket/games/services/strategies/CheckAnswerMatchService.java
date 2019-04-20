@@ -27,10 +27,9 @@ public class CheckAnswerMatchService implements ICheckAnswerService {
     }
 
     @Override
-    public boolean checkAnswerByGameId(Long gameId, String answer) throws IOException {
-        String answerByGameId = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
+    public boolean checkAnswerByGameId(String correctAnswer, String answer) throws IOException {
         //Получаем все пары корректных ответов
-        MatchAnswerList correctMathPairs = gson.fromJson(answerByGameId, MatchAnswerList.class);
+        MatchAnswerList correctMathPairs = gson.fromJson(correctAnswer, MatchAnswerList.class);
         //Конвертируем ответ пользователя
         Map<String, String> userAnswer = gson.fromJson(answer, type);
         String key, value;

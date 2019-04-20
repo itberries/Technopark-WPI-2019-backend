@@ -1,5 +1,5 @@
 {
-  "type": "turn",
+  "type": "turnMatch",
   "payload": {
     "data": {
       "Временная линия": "непрерывный"

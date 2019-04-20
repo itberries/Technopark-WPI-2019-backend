@@ -120,24 +120,25 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     private GamePlayerStatus initStatusGame(String gameType, Long stepId, Long gameId) throws IOException {
 
-        String answerByGameId;
+        String correctAnswer;
         //Получаем все пары корректных ответов
         MatchAnswerList correctMathPairs;
         ChainAnswerList chainAnswerList;
         int totalAnswers;
         switch (gameType) {
             case "match":
-                answerByGameId = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
-                correctMathPairs = gson.fromJson(answerByGameId, MatchAnswerList.class);
+                correctAnswer = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
+                correctMathPairs = gson.fromJson(correctAnswer, MatchAnswerList.class);
                 totalAnswers = correctMathPairs.getData().size();
                 break;
             case "chain":
-                answerByGameId = iAnswerOnChainDAO.findAnswerByGameId(gameId);
-                chainAnswerList = gson.fromJson(answerByGameId, ChainAnswerList.class);
-                totalAnswers = chainAnswerList.getData().size();
+                correctAnswer = iAnswerOnChainDAO.findAnswerByGameId(gameId);
+                chainAnswerList = gson.fromJson(correctAnswer, ChainAnswerList.class);
+                totalAnswers = 1;
                 break;
             default:
-                throw new IOException(String.format("Unable to find answer for the task type = {}, step id = {}, game id ={}", gameType, stepId, gameId));
+                throw new IOException(String.format("Unable to find answer for the task type = {}, step id = {}, game id ={}",
+                        gameType, stepId, gameId));
         }
 
         int correctAnswers = 0;
@@ -149,7 +150,8 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 totalAnswers,
                 task,
                 stepId,
-                gameId);
+                gameId,
+                correctAnswer);
     }
 
 
@@ -205,16 +207,17 @@ public class GamePlayServiceImpl implements IGamePlayService {
         isStepAllowed(statusGames.get(user.getId()).getStepId(), user.getId());
         String type = statusGames.get(user.getId()).getType();//достаем тип игры
         boolean result = false;
+        String correctAnswer = statusGames.get(user.getId()).getCorrectAnswer();
         switch (type) {
             case "match":
                 TurnMatch turnMatch = (TurnMatch) turn;
                 result = iCheckAnswerService
-                        .checkAnswerByGameId(statusGames.get(user.getId()).getGameId(), gson.toJson(turnMatch.getPayload().getData()));
+                        .checkAnswerByGameId(correctAnswer, gson.toJson(turnMatch.getPayload().getData()));
                 break;
             case "chain":
                 TurnChain turnChain = (TurnChain) turn;
                 result = iCheckAnswerService
-                        .checkAnswerByGameId(statusGames.get(user.getId()).getGameId(), gson.toJson(turnChain.getPayload().getData()));
+                        .checkAnswerByGameId(correctAnswer, gson.toJson(turnChain.getPayload().getData()));
                 break;
         }
         TurnResult turnResult;
