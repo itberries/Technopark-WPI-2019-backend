@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnMatchDAO;
+import com.itberries.technopark.itberries.websocket.games.models.GamePlayerStatus;
 import com.itberries.technopark.itberries.websocket.games.services.ICheckAnswerService;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.models.MatchAnswerList;
 
@@ -26,10 +27,9 @@ public class CheckAnswerMatchService implements ICheckAnswerService {
     }
 
     @Override
-    public boolean checkAnswerByGameId(Long gameId, String answer) throws IOException {
-        String answerByGameId = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
+    public boolean checkAnswerByGameId(String correctAnswer, String answer) throws IOException {
         //Получаем все пары корректных ответов
-        MatchAnswerList correctMathPairs = gson.fromJson(answerByGameId, MatchAnswerList.class);
+        MatchAnswerList correctMathPairs = gson.fromJson(correctAnswer, MatchAnswerList.class);
         //Конвертируем ответ пользователя
         Map<String, String> userAnswer = gson.fromJson(answer, type);
         String key, value;

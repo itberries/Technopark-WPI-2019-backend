@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena_oshkina" id="create_rewards_table">
+        <createTable tableName="users_rewards">
+            <column name="id" type="int"/>
+            <column name="user_id" type="int"/>
+            <column name="reward_id" type="int"/>
+        </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="users_rewards"/>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_users_rewards"
+                             tableName="users_rewards"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="users_rewards"
+                                 constraintName="fk_users_rewards_user_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="reward_id"
+                                 baseTableName="users_rewards"
+                                 constraintName="fk_users_rewards_reward_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rewards"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="users_rewards" constraintName="fk_users_rewards_reward_id"/>
+            <dropForeignKeyConstraint baseTableName="users_rewards" constraintName="fk_users_rewards_user_id"/>
+            <dropUniqueConstraint constraintName="unique_users_rewards"
+                                  tableName="users_rewards"/>
+            <dropTable tableName="users_rewards"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet author="elena_oshkina" id="add_data_to_users_rewards_table">
+        <insert tableName="users_rewards">
+            <column name="user_id" value="37924905"/>
+            <column name="reward_id" value="1"/>
+        </insert>
+        <insert tableName="users_rewards">
+            <column name="user_id" value="37924905"/>
+            <column name="reward_id" value="4"/>
+        </insert>
+        <insert tableName="users_rewards">
+            <column name="user_id" value="37924905"/>
+            <column name="reward_id" value="7"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

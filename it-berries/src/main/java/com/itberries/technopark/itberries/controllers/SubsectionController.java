@@ -7,6 +7,8 @@ import com.itberries.technopark.itberries.services.IStepService;
 import com.itberries.technopark.itberries.services.ISubsectionService;
 import com.itberries.technopark.itberries.services.IUserService;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,7 @@ public class SubsectionController {
     private final ISubsectionService iSubsectionService;
     private final IStepService iStepService;
     private final IUserService iUserService;
+    private static final Logger logger = LoggerFactory.getLogger(SubsectionController.class);
 
     @Autowired
     private SubsectionController(ISubsectionService iSubsectionService, IStepService iStepService, IUserService iUserService) {
@@ -64,6 +67,7 @@ public class SubsectionController {
         Step currentStep = iStepService
                 .getCurrentStepByUserIdAndSubsectionId(user.getId(), Integer.parseInt(userState.getSubsectionId().toString()));
 
+        logger.info(String.format("getting steps for subsection = %s", subsectionId));
         return new StepListResponse(stepsBySectionId, currentStep);
     }
 

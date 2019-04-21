@@ -13,6 +13,9 @@
         <insert tableName="mini_games_types">
             <column name="type" value="match"/>
         </insert>
+        <insert tableName="mini_games_types">
+            <column name="type" value="chain"/>
+        </insert>
 
         <!-- insert sections -->
         <insert tableName="sections">
@@ -630,7 +633,7 @@
                 <column name="type" value="theory"/>
                 <column name="subsection_id" value="3"/>
                 <column name="parent_id" value="12"/>
-                <column name="child_id" value="0"/>
+                <column name="child_id" value="52"/>
             </insert>
 
                 <insert tableName="cards">
@@ -680,6 +683,26 @@
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="13"/>
                 </insert>
+
+        <insert tableName="steps">
+            <column name="id" value="52"/>
+            <column name="name" value="Игра: ИК-технологии"/>
+            <column name="type" value="interactive"/>
+            <column name="subsection_id" value="3"/>
+            <column name="parent_id" value="13"/>
+            <column name="child_id" value="0"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="id" value="171"/>
+            <column name="note" value="Доступ к файлу slon.txt, находящемуся на сервере circ.org, осуществляется по протоколу http. Фрагменты адреса файла закодированы буквами от А до Ж. Запишите последовательность этих букв, кодирующую адрес указанного файла в сети Интернет"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="step_id" value="52"/>
+        </insert>
+
+
+
+
 
 
         <insert tableName="subsections">

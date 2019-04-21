@@ -2,20 +2,23 @@ package com.itberries.technopark.itberries.websocket.games.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.itberries.technopark.itberries.controllers.UserController;
 import com.itberries.technopark.itberries.dao.IUserDAO;
 import com.itberries.technopark.itberries.models.User;
-import com.itberries.technopark.itberries.models.UserState;
 import com.itberries.technopark.itberries.services.IMiniGamesService;
 import com.itberries.technopark.itberries.services.IUserService;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
+import com.itberries.technopark.itberries.websocket.games.IGameResponseService;
+import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnChainDAO;
 import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnMatchDAO;
 import com.itberries.technopark.itberries.websocket.games.models.GamePlayerStatus;
 import com.itberries.technopark.itberries.websocket.games.models.GameSession;
 import com.itberries.technopark.itberries.websocket.games.services.ICheckAnswerService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerChainService;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerMatchService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.models.ChainAnswerList;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.models.MatchAnswerList;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,7 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,12 +42,16 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     private final Map<Long, GameSession> sessions = new ConcurrentHashMap<>();
     private final Map<Long, GamePlayerStatus> statusGames = new ConcurrentHashMap<>();
+
     private IUserService userService;
     private IMiniGamesService iMiniGamesService;
     private ICheckAnswerService iCheckAnswerService;
     private IAnswerOnMatchDAO iAnswerOnMatchDAO;
+    private IAnswerOnChainDAO iAnswerOnChainDAO;
     private ObjectMapper objectMapper;
     private IUserDAO iUserDAO;
+    private IGameResponseService iGameResponseService;
+
     Gson gson = new Gson();
     private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
@@ -53,12 +59,14 @@ public class GamePlayServiceImpl implements IGamePlayService {
     public GamePlayServiceImpl(IUserService userService,
                                IMiniGamesService iMiniGamesService,
                                IAnswerOnMatchDAO iAnswerOnMatchDAO,
-                               ObjectMapper objectMapper, IUserDAO iUserDAO) {
+                               IAnswerOnChainDAO iAnswerOnChainDAO, ObjectMapper objectMapper, IUserDAO iUserDAO, IGameResponseService iGameResponseService) {
         this.userService = userService;
         this.iMiniGamesService = iMiniGamesService;
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
+        this.iAnswerOnChainDAO = iAnswerOnChainDAO;
         this.objectMapper = objectMapper;
         this.iUserDAO = iUserDAO;
+        this.iGameResponseService = iGameResponseService;
         this.service.scheduleAtFixedRate(new GameDispatcher(), 0, 1, TimeUnit.SECONDS);
     }
 
@@ -77,6 +85,9 @@ public class GamePlayServiceImpl implements IGamePlayService {
             case "match":
                 iCheckAnswerService = new CheckAnswerMatchService(iAnswerOnMatchDAO, objectMapper);
                 break;
+            case "chain":
+                iCheckAnswerService = new CheckAnswerChainService(iAnswerOnChainDAO, objectMapper);
+                break;
             default:
                 throw new IOException("Unable to find answer for the task");
         }
@@ -84,13 +95,21 @@ public class GamePlayServiceImpl implements IGamePlayService {
         final long MINIMUM_TIME_WITHOUT_CONNECTION = 100;
         //если игровая сессия уже есть в коллекции и crash time было менее 5 минут назад
         if (sessions.containsKey(user.getId())
-                && Duration.between(sessions.get(user.getId()).getLocalDateTime(), LocalDateTime.now()).toMinutes() < MINIMUM_TIME_WITHOUT_CONNECTION) {
+                && sessions.get(user.getId()).getLocalDateTime() != null
+                && Duration.between(sessions.get(user.getId()).getLocalDateTime(), LocalDateTime.now()).toMinutes() < MINIMUM_TIME_WITHOUT_CONNECTION
+                && statusGames.containsKey(user.getId())
+                && statusGames.get(user.getId()).getStepId().equals(joinGameMessage.getStepId())) {
+
             sessions.get(user.getId()).setLocalDateTime(null);//обнуляем краш тайм
             sessions.get(user.getId()).setWebSocketSession(webSocketSession);//устанавливаем новую сессию
-            sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("RECONNECT_OK")));
+
+
+            List<ImmutablePair<String, String>> mathResponse = iGameResponseService
+                    .getMathResponse(sessions.get(user.getId()).getTurns());
+            sendMessageToUser(user.getId(), new RecoveryGame(new RecoveryGame.Payload("RECONNECT_OK", mathResponse)));
             logger.info(String.format("joinGame: reconnect join, joinGameMessage: %s\n", joinGameMessage));
         } else {
-            statusGames.remove(user.getId());//если вдруг не был удален ранее
+            hardDestructConnection(user.getId());
             sessions.put(user.getId(), new GameSession(webSocketSession));
             GamePlayerStatus gamePlayerStatus = initStatusGame(joinGameMessage.getGameType(), joinGameMessage.getStepId(), gameId);
             statusGames.put(user.getId(), gamePlayerStatus);
@@ -99,14 +118,31 @@ public class GamePlayServiceImpl implements IGamePlayService {
         }
     }
 
-    private GamePlayerStatus initStatusGame(String gameType, Long stepId, Long gameId) {
+    private GamePlayerStatus initStatusGame(String gameType, Long stepId, Long gameId) throws IOException {
 
-        String answerByGameId = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
+        String correctAnswer;
         //Получаем все пары корректных ответов
-        MatchAnswerList correctMathPairs = gson.fromJson(answerByGameId, MatchAnswerList.class);
+        MatchAnswerList correctMathPairs;
+        ChainAnswerList chainAnswerList;
+        int totalAnswers;
+        switch (gameType) {
+            case "match":
+                correctAnswer = iAnswerOnMatchDAO.findAnswerByGameId(gameId);
+                correctMathPairs = gson.fromJson(correctAnswer, MatchAnswerList.class);
+                totalAnswers = correctMathPairs.getData().size();
+                break;
+            case "chain":
+                correctAnswer = iAnswerOnChainDAO.findAnswerByGameId(gameId);
+                chainAnswerList = gson.fromJson(correctAnswer, ChainAnswerList.class);
+                totalAnswers = 1;
+                break;
+            default:
+                throw new IOException(String.format("Unable to find answer for the task type = {}, step id = {}, game id ={}",
+                        gameType, stepId, gameId));
+        }
 
         int correctAnswers = 0;
-        int totalAnswers = correctMathPairs.getData().size();
+
         String task = "условие задачи";//todo: возможно, понадобится   в будущем
 
         return new GamePlayerStatus(gameType,
@@ -114,7 +150,8 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 totalAnswers,
                 task,
                 stepId,
-                gameId);
+                gameId,
+                correctAnswer);
     }
 
 
@@ -168,15 +205,34 @@ public class GamePlayServiceImpl implements IGamePlayService {
     @Override
     public void handleGameTurn(Turn turn, WebSocketSession webSocketSession, User user) throws IOException {
         isStepAllowed(statusGames.get(user.getId()).getStepId(), user.getId());
-
-        boolean result = iCheckAnswerService
-                .checkAnswerByGameId(statusGames.get(user.getId()).getGameId(), gson.toJson(turn.getPayload().getData()));
-
+        String type = statusGames.get(user.getId()).getType();//достаем тип игры
+        boolean result = false;
+        String correctAnswer = statusGames.get(user.getId()).getCorrectAnswer();
+        switch (type) {
+            case "match":
+                TurnMatch turnMatch = (TurnMatch) turn;
+                result = iCheckAnswerService
+                        .checkAnswerByGameId(correctAnswer, gson.toJson(turnMatch.getPayload().getData()));
+                break;
+            case "chain":
+                TurnChain turnChain = (TurnChain) turn;
+                result = iCheckAnswerService
+                        .checkAnswerByGameId(correctAnswer, gson.toJson(turnChain.getPayload().getData()));
+                break;
+        }
         TurnResult turnResult;
         if (result) {
             turnResult = new TurnResult(new TurnResult.Payload("true"));
             //увеличиваем количество верных ответов на 1
             statusGames.get(user.getId()).setCorrectAnswers(statusGames.get(user.getId()).getCorrectAnswers() + 1);
+            //Сохраняем шаг пользователя на случай разрыва сессии
+            if (sessions.get(user.getId()).getTurns().size() > 0) {
+                sessions.get(user.getId()).getTurns().add(turn);
+            } else {
+                List<Turn> list = new ArrayList<>();
+                list.add(turn);
+                sessions.get(user.getId()).setTurns(list);
+            }
             logger.info(String.format("handleGameTurn: turn correct, turn: %s\n", turn));
         } else {
             turnResult = new TurnResult(new TurnResult.Payload("false"));
