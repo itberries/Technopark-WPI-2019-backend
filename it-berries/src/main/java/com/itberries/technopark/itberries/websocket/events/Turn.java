@@ -3,8 +3,12 @@ package com.itberries.technopark.itberries.websocket.events;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Map;
+
+
 
 @JsonSubTypes({@JsonSubTypes.Type(value = TurnMatch.class, name = "turnMatch"),
         @JsonSubTypes.Type(value = TurnChain.class, name = "turnChain")})

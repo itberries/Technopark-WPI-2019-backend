@@ -1,6 +1,12 @@
 {
   "type": "gameCompleted",
   "payload": {
-    "score": 400
+    "score": 400,
+    "reward": {
+      "id": 3,
+      "note": "Вы молодец",
+      "imageUrl": "https://it-berries.ru/rewards/reward1.png"
+    }
   }
 }
+
