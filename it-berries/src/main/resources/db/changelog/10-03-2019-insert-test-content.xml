@@ -15,6 +15,7 @@
         </insert>
         <insert tableName="users">
             <column name="id" value="37924905"/>
+            <column name="score" value="1500"/>
         </insert>
 
     </changeSet>

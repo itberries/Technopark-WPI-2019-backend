@@ -6,6 +6,7 @@ import com.itberries.technopark.itberries.requests.UserRequest;
 import com.itberries.technopark.itberries.responses.CantUpdateStateException;
 import com.itberries.technopark.itberries.responses.UserNotAuthorizedException;
 import com.itberries.technopark.itberries.responses.models.UserStateResponse;
+import com.itberries.technopark.itberries.services.IRewardService;
 import com.itberries.technopark.itberries.services.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @Api(value = "Контроллер для работы с данными пользователя")
@@ -26,12 +27,13 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     final IUserService iUserService;
+    final IRewardService iRewardService;
 
     @Autowired
-    public UserController(IUserService iUserService) {
+    public UserController(IUserService iUserService, IRewardService iRewardService) {
         this.iUserService = iUserService;
+        this.iRewardService = iRewardService;
     }
-
 
 
     @ApiOperation(value = "Сохраняет данные о пользователе (id,score)")
@@ -44,9 +46,10 @@ public class UserController {
         logger.info("setUser completed");
         User user1 = new User(user.getId(), 0L);
         httpSession.setAttribute("user", user1);
+        List<Long> rewardsByUserId = iRewardService.getRewardsByUserId(user1.getId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new UserStateResponse(user1, currentUserState));
+                .body(new UserStateResponse(user1, currentUserState, rewardsByUserId));
     }
 
     @ApiOperation(value = "Получает данные о пользователе (id,score)")
@@ -56,8 +59,9 @@ public class UserController {
         logger.info(String.format("user with id = %s for getting", id));
         User userById = iUserService.getUserById(id);
         UserState currentUserState = iUserService.getCurrentUserState(id);
+        List<Long> rewardsByUserId = iRewardService.getRewardsByUserId(userById.getId());
         httpSession.setAttribute("user", userById);
-        return new UserStateResponse(userById, currentUserState);
+        return new UserStateResponse(userById, currentUserState, rewardsByUserId);
     }
 
     @ApiOperation(value = "Получает текущее состояние пользователя (секция, подсекция, шаг)")
