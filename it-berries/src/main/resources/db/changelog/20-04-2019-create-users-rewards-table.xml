@@ -65,6 +65,21 @@
         </insert>
     </changeSet>
 
+    <changeSet author="dmitrii_borodin" id="add_data_to_users_rewards_table">
+        <insert tableName="users_rewards">
+            <column name="user_id" value="2147483640"/>
+            <column name="reward_id" value="1"/>
+        </insert>
+        <insert tableName="users_rewards">
+            <column name="user_id" value="2147483640"/>
+            <column name="reward_id" value="2"/>
+        </insert>
+        <insert tableName="users_rewards">
+            <column name="user_id" value="2147483640"/>
+            <column name="reward_id" value="3"/>
+        </insert>
+    </changeSet>
+
     <changeSet author="elena_oshkina" id="create_hanbook_rewards_table">
         <createTable tableName="hanbook_rewards">
             <column name="id" type="int"/>
