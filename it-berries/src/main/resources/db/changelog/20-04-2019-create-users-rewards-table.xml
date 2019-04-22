@@ -22,6 +22,10 @@
                              constraintName="unique_users_rewards"
                              tableName="users_rewards"/>
 
+        <addUniqueConstraint columnNames="user_id, reward_id"
+                             constraintName="unique_users_rewards_ids"
+                             tableName="users_rewards"/>
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="users_rewards"
                                  constraintName="fk_users_rewards_user_id"
@@ -53,11 +57,71 @@
         </insert>
         <insert tableName="users_rewards">
             <column name="user_id" value="37924905"/>
-            <column name="reward_id" value="4"/>
+            <column name="reward_id" value="2"/>
         </insert>
         <insert tableName="users_rewards">
             <column name="user_id" value="37924905"/>
+            <column name="reward_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="elena_oshkina" id="create_hanbook_rewards_table">
+        <createTable tableName="hanbook_rewards">
+            <column name="id" type="int"/>
+            <column name="score_limit" type="int"/>
+            <column name="reward_id" type="int"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="reward_id"
+                                 baseTableName="hanbook_rewards"
+                                 constraintName="fk_hanbook_rewards_reward_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="rewards"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="hanbook_rewards"/>
+    </changeSet>
+
+    <changeSet author="elena_oshkina" id="insert_data_to_hanbook_rewards_table">
+
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="500"/>
+            <column name="reward_id" value="1"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="1000"/>
+            <column name="reward_id" value="2"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="1500"/>
+            <column name="reward_id" value="3"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="2000"/>
+            <column name="reward_id" value="4"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="2500"/>
+            <column name="reward_id" value="5"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="3000"/>
+            <column name="reward_id" value="6"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="3500"/>
             <column name="reward_id" value="7"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="4000"/>
+            <column name="reward_id" value="8"/>
+        </insert>
+        <insert tableName="hanbook_rewards">
+            <column name="score_limit" value="4500"/>
+            <column name="reward_id" value="9"/>
         </insert>
     </changeSet>
 

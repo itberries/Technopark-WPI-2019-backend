@@ -8,10 +8,7 @@ import com.itberries.technopark.itberries.services.IRewardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,5 +34,16 @@ public class RewardController {
             throw new UserNotAuthorizedException();
         }
         return iRewardService.getRewards();
+    }
+    @GetMapping(value = "/{userId}/")
+    @ResponseBody
+    @ApiOperation(value = "Получить список наград конкретного пользователя")
+    public List<Long> getRewardsByUserId(@PathVariable(name = "userId") Long userId,
+                                            HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("user");
+        if (user == null) {
+            throw new UserNotAuthorizedException();
+        }
+        return iRewardService.getRewardsByUserId(userId);
     }
 }

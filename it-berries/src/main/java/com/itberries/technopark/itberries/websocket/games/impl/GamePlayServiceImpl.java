@@ -3,8 +3,10 @@ package com.itberries.technopark.itberries.websocket.games.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.itberries.technopark.itberries.dao.IUserDAO;
+import com.itberries.technopark.itberries.models.Reward;
 import com.itberries.technopark.itberries.models.User;
 import com.itberries.technopark.itberries.services.IMiniGamesService;
+import com.itberries.technopark.itberries.services.IRewardService;
 import com.itberries.technopark.itberries.services.IUserService;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
@@ -51,6 +53,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
     private ObjectMapper objectMapper;
     private IUserDAO iUserDAO;
     private IGameResponseService iGameResponseService;
+    private IRewardService iRewardService;
 
     Gson gson = new Gson();
     private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -59,7 +62,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
     public GamePlayServiceImpl(IUserService userService,
                                IMiniGamesService iMiniGamesService,
                                IAnswerOnMatchDAO iAnswerOnMatchDAO,
-                               IAnswerOnChainDAO iAnswerOnChainDAO, ObjectMapper objectMapper, IUserDAO iUserDAO, IGameResponseService iGameResponseService) {
+                               IAnswerOnChainDAO iAnswerOnChainDAO, ObjectMapper objectMapper, IUserDAO iUserDAO, IGameResponseService iGameResponseService, IRewardService iRewardService) {
         this.userService = userService;
         this.iMiniGamesService = iMiniGamesService;
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
@@ -67,6 +70,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
         this.objectMapper = objectMapper;
         this.iUserDAO = iUserDAO;
         this.iGameResponseService = iGameResponseService;
+        this.iRewardService = iRewardService;
         this.service.scheduleAtFixedRate(new GameDispatcher(), 0, 1, TimeUnit.SECONDS);
     }
 
@@ -242,9 +246,11 @@ public class GamePlayServiceImpl implements IGamePlayService {
         sendMessageToUser(user.getId(), turnResult);
         //Проверка на окончание игры
         if (isCompletedGame(user.getId())) {
-            int score = 200;  //todo: придумать получаемое количество очков пооригинальнее
+            int score = 500;  //todo: придумать получаемое количество очков пооригинальнее
             iUserDAO.updateScore(score, user.getId());
-            sendMessageToUser(user.getId(), new GameCompleted(new GameCompleted.Payload(score)));
+            //Проверить,не заслужил ли пользователь новую ачивку?
+            Reward reward = iRewardService.updateRewardsByUser(user.getId());
+            sendMessageToUser(user.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
             logger.info("handleGameTurn: updated score\n");
             //проставляем флаг, что игра завершена
             sessions.get(user.getId()).setGameCompleted(Boolean.TRUE);
