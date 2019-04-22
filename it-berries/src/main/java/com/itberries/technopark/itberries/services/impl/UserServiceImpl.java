@@ -2,8 +2,10 @@ package com.itberries.technopark.itberries.services.impl;
 
 import com.itberries.technopark.itberries.dao.*;
 import com.itberries.technopark.itberries.models.*;
+import com.itberries.technopark.itberries.services.ISectionService;
+import com.itberries.technopark.itberries.services.IStepService;
+import com.itberries.technopark.itberries.services.ISubsectionService;
 import com.itberries.technopark.itberries.services.IUserService;
-import com.itberries.technopark.itberries.websocket.games.impl.GamePlayServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +26,20 @@ public class UserServiceImpl implements IUserService {
     final ISectionDAO sectionDAO;
     final ISubsectionDAO subsectionDAO;
     final IStepDAO stepDAO;
+    final ISectionService iSectionService;
+    final ISubsectionService iSubsectionService;
+    final IStepService iStepService;
 
     @Autowired
-    public UserServiceImpl(IUserDAO userDAO, IUserStateDAO userStateDAO, ISectionDAO sectionDAO, ISubsectionDAO subsectionDAO, IStepDAO stepDAO) {
+    public UserServiceImpl(IUserDAO userDAO, IUserStateDAO userStateDAO, ISectionDAO sectionDAO, ISubsectionDAO subsectionDAO, IStepDAO stepDAO, ISectionService iSectionService, ISubsectionService iSubsectionService, IStepService iStepService) {
         this.userDAO = userDAO;
         this.userStateDAO = userStateDAO;
         this.sectionDAO = sectionDAO;
         this.subsectionDAO = subsectionDAO;
         this.stepDAO = stepDAO;
+        this.iSectionService = iSectionService;
+        this.iSubsectionService = iSubsectionService;
+        this.iStepService = iStepService;
     }
 
     @Override
@@ -55,7 +63,36 @@ public class UserServiceImpl implements IUserService {
         userState = userStateDAO.getUserState(userId);
         section = sectionDAO.getSectionById(sectionId);
 
-        if ((userState != null) &&(userState.getSectionId() > sectionId)) {
+        if ((userState != null) && (isCurrentSectionCurrentOrPrevious(sectionId, userState.getSectionId()) > 0)) {
+            return true;
+        } else {
+            if ((userState != null) && (section != null) && (isCurrentSectionCurrentOrPrevious(sectionId, userState.getSectionId()) == 0) && (section.getChildId() != 0)) {
+                userState.setSectionId(Long.parseLong(section.getChildId().toString()));
+
+                subsection = subsectionDAO.getSubsectionBySectionIdAndParentId(userState.getSectionId(),Long.parseLong("0"));
+                if (subsection != null) {
+
+                    steps = stepDAO.getStepsBySectionId(Integer.parseInt(subsection.getId().toString()));
+                    steps.sort(Comparator.comparingInt(Step::getParentId));
+                    step = steps.get(0);
+                    if ((step != null) && (step.getParentId() == 0)) {
+                        userState.setUserId(userId);
+                        userState.setSubsectionId(subsection.getId());
+                        userState.setStepId(Long.parseLong(step.getId().toString()));
+
+                        return userStateDAO.setUserState(userId,userState);
+                    }
+                }
+            } else {
+                if ((section != null) && (isCurrentSectionCurrentOrPrevious(sectionId, userState.getSectionId()) == 0) && (section.getChildId() == 0)) {
+                    userState.setUserId(userId);
+                    userState.setHasPassedApplication(true);
+
+                    return userStateDAO.setUserState(userId,userState);
+                }
+            }
+        }
+        /*if ((userState != null) &&(userState.getSectionId() > sectionId)) {
             return true;
         } else {
             // переключаемся по секциям, если у них есть дети и вообще если есть инфа по state пользователя
@@ -84,7 +121,7 @@ public class UserServiceImpl implements IUserService {
                     return userStateDAO.setUserState(userId,userState);
                 }
             }
-        }
+        }*/
         return false;
     }
 
@@ -97,7 +134,44 @@ public class UserServiceImpl implements IUserService {
         Step step = null;
 
         userState = userStateDAO.getUserState(userId);
+
         // проверка, есть ли state пользователя
+        if (userState != null) {
+            // проверяем, если текущая секция меньше  вернуть ок без обновления
+            if (isCurrentSectionCurrentOrPrevious(sectionId,userState.getSectionId()) > 0) {
+                return true;
+            } else {
+                section = sectionDAO.getSectionById(sectionId);
+                // проверили, что в нужной секции
+                if ((section != null) && (isCurrentSectionCurrentOrPrevious(sectionId,userState.getSectionId()) == 0) ) {
+                    // если подсекция меньше - вернуть ок без обновления
+                    if (isCurrentSubsectionCurrentOrPrevious(subsectionId,userState.getSubsectionId(), userState.getSectionId()) > 0) {
+                        return true;
+                    } else {
+                        subsection = subsectionDAO.getSubsectionById(subsectionId);
+                        // проверили, что в нужной подсекции
+                        if ((subsection != null) && (isCurrentSubsectionCurrentOrPrevious(subsectionId,userState.getSubsectionId(), userState.getSectionId()) == 0)) {
+                            // переключаемся по подсекциям или переход на новую секцию
+                            if (subsection.getChildId() != 0) {
+                                steps = stepDAO.getStepsBySectionId(Integer.parseInt(subsection.getChildId().toString()));
+                                steps.sort(Comparator.comparingInt(Step::getParentId));
+                                step = steps.get(0);
+                                if ((step != null) && (step.getParentId() == 0)) {
+                                    userState.setSubsectionId(Long.parseLong(subsection.getChildId().toString()));
+                                    userState.setStepId(Long.parseLong(step.getId().toString()));
+
+                                    return userStateDAO.setUserState(userId,userState);
+                                }
+                            } else {
+                                return this.setCurrentUserSectionCompleted(userId,sectionId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /*// проверка, есть ли state пользователя
         if (userState != null) {
             // проверяем, если текущая секция меньше  вернуть ок без обновления
             if (userState.getSectionId() > sectionId) {
@@ -133,7 +207,7 @@ public class UserServiceImpl implements IUserService {
                     }
                 }
             }
-        }
+        }*/
         return false;
     }
 
@@ -145,7 +219,43 @@ public class UserServiceImpl implements IUserService {
         Step step = null;
 
         userState = userStateDAO.getUserState(userId);
-        // проверка, есть ли state пользователя
+
+        if (userState != null) {
+            // проверяем, если текущая секция меньше  вернуть ок без обновления
+            if (isCurrentSectionCurrentOrPrevious(sectionId,userState.getSectionId()) > 0) {
+                return true;
+            } else {
+                section = sectionDAO.getSectionById(sectionId);
+                // проверили, что в нужной секции
+                if ((section != null) && (isCurrentSectionCurrentOrPrevious(sectionId,userState.getSectionId()) == 0)) {
+                    // проверяем, если текущая подсекция меньше  вернуть ок без обновления
+                    if (isCurrentSubsectionCurrentOrPrevious(subsectionId,userState.getSubsectionId(), userState.getSectionId()) > 0) {
+                        return true;
+                    } else {
+                        subsection = subsectionDAO.getSubsectionById(subsectionId);
+                        // проверили, что в нужной подсекции
+                        if ((subsection != null) && (isCurrentSubsectionCurrentOrPrevious(subsectionId,userState.getSubsectionId(), userState.getSectionId()) == 0)) {
+                            // проверяем, если текущая стэп меньше  вернуть ок без обновления
+                            if (isCurrentStepCurrentOrPrevious(stepId,userState.getStepId(),userState.getSubsectionId()) > 0) {
+                                return true;
+                            } else {
+                                step = stepDAO.getStepById(Integer.parseInt(stepId.toString()));
+                                if ((step != null) && (isCurrentStepCurrentOrPrevious(stepId,userState.getStepId(),userState.getSubsectionId()) == 0)) {
+                                    if (step.getChildId() != 0) {
+                                        userState.setStepId(Long.parseLong(step.getChildId().toString()));
+                                        return userStateDAO.setUserState(userId,userState);
+                                    } else {
+                                        return this.setCurrentUserSubsectionCompleted(userId,sectionId,subsectionId);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /*// проверка, есть ли state пользователя
         if (userState != null) {
             // проверяем, если текущая секция меньше  вернуть ок без обновления
             if (userState.getSectionId() > sectionId) {
@@ -184,7 +294,7 @@ public class UserServiceImpl implements IUserService {
                 }
             }
 
-        }
+        }*/
 
         return false;
     }
@@ -230,4 +340,47 @@ public class UserServiceImpl implements IUserService {
     public void initUserState(Long userId) {
         userStateDAO.initUserState(userId);
     }
+
+    @Override
+    public Integer isCurrentSectionCurrentOrPrevious(Long idToCheck, Long currentStateId) {
+        List<Long> orderedSectionIds = iSectionService.getOrderedSectionsIdentifiers();
+        Integer positionToCheck = orderedSectionIds.size() + 1;
+        Integer currentPosition = orderedSectionIds.size() + 1;
+
+        currentPosition = orderedSectionIds.indexOf(currentStateId);
+        positionToCheck = orderedSectionIds.indexOf(idToCheck);
+        if (positionToCheck < 0) {
+            positionToCheck = orderedSectionIds.size() + 1;
+        }
+        return (currentPosition - positionToCheck);
+    }
+
+    @Override
+    public Integer isCurrentSubsectionCurrentOrPrevious(Long idToCheck, Long currentStateId, Long sectionId) {
+        List<Long> orderedSubsectionIds = iSubsectionService.getOrderedSubsectionsIdentifiers(sectionId);
+        Integer positionToCheck = orderedSubsectionIds.size() + 1;
+        Integer currentPosition = orderedSubsectionIds.size() + 1;
+
+        currentPosition = orderedSubsectionIds.indexOf(currentStateId);
+        positionToCheck = orderedSubsectionIds.indexOf(idToCheck);
+        if (positionToCheck < 0) {
+            positionToCheck = orderedSubsectionIds.size() + 1;
+        }
+        return (currentPosition - positionToCheck);
+    }
+
+    @Override
+    public Integer isCurrentStepCurrentOrPrevious(Long idToCheck, Long currentStateId, Long subsectionId) {
+        List<Long> orderedStepIds = iStepService.getOrderedStepsIdentifiers(subsectionId);
+        Integer positionToCheck = orderedStepIds.size() + 1;
+        Integer currentPosition = orderedStepIds.size() + 1;
+
+        currentPosition = orderedStepIds.indexOf(currentStateId);
+        positionToCheck = orderedStepIds.indexOf(idToCheck);
+        if (positionToCheck < 0) {
+            positionToCheck = orderedStepIds.size() + 1;
+        }
+        return (currentPosition - positionToCheck);
+    }
+
 }

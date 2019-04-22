@@ -28,4 +28,24 @@
         </insert>
 
     </changeSet>
+
+    <changeSet author="dmitrii_borodin" id="insert_chain_task_for_mini_games">
+        <insert tableName="mini_games">
+            <column name="note"
+                    value="{&quot;data&quot;:[&quot;Непрерывный&quot;, &quot;сигнал&quot;, &quot;принимает&quot;, &quot;бесконечное&quot;, &quot;множество&quot;, &quot;значений&quot;, &quot;из&quot;, &quot;некоторого&quot;, &quot;диапазона&quot;, &quot;,а&quot;, &quot;значения&quot;, &quot;дискретного&quot;, &quot;сигнала&quot;, &quot;можно&quot;, &quot;представить&quot;, &quot;целыми&quot;, &quot;числами&quot;]}"/>
+            <column name="id" value="4"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="type_id" value="2"/>
+            <column name="step_id" value="53"/>
+        </insert>
+
+    </changeSet>
+    <changeSet author="dmitrii_borodin" id="insert_chain_answers_for_mini_games">
+        <insert tableName="answers_on_chain">
+            <column name="answer" value="{&quot;data&quot;:[&quot;Непрерывный&quot;, &quot;сигнал&quot;, &quot;принимает&quot;, &quot;бесконечное&quot;, &quot;множество&quot;, &quot;значений&quot;, &quot;из&quot;, &quot;некоторого&quot;, &quot;диапазона&quot;, &quot;,а&quot;, &quot;значения&quot;, &quot;дискретного&quot;, &quot;сигнала&quot;, &quot;можно&quot;, &quot;представить&quot;, &quot;целыми&quot;, &quot;числами&quot;]}"/>
+            <column name="game_id" value="4"/>
+        </insert>
+
+    </changeSet>
 </databaseChangeLog>
