@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -44,5 +47,26 @@ public class SectionServiceImpl implements ISectionService {
     @Override
     public List<Subsection> getSubsectionsBySectionId(Long id) {
         return iSectionDAO.getSubsectionsBySectionId(id);
+    }
+
+    @Override
+    public List<Long> getOrderedSectionsIdentifiers() {
+        List<Long> orderedSectionsIdentifiers = new ArrayList<Long>();
+        List<Section> inorderedSectionsWithSubsections = iSectionDAO.getSections();
+
+        Long rootId = new Long(-1);
+        Map<Long, Integer> sectionsIdentifiersMap = new HashMap<>();
+        for (Section section : inorderedSectionsWithSubsections) {
+            if (section.getParentId() == 0) {
+                rootId = section.getId();
+            }
+            sectionsIdentifiersMap.put(section.getId(),section.getChildId());
+        }
+
+        for (int i = 0; i < sectionsIdentifiersMap.size(); i++) {
+            orderedSectionsIdentifiers.add(rootId);
+            rootId = Long.parseLong(sectionsIdentifiersMap.get(rootId).toString());
+        }
+        return orderedSectionsIdentifiers;
     }
 }

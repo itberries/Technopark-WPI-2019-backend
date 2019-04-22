@@ -36,6 +36,7 @@ public class SubsectionController {
     @GetMapping(value = "/{name}/")
     @ResponseBody
     List<Subsection> getSubsectionsBySectionName(@PathVariable(name = "name") String name) {
+        List<Long> sectionIds = iSubsectionService.getOrderedSubsectionsIdentifiers(new Long(1));
         return iSubsectionService.getSubsectionsByName(name);
     }
 
@@ -56,6 +57,8 @@ public class SubsectionController {
         if (user == null) {
             throw new UserNotAuthorizedException();
         }
+
+        List<Long> st = iStepService.getOrderedStepsIdentifiers(Long.parseLong(subsectionId.toString()));
 
         List<Step> stepsBySectionId = iStepService.getStepsBySectionId(subsectionId);
 
