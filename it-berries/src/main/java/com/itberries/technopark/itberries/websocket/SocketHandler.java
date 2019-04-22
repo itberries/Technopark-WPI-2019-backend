@@ -45,12 +45,12 @@ public class SocketHandler extends TextWebSocketHandler {
         try {
             Message message = objectMapper.readValue(jsonTextMessage.getPayload(), Message.class);
 
-            if (message.getClass() == TurnChain.class || message.getClass() == TurnMatch.class) {
-                IGamePlayService.handleGameTurn((Turn) message, session, user);
-                System.out.println("turn message recived");
-            } else if (message.getClass() == JoinGame.class) {
+            if (message.getClass() == JoinGame.class) {
                 IGamePlayService.joinGame((JoinGame) message, session, user);
                 System.out.println("join game message recived");
+            } else {
+                IGamePlayService.handleGameTurn((Turn) message, session, user);
+                System.out.println("turn message recived");
             }
         } catch (JsonParseException e) {
             e.printStackTrace();
