@@ -183,10 +183,12 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     @Override
     public void clearStateAfterCompletedGame(User user) throws IOException {
-        if (sessions.get(user.getId()).isGameCompleted()) {
-            hardDestructConnection(user.getId());
-        } else {
-            softDestructConnection(user);
+        if (sessions.containsKey(user.getId())) {
+            if (sessions.get(user.getId()).isGameCompleted()) {
+                hardDestructConnection(user.getId());
+            } else {
+                softDestructConnection(user);
+            }
         }
     }
 
