@@ -32,39 +32,39 @@
     <changeSet author="elena_oshkina" id="add_data_to_rewards_table">
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward1.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="500 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward2.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="1000 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward3.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="1500 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward4.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="2000 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward5.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="3000 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward6.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="3500 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward7.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="4000 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward8.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="4500 монет"/>
         </insert>
         <insert tableName="rewards">
             <column name="image_url" value="https://it-berries.ru/rewards/reward9.png"/>
-            <column name="note" value="Вы молодец!"/>
+            <column name="note" value="5000 монет"/>
         </insert>
     </changeSet>
 
