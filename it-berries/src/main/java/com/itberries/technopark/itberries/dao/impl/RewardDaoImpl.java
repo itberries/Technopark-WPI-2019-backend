@@ -49,11 +49,11 @@ public class RewardDaoImpl implements IRewardDao {
     }
 
     public HanbookReward getFisrtAbsentRewardByUserId(Long userId) {
-        final String sql = "Select * from hanbook_rewards\n" +
-                "where id not in\n" +
-                "      (select r.id from rewards r join users_rewards ur on r.id=ur.id where user_id = :userId)\n" +
-                "order by score_limit\n" +
-                "limit 1";
+        final String sql = "SELECT hr.* FROM hanbook_rewards hr\n" +
+                "WHERE hr.id NOT IN \n" +
+                "      (SELECT r.id FROM rewards r JOIN users_rewards ur on r.id = ur.reward_id WHERE ur.user_id = :userId)\n" +
+                "ORDER BY score_limit\n" +
+                "LIMIT 1\n";
 
         return jdbcTemplate.queryForObject(sql,
                 new MapSqlParameterSource().addValue("userId", userId),
