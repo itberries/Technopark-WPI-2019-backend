@@ -109,7 +109,7 @@
                 <column name="type" value="interactive"/>
                 <column name="subsection_id" value="1"/>
                 <column name="parent_id" value="1"/>
-                <column name="child_id" value="2"/>
+                <column name="child_id" value="54"/>
             </insert>
                 <insert tableName="cards">
                     <column name="id" value="172"/>
@@ -120,11 +120,43 @@
                 </insert>
 
             <insert tableName="steps">
+                <column name="id" value="54"/>
+                <column name="name" value="Игра: Информация и сигнал (тренировка)"/>
+                <column name="type" value="training"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="53"/>
+                <column name="child_id" value="2"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="173"/>
+                    <column name="note" value="Определи, в какой тип сигнала преобразуется информация - непрерывный или дискретный"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="54"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="5"/>
+                    <column name="step_id" value="54"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;Целые числа&quot;:&quot;дискретный&quot;},{&quot;Натуральные числа&quot;:&quot;дискретный&quot;},{&quot;Рациональные числа&quot;:&quot;непрерывный&quot;},{&quot;Иррациональные числа&quot;:&quot;непрерывный&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;Целые числа&quot;:&quot;дискретный&quot;},{&quot;Натуральные числа&quot;:&quot;дискретный&quot;},{&quot;Рациональные числа&quot;:&quot;непрерывный&quot;},{&quot;Иррациональные числа&quot;:&quot;непрерывный&quot;}]}"/>
+
+                    <column name="game_id" value="5"/>
+                </insert>
+
+            <insert tableName="steps">
                 <column name="id" value="2"/>
                 <column name="name" value="Игра: информация и сигнал"/>
                 <column name="type" value="interactive"/>
                 <column name="subsection_id" value="1"/>
-                <column name="parent_id" value="53"/>
+                <column name="parent_id" value="54"/>
                 <column name="child_id" value="3"/>
             </insert>
                 <insert tableName="mini_games">
