@@ -26,15 +26,19 @@ public class TurnQuestion extends Turn {
                 '}';
     }
 
+    public Payload getPayload() {
+        return payload;
+    }
+
     public static class Payload {
 
         /**
          * Номер правильного ответа в задании question
          */
-        private final Integer data;
+        private final String data;
 
         @JsonCreator
-        public Payload(@JsonProperty("data") Integer data) {
+        public Payload(@JsonProperty("data") String data) {
             this.data = data;
         }
 
@@ -45,14 +49,14 @@ public class TurnQuestion extends Turn {
                     '}';
         }
 
-        public Integer getData() {
+        public String getData() {
             return data;
         }
 
 
     }
     public static void main(String[] args) {
-        TurnQuestion turnQuestion = new TurnQuestion(new TurnQuestion.Payload(4));
+        TurnQuestion turnQuestion = new TurnQuestion(new TurnQuestion.Payload("4"));
         Gson gson = new Gson();
         System.out.println(gson.toJson(turnQuestion));
 

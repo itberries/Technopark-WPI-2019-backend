@@ -1,5 +1,5 @@
 {
   "type" : "joinGame",
-  "gameType": "chain",
-  "stepId": 52
+  "gameType": "question",
+  "stepId": 55
 }
