@@ -140,4 +140,36 @@
         </rollback>
 
     </changeSet>
+
+    <changeSet author="elena_oshkina" id="create_answers_on_question_table">
+        <createTable tableName="answers_on_question">
+            <column name="id" type="int"/>
+            <column name="answer" type="text"/>
+            <column name="game_id" type="int"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="id"
+                             constraintName="unique_answers_on_question"
+                             tableName="answers_on_question"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="answers_on_question"/>
+
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="answers_on_question"
+                                 constraintName="fk_game_id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mini_games"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="answers_on_question" constraintName="fk_game_id"/>
+            <dropUniqueConstraint constraintName="unique_answers_on_question" tableName="answers_on_chain"/>
+            <dropTable tableName="answers_on_question"/>
+        </rollback>
+
+    </changeSet>
 </databaseChangeLog>

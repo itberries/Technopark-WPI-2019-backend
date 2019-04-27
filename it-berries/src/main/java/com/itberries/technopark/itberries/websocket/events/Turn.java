@@ -11,7 +11,8 @@ import java.util.Map;
 
 
 @JsonSubTypes({@JsonSubTypes.Type(value = TurnMatch.class, name = "turnMatch"),
-        @JsonSubTypes.Type(value = TurnChain.class, name = "turnChain")})
+        @JsonSubTypes.Type(value = TurnChain.class, name = "turnChain"),
+        @JsonSubTypes.Type(value = TurnQuestion.class, name = "turnQuestion")})
 public abstract class Turn extends Message {
     public Turn() {
     }
