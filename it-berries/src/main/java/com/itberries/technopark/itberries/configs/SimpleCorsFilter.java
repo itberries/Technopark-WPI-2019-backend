@@ -18,7 +18,7 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
         if(request.getHeader("origin") != null && request.getHeader("origin").contains("localhost")) {
             response.setHeader("Access-Control-Allow-Origin", "http://localhost:10888");
         }else {
-            response.setHeader("Access-Control-Allow-Origin", "https://itberries-frontend.now.sh");
+            response.setHeader("Access-Control-Allow-Origin", "https://itberries-explority.now.sh");
         }
         //response.setHeader("Access-Control-Allow-Origin", "https://itberries-frontend.now.sh");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
