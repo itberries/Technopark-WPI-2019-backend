@@ -39,7 +39,7 @@ public class AuthController {
 //                "\t\t\t<div id=\"root\"></div>\n" +
 //                "\t</body>\n" +
 //                "</html>\n";
-        httpServletResponse.setHeader("Location", "https://itberries-frontend.now.sh");
+        httpServletResponse.setHeader("Location", "https://itberries-explority.now.sh");
         httpServletResponse.setStatus(302);
         return "";
     }
