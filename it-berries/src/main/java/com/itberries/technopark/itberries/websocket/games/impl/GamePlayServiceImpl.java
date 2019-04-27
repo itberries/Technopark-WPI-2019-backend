@@ -13,11 +13,13 @@ import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
 import com.itberries.technopark.itberries.websocket.games.IGameResponseService;
 import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnChainDAO;
 import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnMatchDAO;
+import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnQuestionDAO;
 import com.itberries.technopark.itberries.websocket.games.models.GamePlayerStatus;
 import com.itberries.technopark.itberries.websocket.games.models.GameSession;
 import com.itberries.technopark.itberries.websocket.games.services.ICheckAnswerService;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerChainService;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerMatchService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerQuestionService;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.models.ChainAnswerList;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.models.MatchAnswerList;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -49,6 +51,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
     private IMiniGamesService iMiniGamesService;
     private ICheckAnswerService iCheckAnswerService;
     private IAnswerOnMatchDAO iAnswerOnMatchDAO;
+    private IAnswerOnQuestionDAO iAnswerOnQuestionDAO;
     private IAnswerOnChainDAO iAnswerOnChainDAO;
     private ObjectMapper objectMapper;
     private IUserDAO iUserDAO;
@@ -62,10 +65,11 @@ public class GamePlayServiceImpl implements IGamePlayService {
     public GamePlayServiceImpl(IUserService userService,
                                IMiniGamesService iMiniGamesService,
                                IAnswerOnMatchDAO iAnswerOnMatchDAO,
-                               IAnswerOnChainDAO iAnswerOnChainDAO, ObjectMapper objectMapper, IUserDAO iUserDAO, IGameResponseService iGameResponseService, IRewardService iRewardService) {
+                               IAnswerOnQuestionDAO iAnswerOnQuestionDAO, IAnswerOnChainDAO iAnswerOnChainDAO, ObjectMapper objectMapper, IUserDAO iUserDAO, IGameResponseService iGameResponseService, IRewardService iRewardService) {
         this.userService = userService;
         this.iMiniGamesService = iMiniGamesService;
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
+        this.iAnswerOnQuestionDAO = iAnswerOnQuestionDAO;
         this.iAnswerOnChainDAO = iAnswerOnChainDAO;
         this.objectMapper = objectMapper;
         this.iUserDAO = iUserDAO;
@@ -91,6 +95,9 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 break;
             case "chain":
                 iCheckAnswerService = new CheckAnswerChainService(iAnswerOnChainDAO, objectMapper);
+                break;
+            case "question":
+                iCheckAnswerService = new CheckAnswerQuestionService();
                 break;
             default:
                 throw new IOException("Unable to find answer for the task");
@@ -138,6 +145,10 @@ public class GamePlayServiceImpl implements IGamePlayService {
             case "chain":
                 correctAnswer = iAnswerOnChainDAO.findAnswerByGameId(gameId);
                 chainAnswerList = gson.fromJson(correctAnswer, ChainAnswerList.class);
+                totalAnswers = 1;
+                break;
+            case "question":
+                correctAnswer = iAnswerOnQuestionDAO.findAnswerByGameId(gameId);
                 totalAnswers = 1;
                 break;
             default:
@@ -225,6 +236,13 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 result = iCheckAnswerService
                         .checkAnswerByGameId(correctAnswer, gson.toJson(turnChain.getPayload().getData()));
                 break;
+
+            case "question":
+                TurnQuestion turnQuestion = (TurnQuestion) turn;
+                result = iCheckAnswerService.checkAnswerByGameId(correctAnswer, turnQuestion.getPayload().getData());
+                break;
+                default:
+                    System.out.println("---------------ERROR! WRONG GAME TYPE!------------");
         }
         TurnResult turnResult;
         if (result) {

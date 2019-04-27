@@ -29,6 +29,26 @@
 
     </changeSet>
 
+    <changeSet author="elena_oshkina" id="insert_question_task_for_mini_games">
+        <insert tableName="mini_games">
+            <column name="note"
+                    value="{&quot;data&quot;:[&quot;7&quot;,&quot;6&quot;,&quot;5&quot;,&quot;4&quot;]}"/>
+            <column name="id" value="6"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="type_id" value="3"/>
+            <column name="step_id" value="55"/>
+        </insert>
+
+    </changeSet>
+    <changeSet author="elena_oshkina" id="insert_question_answers_for_mini_games">
+        <insert tableName="answers_on_question">
+            <column name="answer" value="3"/>
+            <column name="game_id" value="6"/>
+        </insert>
+
+    </changeSet>
+
     <!--<changeSet author="dmitrii_borodin" id="insert_chain_task_for_mini_games">-->
         <!--<insert tableName="mini_games">-->
             <!--<column name="note"-->
