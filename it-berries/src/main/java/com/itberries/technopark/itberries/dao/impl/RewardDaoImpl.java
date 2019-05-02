@@ -9,6 +9,7 @@ import com.itberries.technopark.itberries.rowmapper.HanbookRewardRowMapper;
 import com.itberries.technopark.itberries.rowmapper.RewardRowMapper;
 import com.itberries.technopark.itberries.rowmapper.SectionRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -48,17 +49,20 @@ public class RewardDaoImpl implements IRewardDao {
                 Long.class);
     }
 
-    public HanbookReward getFisrtAbsentRewardByUserId(Long userId) {
+    public HanbookReward getFirstAbsentRewardByUserId(Long userId) {
         final String sql = "SELECT hr.* FROM hanbook_rewards hr\n" +
                 "WHERE hr.id NOT IN \n" +
                 "      (SELECT r.id FROM rewards r JOIN users_rewards ur on r.id = ur.reward_id WHERE ur.user_id = :userId)\n" +
                 "ORDER BY score_limit\n" +
                 "LIMIT 1\n";
-
-        return jdbcTemplate.queryForObject(sql,
-                new MapSqlParameterSource().addValue("userId", userId),
-                new HanbookRewardRowMapper()
-        );
+        try {
+            return jdbcTemplate.queryForObject(sql,
+                    new MapSqlParameterSource().addValue("userId", userId),
+                    new HanbookRewardRowMapper()
+            );
+        } catch (DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override

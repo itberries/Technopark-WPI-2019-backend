@@ -44,6 +44,7 @@ public class RewardController {
         if (user == null) {
             throw new UserNotAuthorizedException();
         }
+
         return iRewardService.getRewardsByUserId(userId);
     }
 }

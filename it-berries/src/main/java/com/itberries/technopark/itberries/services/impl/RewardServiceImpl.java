@@ -36,11 +36,11 @@ public class RewardServiceImpl implements IRewardService {
     public Reward updateRewardsByUser(Long userId) {
         User userById = userDAO.getUserById(userId);
         Long score = userById.getScore();
-        HanbookReward fisrtAbsentRewardByUserId = iRewardDao.getFisrtAbsentRewardByUserId(userId);
+        HanbookReward firstAbsentRewardByUserId = iRewardDao.getFirstAbsentRewardByUserId(userId);
         //если пользователь набрал достаточно баллов для получения новой ачивки - выдать ее
-        if (userById.getScore() >= fisrtAbsentRewardByUserId.getScoreLimit()) {
-            iRewardDao.addNewUserReward(userId, fisrtAbsentRewardByUserId.getRewardId());
-            return iRewardDao.getRewardById(fisrtAbsentRewardByUserId.getRewardId());
+        if ((firstAbsentRewardByUserId != null) && (userById.getScore() >= firstAbsentRewardByUserId.getScoreLimit())){
+            iRewardDao.addNewUserReward(userId, firstAbsentRewardByUserId.getRewardId());
+            return iRewardDao.getRewardById(firstAbsentRewardByUserId.getRewardId());
         }
         return null;
     }

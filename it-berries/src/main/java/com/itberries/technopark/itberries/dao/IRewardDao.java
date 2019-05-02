@@ -27,7 +27,7 @@ public interface IRewardDao {
      * @param userId уникальный идентификатор пользователя
      * @return инфо об ачивке, которой еще нет бользователя (reward_id, score_limit)
      */
-    HanbookReward getFisrtAbsentRewardByUserId(Long userId);
+    HanbookReward getFirstAbsentRewardByUserId(Long userId);
 
     /**
      * Добавить новую ачивку пользвателю
