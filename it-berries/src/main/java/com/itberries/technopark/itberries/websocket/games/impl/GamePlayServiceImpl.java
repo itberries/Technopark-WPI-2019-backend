@@ -62,7 +62,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
     private IUserStateDAO iUserStateDAO;
     private IUserService iUserService;
 
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
     private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
     @Autowired
@@ -210,11 +210,21 @@ public class GamePlayServiceImpl implements IGamePlayService {
     }
 
 
+    /**
+     * Мягкий разрыв сессии - сессия не удаляется полностью
+     * @param user пользователь
+     * @throws IOException
+     */
     private void softDestructConnection(User user) throws IOException {
         sessions.get(user.getId()).setLocalDateTime(LocalDateTime.now());
         sessions.get(user.getId()).getWebSocketSession().close();
     }
 
+    /**
+     * Жесткий разрыв сессии  - сессия удаляется полностью
+     * @param userId уникальный ключ пользователя
+     * @throws IOException
+     */
     private void hardDestructConnection(Long userId) throws IOException {
         if (sessions.containsKey(userId)) {
             if (sessions.get(userId).getWebSocketSession().isOpen()) {
@@ -225,12 +235,16 @@ public class GamePlayServiceImpl implements IGamePlayService {
         statusGames.remove(userId);
     }
 
-    @Override
-    public void handleGameTurn(Turn turn, WebSocketSession webSocketSession, User user) throws IOException {
-        isStepAllowed(statusGames.get(user.getId()).getStepId(), user.getId());
-        String type = statusGames.get(user.getId()).getType();//достаем тип игры
+    /**
+     * Проверка ответа пользователя
+     * @param type тип игры
+     * @param turn шаг пользователя
+     * @param correctAnswer правильный ответ
+     * @return true/false в зависимости от ответа пользователя
+     * @throws IOException
+     */
+    private boolean checkAnswer(String type, Turn turn, String correctAnswer) throws IOException {
         boolean result = false;
-        String correctAnswer = statusGames.get(user.getId()).getCorrectAnswer();
         switch (type) {
             case "match":
                 TurnMatch turnMatch = (TurnMatch) turn;
@@ -247,22 +261,29 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 TurnQuestion turnQuestion = (TurnQuestion) turn;
                 result = iCheckAnswerService.checkAnswerByGameId(correctAnswer, turnQuestion.getPayload().getData());
                 break;
-                default:
-                    System.out.println("---------------ERROR! WRONG GAME TYPE!------------");
+            default:
+                System.out.println("---------------ERROR! WRONG GAME TYPE!------------");
         }
+        return result;
+    }
+
+    @Override
+    public void handleGameTurn(Turn turn, WebSocketSession webSocketSession, User user) throws IOException {
+        isStepAllowed(statusGames.get(user.getId()).getStepId(), user.getId());
+        String type = statusGames.get(user.getId()).getType();//достаем тип игры
+
+        String correctAnswer = statusGames.get(user.getId()).getCorrectAnswer();
+
+        boolean result = checkAnswer(type, turn, correctAnswer);
+
         TurnResult turnResult;
         if (result) {
             turnResult = new TurnResult(new TurnResult.Payload("true"));
             //увеличиваем количество верных ответов на 1
+            //todo: не очень удачная проверка, следует заменить
             statusGames.get(user.getId()).setCorrectAnswers(statusGames.get(user.getId()).getCorrectAnswers() + 1);
             //Сохраняем шаг пользователя на случай разрыва сессии
-            if (sessions.get(user.getId()).getTurns().size() > 0) {
-                sessions.get(user.getId()).getTurns().add(turn);
-            } else {
-                List<Turn> list = new ArrayList<>();
-                list.add(turn);
-                sessions.get(user.getId()).setTurns(list);
-            }
+            saveUserStep(user.getId(), turn);
             logger.info(String.format("handleGameTurn: turn correct, turn: %s\n", turn));
         } else {
             turnResult = new TurnResult(new TurnResult.Payload("false"));
@@ -270,8 +291,35 @@ public class GamePlayServiceImpl implements IGamePlayService {
         }
 
         sendMessageToUser(user.getId(), turnResult);
-        //Проверка на окончание игры
-        if (isCompletedGame(user.getId())) {
+
+        checkGameEnd(user.getId());
+    }
+
+    /**
+     * Сохраняем все удачные шаги пользователя
+     * на случай разрыва сессии
+     *
+     * @param userId
+     * @param turn
+     */
+    private void saveUserStep(Long userId, Turn turn) {
+        if (!sessions.get(userId).getTurns().isEmpty()) {
+            sessions.get(userId).getTurns().add(turn);
+        } else {
+            List<Turn> list = new ArrayList<>();
+            list.add(turn);
+            sessions.get(userId).setTurns(list);
+        }
+    }
+
+    /**
+     * Проверка на окончание игры
+     *
+     * @param userId уникальный идентификатор пользователя
+     * @throws IOException
+     */
+    private void checkGameEnd(Long userId) throws IOException {
+        if (isCompletedGame(userId)) {
             int score = 500;  //todo: придумать получаемое количество очков пооригинальнее
 
             Long stepId = statusGames.get(user.getId()).getStepId();
@@ -279,15 +327,14 @@ public class GamePlayServiceImpl implements IGamePlayService {
             stepsState.setUserId(user.getId());
 
             if (iUserService.isStateCurrent(stepsState) == 1) {
-                iUserDAO.updateScore(score, user.getId());
+                iUserDAO.updateScore(score, userId);
                 //Проверить,не заслужил ли пользователь новую ачивку?
-                Reward reward = iRewardService.updateRewardsByUser(user.getId());
-                sendMessageToUser(user.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                Reward reward = iRewardService.updateRewardsByUser(userId);
+                sendMessageToUser(userId, new GameCompleted(new GameCompleted.Payload(score, reward)));
                 logger.info("handleGameTurn: updated score\n");
             }
-
             //проставляем флаг, что игра завершена
-            sessions.get(user.getId()).setGameCompleted(Boolean.TRUE);
+            sessions.get(userId).setGameCompleted(Boolean.TRUE);
         }
     }
 

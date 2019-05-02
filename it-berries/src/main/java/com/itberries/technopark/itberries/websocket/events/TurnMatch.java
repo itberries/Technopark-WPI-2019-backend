@@ -12,6 +12,8 @@ public class TurnMatch extends Turn {
      */
     private final Payload payload;
 
+
+
     @JsonCreator
     public TurnMatch(@JsonProperty("payload") Payload payload) {
         this.payload = payload;

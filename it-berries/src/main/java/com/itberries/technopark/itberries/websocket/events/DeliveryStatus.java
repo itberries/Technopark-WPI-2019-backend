@@ -2,6 +2,7 @@ package com.itberries.technopark.itberries.websocket.events;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.Gson;
 
 public class DeliveryStatus extends Message {
     /**
@@ -47,5 +48,11 @@ public class DeliveryStatus extends Message {
         public String getResult() {
             return result;
         }
+    }
+
+    public static void main(String[] args) {
+        DeliveryStatus deliveryStatus = new DeliveryStatus( new DeliveryStatus.Payload("READY"));
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(deliveryStatus));
     }
 }
