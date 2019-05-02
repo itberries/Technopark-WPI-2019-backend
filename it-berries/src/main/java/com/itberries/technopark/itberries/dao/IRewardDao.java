@@ -42,4 +42,11 @@ public interface IRewardDao {
      * @return инфо об ачивке
      */
     Reward getRewardById(Long rewardId);
+
+    /**
+     * Удалить все достижения, заработанные пользователем, по его идентификатору
+     * @param userId
+     * @return флаг успешности удаления
+     */
+    boolean removeAllRewardsByUserId(Long userId);
 }

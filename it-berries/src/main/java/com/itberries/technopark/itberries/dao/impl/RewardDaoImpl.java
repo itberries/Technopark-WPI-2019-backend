@@ -86,4 +86,17 @@ public class RewardDaoImpl implements IRewardDao {
                 new RewardRowMapper()
         );
     }
+
+    @Override
+    public boolean removeAllRewardsByUserId(Long userId) {
+        final String sql = "DELETE FROM users_rewards WHERE user_id = :userId";
+
+        try {
+            jdbcTemplate.update(sql, new MapSqlParameterSource("userId", userId));
+        } catch (DataAccessException ex) {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -29,9 +29,10 @@ public class UserServiceImpl implements IUserService {
     final ISectionService iSectionService;
     final ISubsectionService iSubsectionService;
     final IStepService iStepService;
+    final IRewardDao iRewardDao;
 
     @Autowired
-    public UserServiceImpl(IUserDAO userDAO, IUserStateDAO userStateDAO, ISectionDAO sectionDAO, ISubsectionDAO subsectionDAO, IStepDAO stepDAO, ISectionService iSectionService, ISubsectionService iSubsectionService, IStepService iStepService) {
+    public UserServiceImpl(IUserDAO userDAO, IUserStateDAO userStateDAO, ISectionDAO sectionDAO, ISubsectionDAO subsectionDAO, IStepDAO stepDAO, ISectionService iSectionService, ISubsectionService iSubsectionService, IStepService iStepService, IRewardDao iRewardDao) {
         this.userDAO = userDAO;
         this.userStateDAO = userStateDAO;
         this.sectionDAO = sectionDAO;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements IUserService {
         this.iSectionService = iSectionService;
         this.iSubsectionService = iSubsectionService;
         this.iStepService = iStepService;
+        this.iRewardDao = iRewardDao;
     }
 
     @Override
@@ -321,15 +323,17 @@ public class UserServiceImpl implements IUserService {
                 steps.sort(Comparator.comparingInt(Step::getParentId));
                 step = steps.get(0);
                 if ((step != null) && (step.getParentId() == 0)) {
-                    us.setUserId(id);
-                    us.setSectionId(section.getId());
-                    us.setSubsectionId(subsection.getId());
-                    us.setStepId(Long.parseLong(step.getId().toString()));
-                    us.setHasPassedApplication(false);
+                    if (iRewardDao.removeAllRewardsByUserId(id)) {
+                        us.setUserId(id);
+                        us.setSectionId(section.getId());
+                        us.setSubsectionId(subsection.getId());
+                        us.setStepId(Long.parseLong(step.getId().toString()));
+                        us.setHasPassedApplication(false);
 
-                    userDAO.setScore(0,id);
+                        userDAO.setScore(0,id);
 
-                    return userStateDAO.setUserState(id,us);
+                        return userStateDAO.setUserState(id,us);
+                    }
                 }
             }
         }
