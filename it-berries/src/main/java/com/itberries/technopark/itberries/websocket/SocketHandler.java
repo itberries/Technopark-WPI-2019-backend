@@ -6,6 +6,7 @@ import com.google.gson.JsonParseException;
 import com.itberries.technopark.itberries.models.User;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
+import com.itberries.technopark.itberries.websocket.games.IMultiUserGameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SocketHandler extends TextWebSocketHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketHandler.class);
+    private final String GAME_MODE_SINGLEPLAYER = "singleplayer";
+    private final String GAME_MODE_MULTIPLAYER = "nultiplayer";
 
     private List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
     private final ObjectMapper objectMapper;
     private final Gson gson = new Gson();
     private IGamePlayService IGamePlayService;
+    private IMultiUserGameService iMultiUserGameService;
 
     @Autowired
-    public SocketHandler(ObjectMapper objectMapper, IGamePlayService IGamePlayService) {
+    public SocketHandler(ObjectMapper objectMapper,
+                         IGamePlayService IGamePlayService,
+                         IMultiUserGameService iMultiUserGameService) {
         this.objectMapper = objectMapper;
         this.IGamePlayService = IGamePlayService;
+        this.iMultiUserGameService = iMultiUserGameService;
     }
 
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
@@ -45,12 +52,28 @@ public class SocketHandler extends TextWebSocketHandler {
         try {
             Message message = objectMapper.readValue(jsonTextMessage.getPayload(), Message.class);
 
+
             if (message.getClass() == JoinGame.class) {
-                IGamePlayService.joinGame((JoinGame) message, session, user);
-                System.out.println("join game message recived");
-            } else {
-                IGamePlayService.handleGameTurn((Turn) message, session, user);
-                System.out.println("turn message recived");
+                //проверяем какой mode игры
+                JoinGame joinGame = (JoinGame) message;
+                if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
+                    IGamePlayService.joinGame(joinGame, session, user);
+                    LOGGER.info("JoinGame message for SINGLEPLAYER received");
+                } else {
+                    iMultiUserGameService.joinGame(joinGame, session, user);
+                    LOGGER.info("JoinGame message for MULTIPLAYER received");
+                }
+            } else if (message.getClass() == Turn.class) {
+                Turn turn = (Turn) message;
+                if (GAME_MODE_SINGLEPLAYER.equals(turn.getMode())) {
+                    IGamePlayService.handleGameTurn(turn, session, user);
+                    LOGGER.info("Turn message for SINGLEPLAYER received");
+                } else {
+                    iMultiUserGameService.handleGameTurn(turn, session, user);
+                    LOGGER.info("Turn message for MULTIPLAYER received");
+                }
+            } else if (message.getClass() == DeliveryStatus.class) {
+                iMultiUserGameService.startTimer((DeliveryStatus)message, session, user);
             }
         } catch (JsonParseException e) {
             e.printStackTrace();

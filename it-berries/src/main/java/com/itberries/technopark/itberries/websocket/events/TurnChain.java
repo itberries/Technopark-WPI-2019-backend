@@ -17,6 +17,9 @@ public class TurnChain extends Turn {
      */
     private final Payload payload;
 
+
+
+
     @JsonCreator
     public TurnChain(@JsonProperty("payload") Payload payload) {
         this.payload = payload;
@@ -33,6 +36,8 @@ public class TurnChain extends Turn {
                 "payload=" + payload +
                 '}';
     }
+
+
 
     public static class Payload {
 

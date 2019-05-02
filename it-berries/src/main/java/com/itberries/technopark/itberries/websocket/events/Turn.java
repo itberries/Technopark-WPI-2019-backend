@@ -14,6 +14,19 @@ import java.util.Map;
         @JsonSubTypes.Type(value = TurnChain.class, name = "turnChain"),
         @JsonSubTypes.Type(value = TurnQuestion.class, name = "turnQuestion")})
 public abstract class Turn extends Message {
+    /**
+     * Тип игры (singleplayer, multiplayer)
+     */
+    private String mode;
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
     public Turn() {
     }
 

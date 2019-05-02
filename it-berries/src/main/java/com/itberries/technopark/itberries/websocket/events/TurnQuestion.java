@@ -14,6 +14,7 @@ public class TurnQuestion extends Turn {
      */
     private final Payload payload;
 
+
     @JsonCreator
     public TurnQuestion(@JsonProperty("payload") Payload payload) {
         this.payload = payload;

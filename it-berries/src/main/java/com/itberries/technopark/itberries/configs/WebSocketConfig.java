@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "/game/match/")
+        registry.addHandler(webSocketHandler, "/game/")
                 .addInterceptors(new HttpSessionHandshakeInterceptor())
                 .setAllowedOrigins("*");
     }
