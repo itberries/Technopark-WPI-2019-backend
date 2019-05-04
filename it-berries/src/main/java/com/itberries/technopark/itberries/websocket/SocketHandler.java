@@ -7,6 +7,7 @@ import com.itberries.technopark.itberries.models.User;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IGamePlayService;
 import com.itberries.technopark.itberries.websocket.games.IMultiUserGameService;
+import com.itberries.technopark.itberries.websocket.games.models.WebSocketData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -29,9 +32,10 @@ public class SocketHandler extends TextWebSocketHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketHandler.class);
     private final String GAME_MODE_SINGLEPLAYER = "singleplayer";
-    private final String GAME_MODE_MULTIPLAYER = "nultiplayer";
+    private final String GAME_MODE_MULTIPLAYER = "multiplayer";
 
     private List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+    private Map<User, WebSocketData> sessionData = new HashMap<>();
     private final ObjectMapper objectMapper;
     private final Gson gson = new Gson();
     private IGamePlayService IGamePlayService;
@@ -58,14 +62,16 @@ public class SocketHandler extends TextWebSocketHandler {
                 JoinGame joinGame = (JoinGame) message;
                 if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
                     IGamePlayService.joinGame(joinGame, session, user);
+                    sessionData.get(user).setMode("singleplayer");
                     LOGGER.info("JoinGame message for SINGLEPLAYER received");
                 } else {
                     iMultiUserGameService.joinGame(joinGame, session, user);
+                    sessionData.get(user).setMode("multiplayer");
                     LOGGER.info("JoinGame message for MULTIPLAYER received");
                 }
             } else if (message.getClass() == Turn.class) {
                 Turn turn = (Turn) message;
-                if (GAME_MODE_SINGLEPLAYER.equals(turn.getMode())) {
+                if (GAME_MODE_SINGLEPLAYER.equals(sessionData.get(user).getMode())) {
                     IGamePlayService.handleGameTurn(turn, session, user);
                     LOGGER.info("Turn message for SINGLEPLAYER received");
                 } else {
@@ -73,7 +79,7 @@ public class SocketHandler extends TextWebSocketHandler {
                     LOGGER.info("Turn message for MULTIPLAYER received");
                 }
             } else if (message.getClass() == DeliveryStatus.class) {
-                iMultiUserGameService.startTimer((DeliveryStatus)message, session, user);
+                iMultiUserGameService.startTimer((DeliveryStatus) message, session, user);
             }
         } catch (JsonParseException e) {
             e.printStackTrace();
@@ -84,24 +90,29 @@ public class SocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        //the messages will be broadcasted to all users.
         User user = (User) session.getAttributes().get("user");
-        // service.registerUser(user.getId(), session);
         LOGGER.info("Connected user with id  " + user.getId());
-        sessions.add(session);
+        sessionData.put(user, new WebSocketData(session));
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         User user = (User) session.getAttributes().get("user");
-        IGamePlayService.clearStateAfterCompletedGame(user);
+
+        if ("singleplayer".equals(sessionData.get(user).getMode())) {
+            IGamePlayService.clearStateAfterCompletedGame(user);
+        }
+
+        sessionData.remove(user);
         LOGGER.info("Disconnected user with id  " + user.getId());
     }
 
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
-        LOGGER.warn("Transportation problem", throwable);
-
+        LOGGER.warn("Transportation problem handle", throwable);
         User user = (User) session.getAttributes().get("user");
-        IGamePlayService.clearStateAfterCompletedGame(user);
+        if ("singleplayer".equals(sessionData.get(user).getMode())) {
+            IGamePlayService.clearStateAfterCompletedGame(user);
+        }
+        sessionData.remove(user);
     }
 }

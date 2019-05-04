@@ -63,6 +63,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
     @Override
     public void handleGameTurn(Turn turn, WebSocketSession webSocketSession, User user) throws IOException {
+        LOGGER.info(String.format("handleGameTurn [%s] from user [%s]", turn, user.getId()));
         MPGameSession mpGameSession = gameMap.get(user.getId());
         MPGamePlayer player;
         if (Boolean.TRUE.equals(mpGameSession.getPlayer1().getId().equals(user.getId()))) {
@@ -75,6 +76,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
         LocalDateTime answerTime = LocalDateTime.now();
         if (Duration.between(answerTime, player.getDateTimeStart()).toMinutes() >= 1) {
+            LOGGER.info(String.format("timeout for user [%s]", user.getId()));
             turnResult = new TurnResult(new TurnResult.Payload("false"));
         } else {
             boolean result = checkAnswer(player.getCurrentGameType(), turn, player.getCurrentGameAnswer());
@@ -91,8 +93,12 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
             }
         }
-        sendMessageToUser(user.getId(), turnResult);
+        //обновляем таймер
+        LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
+        player.setDateTimeStart(LocalDateTime.now());
 
+        sendMessageToUser(user.getId(), turnResult);
+        LOGGER.info(String.format("send message to user id=%d, turn = %s\n", user.getId(), turn));
         checkGameEnd(player);
     }
 
@@ -104,7 +110,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             //Проверить,не заслужил ли пользователь новую ачивку?
             Reward reward = iRewardService.updateRewardsByUser(player.getId());
             sendMessageToUser(player.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
-            LOGGER.info("handleGameTurn: updated score\n");
+            LOGGER.info(String.format("updated score for user id = \n", player.getId()));
             //проставляем флаг, что игра завершена - нужно для восстановления сессии
             //sessions.get(player.getId()).setGameCompleted(Boolean.TRUE);
         }
@@ -129,6 +135,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
     //todo: повторяет синг плеер - стоит исправить
     private boolean checkAnswer(String type, Turn turn, String correctAnswer) throws IOException {
+        LOGGER.info(String.format("checkAnswer type= %s, turn = %s, correctAnswer=%s", type, turn, correctAnswer));
         boolean result = false;
         switch (type) {
             case "match":
@@ -156,6 +163,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     private void addWaiter(Long userId, WebSocketSession webSocketSession) throws IOException {
         waiters.add(userId);
         sessions.put(userId, webSocketSession);
+        LOGGER.info(String.format("user with id=%s was added to queue", userId));
         if (waiters.size() > 1) {
             //Достаем двух игроков
             Long user1 = waiters.poll();
@@ -165,6 +173,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         } else {
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("WAIT"));
             sendMessageToUser(userId, deliveryStatus);
+            LOGGER.info(String.format("Send message to user id=%s, message =%s", userId, deliveryStatus));
         }
     }
 
@@ -176,7 +185,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
      * @throws IOException
      */
     private void initGame(Long user1, Long user2) throws IOException {
-
+        LOGGER.info(String.format("init game for user1=%s, user2=%s", user1, user2));
         final Integer START_GAME_POSITION = 0;
         final List<MPGame> multiPlayerGamesData = impGenerateGameService.getMultiPlayerGamesData();
         MPGameSession mpGameSession = new MPGameSession(new MPGamePlayer(user1, START_GAME_POSITION),
@@ -190,7 +199,9 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         //Содержат в себе id оппонента и первое задание
         MPStartGameMessage messageToUser1 = new MPStartGameMessage(new MPStartGameMessage.Payload(user2, multiPlayerGamesData));
         MPStartGameMessage messageToUser2 = new MPStartGameMessage(new MPStartGameMessage.Payload(user1, multiPlayerGamesData));
-
+        LOGGER.info(
+                String.format("create init messages for user1=%s, user2=%s, messag1=%s, message2=%s",
+                        user1, user2, messageToUser1, messageToUser2));
         sendMessageToUser(user1, messageToUser1);
         sendMessageToUser(user2, messageToUser2);
     }
@@ -215,5 +226,6 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         } catch (Exception ex) {
             throw new IOException("Unable to send message", ex);
         }
+        LOGGER.info("Send message to user id=%s, message=%s", userId, message);
     }
 }
