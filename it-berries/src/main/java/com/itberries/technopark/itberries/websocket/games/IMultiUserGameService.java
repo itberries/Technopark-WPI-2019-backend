@@ -12,4 +12,5 @@ public interface IMultiUserGameService {
     void joinGame(JoinGame joinGameMessage, WebSocketSession webSocketSession, User user) throws IOException;
     void handleGameTurn(Turn turn, WebSocketSession webSocketSession, User user) throws IOException;
     void startTimer(DeliveryStatus deliveryStatus, WebSocketSession webSocketSession, User user);
+    void clearStateAfterCompletedGame(User user) throws IOException;
 }

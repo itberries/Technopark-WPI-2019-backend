@@ -93,7 +93,7 @@ public class SocketHandler extends TextWebSocketHandler {
         User user = (User) session.getAttributes().get("user");
         if (user.getId() != null) {
             LOGGER.info("Connected user with id  " + user.getId());
-        }else {
+        } else {
             LOGGER.info("user id = NULL");
         }
         sessionData.put(user, new WebSocketData(session));
@@ -105,8 +105,9 @@ public class SocketHandler extends TextWebSocketHandler {
 
         if ("singleplayer".equals(sessionData.get(user).getMode())) {
             IGamePlayService.clearStateAfterCompletedGame(user);
+        } else {
+            iMultiUserGameService.clearStateAfterCompletedGame(user);
         }
-
         sessionData.remove(user);
         LOGGER.info("Disconnected user with id  " + user.getId());
     }
