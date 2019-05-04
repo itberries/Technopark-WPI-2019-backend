@@ -322,9 +322,9 @@ public class GamePlayServiceImpl implements IGamePlayService {
         if (isCompletedGame(userId)) {
             int score = 500;  //todo: придумать получаемое количество очков пооригинальнее
 
-            Long stepId = statusGames.get(user.getId()).getStepId();
+            Long stepId = statusGames.get(userId).getStepId();
             UserState stepsState = iUserStateDAO.getCurrentStateByStepId(stepId);
-            stepsState.setUserId(user.getId());
+            stepsState.setUserId(userId);
 
             if (iUserService.isStateCurrent(stepsState) == 1) {
                 iUserDAO.updateScore(score, userId);
