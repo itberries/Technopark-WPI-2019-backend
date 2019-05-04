@@ -91,7 +91,11 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         User user = (User) session.getAttributes().get("user");
-        LOGGER.info("Connected user with id  " + user.getId());
+        if (user.getId() != null) {
+            LOGGER.info("Connected user with id  " + user.getId());
+        }else {
+            LOGGER.info("user id = NULL");
+        }
         sessionData.put(user, new WebSocketData(session));
     }
 
