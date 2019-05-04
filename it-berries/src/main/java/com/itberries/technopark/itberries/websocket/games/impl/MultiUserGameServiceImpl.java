@@ -161,9 +161,13 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
 
     private void addWaiter(Long userId, WebSocketSession webSocketSession) throws IOException {
-        waiters.add(userId);
-        sessions.put(userId, webSocketSession);
-        LOGGER.info(String.format("user with id=%s was added to queue", userId));
+        if(!waiters.contains(userId)) {
+            waiters.add(userId);
+            sessions.put(userId, webSocketSession);
+            LOGGER.info(String.format("user with id=%s was added to queue", userId));
+        }else{
+            LOGGER.info(String.format("user with id=%s has already exist in queue", userId));
+        }
         if (waiters.size() > 1) {
             //Достаем двух игроков
             Long user1 = waiters.poll();
