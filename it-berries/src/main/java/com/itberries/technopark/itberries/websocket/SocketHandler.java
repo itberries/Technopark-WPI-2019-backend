@@ -61,13 +61,14 @@ public class SocketHandler extends TextWebSocketHandler {
                 //проверяем какой mode игры
                 JoinGame joinGame = (JoinGame) message;
                 if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
+                    LOGGER.info("JoinGame message for SINGLEPLAYER received");
                     IGamePlayService.joinGame(joinGame, session, user);
                     sessionData.get(user).setMode("singleplayer");
-                    LOGGER.info("JoinGame message for SINGLEPLAYER received");
                 } else {
+                    LOGGER.info("JoinGame message for MULTIPLAYER received");
                     iMultiUserGameService.joinGame(joinGame, session, user);
                     sessionData.get(user).setMode("multiplayer");
-                    LOGGER.info("JoinGame message for MULTIPLAYER received");
+
                 }
             } else if (Turn.class.isAssignableFrom(message.getClass())) {
                 Turn turn = (Turn) message;
