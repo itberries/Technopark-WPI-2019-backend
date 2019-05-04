@@ -332,6 +332,8 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 Reward reward = iRewardService.updateRewardsByUser(userId);
                 sendMessageToUser(userId, new GameCompleted(new GameCompleted.Payload(score, reward)));
                 logger.info("handleGameTurn: updated score\n");
+            } else {
+                sendMessageToUser(userId, new GameCompleted(new GameCompleted.Payload(0, null)));
             }
             //проставляем флаг, что игра завершена
             sessions.get(userId).setGameCompleted(Boolean.TRUE);
