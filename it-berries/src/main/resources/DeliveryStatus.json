@@ -1,6 +1,6 @@
 {
   "type": "deliveryStatus",
   "payload": {
-    "result": "OK"
+    "result": "READY_TO_START_MP_GAME"
   }
 }

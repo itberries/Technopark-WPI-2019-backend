@@ -1,5 +1,5 @@
 {
-  "type" : "joinGame",
-  "gameType": "question",
-  "stepId": 55
+  "gameType": "match",
+  "stepId": 55,
+  "mode": "singleplayer"
 }
