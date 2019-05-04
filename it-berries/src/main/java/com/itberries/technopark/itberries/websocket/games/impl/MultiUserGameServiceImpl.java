@@ -132,6 +132,33 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         }
     }
 
+    @Override
+    public void clearStateAfterCompletedGame(User user) throws IOException {
+        LOGGER.info(String.format("Clear state after close connection for user id =%s", user.getId()));
+        waiters.remove(user.getId());
+        gameMap.remove(user.getId());
+        Optional<MPGameSession> first = games.stream()
+                .filter(s -> s.getPlayer1().getId().equals(user.getId()) || s.getPlayer2().getId().equals(user.getId()))
+                .findFirst();
+
+        if (first.isPresent()) {
+            MPGameSession mpGameSession = first.get();
+            MPGamePlayer player1 = mpGameSession.getPlayer1();
+            MPGamePlayer player2 = mpGameSession.getPlayer2();
+            final DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT"));
+            if (player1.getId().equals(user.getId())) {
+                sendMessageToUser(player2.getId(), deliveryStatus);
+                LOGGER.info(String.format("notify user2 = %s for %s = \n", player2.getId(), deliveryStatus));
+            } else {
+                sendMessageToUser(player1.getId(), new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT")));
+                LOGGER.info(String.format("notify user1 = %s for %s = \n", player1.getId(), deliveryStatus));
+            }
+            sessions.remove(player1.getId());
+            sessions.remove(player2.getId());
+            LOGGER.info(String.format("remove player1 = %s and player2 = %s from sessions", player1.getId(), player2.getId()));
+        }
+    }
+
 
     //todo: повторяет синг плеер - стоит исправить
     private boolean checkAnswer(String type, Turn turn, String correctAnswer) throws IOException {
@@ -161,11 +188,11 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
 
     private void addWaiter(Long userId, WebSocketSession webSocketSession) throws IOException {
-        if(!waiters.contains(userId)) {
+        if (!waiters.contains(userId)) {
             waiters.add(userId);
             sessions.put(userId, webSocketSession);
             LOGGER.info(String.format("user with id=%s was added to queue", userId));
-        }else{
+        } else {
             LOGGER.info(String.format("user with id=%s has already exist in queue", userId));
         }
         if (waiters.size() > 1) {

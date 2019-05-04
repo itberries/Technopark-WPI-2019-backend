@@ -33,7 +33,7 @@ public class MPStartGameMessage extends Message {
     public static class Payload {
 
         private final Long id;
-        List<MPGame> tasks;
+        private List<MPGame> tasks;
 
         @JsonCreator
         public Payload(@JsonProperty("id") Long id,

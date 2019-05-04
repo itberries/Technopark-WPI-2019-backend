@@ -15,9 +15,11 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //response.setHeader("Access-Control-Allow-Origin", "https://itberries-frontend.now.sh, https://localhost:8080, http://localhost:8080");
-        if(request.getHeader("origin") != null && request.getHeader("origin").contains("localhost")) {
+        if (request.getHeader("origin") != null && request.getHeader("origin").contains("localhost:10888")) {
             response.setHeader("Access-Control-Allow-Origin", "http://localhost:10888");
-        }else {
+        } else if (request.getHeader("origin") != null && request.getHeader("origin").contains("localhost:10887")) {
+            response.setHeader("Access-Control-Allow-Origin", "http://localhost:10887");
+        } else {
             //response.setHeader("Access-Control-Allow-Origin", "https://itberries-explority.now.sh");
             response.setHeader("Access-Control-Allow-Origin", "https://itberries-frontend.now.sh");
         }

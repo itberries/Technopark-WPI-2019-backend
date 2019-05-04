@@ -13,6 +13,16 @@ public class MPGame {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "MPGame{" +
+                "id=" + id +
+                ", task='" + task + '\'' +
+                ", answer='" + answer + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
     public String getType() {
         return type;
     }
