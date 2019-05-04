@@ -64,4 +64,5 @@ public interface IUserService {
     Integer isCurrentSectionCurrentOrPrevious(Long idToCheck, Long currentStateId);
     Integer isCurrentSubsectionCurrentOrPrevious(Long idToCheck, Long currentStateId, Long sectionId);
     Integer isCurrentStepCurrentOrPrevious(Long idToCheck, Long currentStateId, Long subectionId);
+    Integer isStateCurrent(UserState userState);
 }

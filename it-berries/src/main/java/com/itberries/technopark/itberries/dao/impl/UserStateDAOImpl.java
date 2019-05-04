@@ -74,4 +74,24 @@ public class UserStateDAOImpl implements IUserStateDAO {
                 "VALUES (:userId, 1, 1, 1, false)";
         jdbcTemplate.update(sql, new MapSqlParameterSource().addValue("userId", userId));
     }
+
+    @Override
+    public UserState getCurrentStateByStepId(Long stepId) {
+        final String sql = "SELECT NULL AS id,\n" +
+                "       NULL AS user_id,\n" +
+                "       ss.id_section AS section_id,\n" +
+                "       st.subsection_id AS subsection_id,\n" +
+                "       st.id AS step_id,\n" +
+                "       0 AS has_passed_application\n" +
+                "FROM steps st\n" +
+                "JOIN subsections ss\n" +
+                "ON st.subsection_id = ss.id\n" +
+                "WHERE st.id = :stepId";
+        try {
+            SqlParameterSource namedParameters = new MapSqlParameterSource("stepId", stepId);
+            return jdbcTemplate.queryForObject(sql, namedParameters, userStateRowMapper);
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
 }

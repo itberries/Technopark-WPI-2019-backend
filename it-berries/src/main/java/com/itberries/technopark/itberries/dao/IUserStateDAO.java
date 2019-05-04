@@ -7,4 +7,5 @@ public interface IUserStateDAO {
     boolean setUserState(Long userId, UserState userState);
     boolean setCurrentUserSection(Long userId, Integer destSectionId);
     void initUserState(Long userId);
+    UserState getCurrentStateByStepId(Long stepId);
 }

@@ -387,4 +387,25 @@ public class UserServiceImpl implements IUserService {
         return (currentPosition - positionToCheck);
     }
 
+    @Override
+    public Integer isStateCurrent(UserState userState) {
+        UserState currentUserState = getCurrentUserState(userState.getUserId());
+
+        if (isCurrentSectionCurrentOrPrevious(userState.getSectionId(), currentUserState.getSectionId()) > 0) {
+            return -1;
+        } else {
+            if (isCurrentSectionCurrentOrPrevious(userState.getSectionId(), currentUserState.getSectionId()) == 0) {
+                if (isCurrentSubsectionCurrentOrPrevious(userState.getSubsectionId(), currentUserState.getSubsectionId(),currentUserState.getSectionId()) > 0) {
+                    return -1;
+                } else {
+                    if (isCurrentSubsectionCurrentOrPrevious(userState.getSubsectionId(), currentUserState.getSubsectionId(),currentUserState.getSectionId()) == 0) {
+                        if (isCurrentStepCurrentOrPrevious(userState.getStepId(),currentUserState.getStepId(),currentUserState.getSubsectionId()) == 0) {
+                            return 1;
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }
