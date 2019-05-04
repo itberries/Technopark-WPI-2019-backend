@@ -15,6 +15,7 @@ import java.util.Map;
         @JsonSubTypes.Type(value = TurnQuestion.class, name = "turnQuestion")})
 public abstract class Turn extends Message {
 
+    @JsonCreator
     public Turn() {
     }
 

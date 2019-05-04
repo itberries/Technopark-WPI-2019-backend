@@ -69,14 +69,14 @@ public class SocketHandler extends TextWebSocketHandler {
                     sessionData.get(user).setMode("multiplayer");
                     LOGGER.info("JoinGame message for MULTIPLAYER received");
                 }
-            } else if (message.getClass() == Turn.class) {
+            } else if (Turn.class.isAssignableFrom(message.getClass())) {
                 Turn turn = (Turn) message;
                 if (GAME_MODE_SINGLEPLAYER.equals(sessionData.get(user).getMode())) {
-                    IGamePlayService.handleGameTurn(turn, session, user);
                     LOGGER.info("Turn message for SINGLEPLAYER received");
+                    IGamePlayService.handleGameTurn(turn, session, user);
                 } else {
-                    iMultiUserGameService.handleGameTurn(turn, session, user);
                     LOGGER.info("Turn message for MULTIPLAYER received");
+                    iMultiUserGameService.handleGameTurn(turn, session, user);
                 }
             } else if (message.getClass() == DeliveryStatus.class) {
                 iMultiUserGameService.startTimer((DeliveryStatus) message, session, user);

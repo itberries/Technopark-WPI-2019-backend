@@ -9,6 +9,7 @@ import com.itberries.technopark.itberries.services.IRewardService;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IMPGenerateGameService;
 import com.itberries.technopark.itberries.websocket.games.IMultiUserGameService;
+import com.itberries.technopark.itberries.websocket.games.models.GameSession;
 import com.itberries.technopark.itberries.websocket.games.models.MPGame;
 import com.itberries.technopark.itberries.websocket.games.models.MPGamePlayer;
 import com.itberries.technopark.itberries.websocket.games.models.MPGameSession;
@@ -35,7 +36,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     private final Queue<Long> waiters = new ConcurrentLinkedDeque<>();
     private final Map<Long, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private ObjectMapper objectMapper;
-    private final CopyOnWriteArrayList<MPGameSession> games = new CopyOnWriteArrayList<>();
+    //private final CopyOnWriteArrayList<MPGameSession> games = new CopyOnWriteArrayList<>();
     private final Map<Long, MPGameSession> gameMap = new ConcurrentHashMap<>();
     private ICheckAnswerService iCheckAnswerService;
     private IUserDAO iUserDAO;
@@ -90,6 +91,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 LOGGER.info(String.format("handleGameTurn MP: turn correct, turn: %s\n", turn));
             } else {
                 turnResult = new TurnResult(new TurnResult.Payload("false"));
+                player.movePosition();//todo: изменится ли мне исходный игрок?
                 LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
             }
         }
@@ -116,7 +118,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         }
     }
 
-    public boolean isCompletedGame(MPGamePlayer player) {
+    private boolean isCompletedGame(MPGamePlayer player) {
         final int TOTAL_NUMBERS_MP_GAMES = 9;
         return Objects.equals(TOTAL_NUMBERS_MP_GAMES - 1, player.getCurrentPosition());
     }
@@ -136,13 +138,14 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     public void clearStateAfterCompletedGame(User user) throws IOException {
         LOGGER.info(String.format("Clear state after close connection for user id =%s", user.getId()));
         waiters.remove(user.getId());
-        gameMap.remove(user.getId());
-        Optional<MPGameSession> first = games.stream()
-                .filter(s -> s.getPlayer1().getId().equals(user.getId()) || s.getPlayer2().getId().equals(user.getId()))
+
+        Optional<Map.Entry<Long, MPGameSession>> first = gameMap.entrySet().stream()
+                .filter(s -> s.getValue().getPlayer1().getId().equals(user.getId())
+                        || s.getValue().getPlayer2().getId().equals(user.getId()))
                 .findFirst();
 
         if (first.isPresent()) {
-            MPGameSession mpGameSession = first.get();
+            MPGameSession mpGameSession = first.get().getValue();
             MPGamePlayer player1 = mpGameSession.getPlayer1();
             MPGamePlayer player2 = mpGameSession.getPlayer2();
             final DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT"));
@@ -155,6 +158,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             }
             sessions.remove(player1.getId());
             sessions.remove(player2.getId());
+            gameMap.remove(player2.getId());
+            gameMap.remove(player1.getId());
             LOGGER.info(String.format("remove player1 = %s and player2 = %s from sessions", player1.getId(), player2.getId()));
         }
     }
@@ -224,7 +229,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
         gameMap.put(user1, mpGameSession);
         gameMap.put(user2, mpGameSession);
-        games.add(mpGameSession);
+        //games.add(mpGameSession);
 
         //Формирование приветсвенных сообщений для игроков
         //Содержат в себе id оппонента и первое задание
@@ -258,6 +263,36 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         } catch (Exception ex) {
             throw new IOException("Unable to send message", ex);
         }
-        LOGGER.info("Send message to user id=%s, message=%s", userId, message);
+    }
+
+    private class GameDispatcher implements Runnable {
+
+        @Override
+        public void run() {
+
+            synchronized (gameMap) {
+                for (Map.Entry<Long, MPGameSession> game : gameMap.entrySet()) {
+                    checkTimeout(game.getValue().getPlayer1());
+                    checkTimeout(game.getValue().getPlayer2());
+                }
+            }
+        }
+
+
+        void checkTimeout(MPGamePlayer player) {
+            final long MAXIMUM_TIME_FOR_TASK = 1;
+            if (Duration.between(player.getDateTimeStart(), LocalDateTime.now())
+                    .toMinutes() >= MAXIMUM_TIME_FOR_TASK) {
+                TurnResult turnResult = new TurnResult(new TurnResult.Payload("TIMEOUT"));
+                try {
+                    sendMessageToUser(player.getId(), turnResult);
+                    player.movePosition(); //todo: проверить сдвинится ли
+                    player.setDateTimeStart(LocalDateTime.now());
+                    checkGameEnd(player);
+                } catch (IOException e) {
+                    LOGGER.info("ERROR while TIMEOUT for player1", e.getCause());
+                }
+            }
+        }
     }
 }
