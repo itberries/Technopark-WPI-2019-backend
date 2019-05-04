@@ -253,6 +253,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             throw new IOException("Session is closed or not exsists ");
         }
         try {
+            LOGGER.info(String.format("send message to user %s, message = %s", userId, objectMapper.writeValueAsString(message)));
             webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
         } catch (Exception ex) {
             throw new IOException("Unable to send message", ex);

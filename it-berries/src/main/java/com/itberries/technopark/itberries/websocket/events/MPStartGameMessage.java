@@ -18,6 +18,10 @@ public class MPStartGameMessage extends Message {
      */
     private final Payload payload;
 
+    public Payload getPayload() {
+        return payload;
+    }
+
     @Override
     public String toString() {
         return "MPStartGameMessage{" +
