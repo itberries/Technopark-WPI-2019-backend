@@ -18,6 +18,13 @@ public class MPStartGameMessage extends Message {
      */
     private final Payload payload;
 
+    @Override
+    public String toString() {
+        return "MPStartGameMessage{" +
+                "payload=" + payload +
+                '}';
+    }
+
     @JsonCreator
     public MPStartGameMessage(@JsonProperty("payload") Payload payload) {
         this.payload = payload;
