@@ -32,7 +32,7 @@ public class SocketHandler extends TextWebSocketHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SocketHandler.class);
     private final String GAME_MODE_SINGLEPLAYER = "singleplayer";
-    private final String GAME_MODE_MULTIPLAYER = "nultiplayer";
+    private final String GAME_MODE_MULTIPLAYER = "multiplayer";
 
     private List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
     private Map<User, WebSocketData> sessionData = new HashMap<>();
@@ -62,14 +62,16 @@ public class SocketHandler extends TextWebSocketHandler {
                 JoinGame joinGame = (JoinGame) message;
                 if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
                     IGamePlayService.joinGame(joinGame, session, user);
+                    sessionData.get(user).setMode("singleplayer");
                     LOGGER.info("JoinGame message for SINGLEPLAYER received");
                 } else {
                     iMultiUserGameService.joinGame(joinGame, session, user);
+                    sessionData.get(user).setMode("multiplayer");
                     LOGGER.info("JoinGame message for MULTIPLAYER received");
                 }
             } else if (message.getClass() == Turn.class) {
                 Turn turn = (Turn) message;
-                if (GAME_MODE_SINGLEPLAYER.equals(turn.getMode())) {
+                if (GAME_MODE_SINGLEPLAYER.equals(sessionData.get(user).getMode())) {
                     IGamePlayService.handleGameTurn(turn, session, user);
                     LOGGER.info("Turn message for SINGLEPLAYER received");
                 } else {
@@ -100,6 +102,8 @@ public class SocketHandler extends TextWebSocketHandler {
         if ("singleplayer".equals(sessionData.get(user).getMode())) {
             IGamePlayService.clearStateAfterCompletedGame(user);
         }
+
+        sessionData.remove(user);
         LOGGER.info("Disconnected user with id  " + user.getId());
     }
 
@@ -109,5 +113,6 @@ public class SocketHandler extends TextWebSocketHandler {
         if ("singleplayer".equals(sessionData.get(user).getMode())) {
             IGamePlayService.clearStateAfterCompletedGame(user);
         }
+        sessionData.remove(user);
     }
 }
