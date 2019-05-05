@@ -112,7 +112,7 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>shut-up-just-push</name>
+                            <name>itberriesmsk/explority-backend</name>
                             <build>
                                 <from>openjdk:8</from>
                                 <!--<tags>-->
