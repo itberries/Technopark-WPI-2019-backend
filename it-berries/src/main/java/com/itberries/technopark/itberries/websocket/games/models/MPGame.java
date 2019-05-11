@@ -1,8 +1,12 @@
 package com.itberries.technopark.itberries.websocket.games.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MPGame {
     private Long id;
     private String task;
+    @JsonIgnore
     private String answer;
     private String type;
     private Boolean resolved;
@@ -45,10 +49,12 @@ public class MPGame {
         this.answer = answer;
     }
 
+    @JsonProperty("answer")
     public String getAnswer() {
         return answer;
     }
 
+    @JsonIgnore
     public void setAnswer(String answer) {
         this.answer = answer;
     }
