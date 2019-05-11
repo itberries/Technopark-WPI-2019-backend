@@ -99,7 +99,7 @@ public class SocketHandler extends TextWebSocketHandler {
                 LOGGER.info("user id = NULL");
             }
             sessionData.put(user, new WebSocketData(session));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             LOGGER.error("Did not find user in session");
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
@@ -108,15 +108,20 @@ public class SocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        User user = (User) session.getAttributes().get("user");
-
-        if ("singleplayer".equals(sessionData.get(user).getMode())) {
-            IGamePlayService.clearStateAfterCompletedGame(user);
-        } else {
-            iMultiUserGameService.clearStateAfterCompletedGame(user);
+        try {
+            User user = (User) session.getAttributes().get("user");
+            if ("singleplayer".equals(sessionData.get(user).getMode())) {
+                IGamePlayService.clearStateAfterCompletedGame(user);
+            } else {
+                iMultiUserGameService.clearStateAfterCompletedGame(user);
+            }
+            sessionData.remove(user);
+            LOGGER.info("Disconnected user with id  " + user.getId());
+        } catch (Exception ex) {
+            LOGGER.error("Did not find user in session");
+            DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
-        sessionData.remove(user);
-        LOGGER.info("Disconnected user with id  " + user.getId());
     }
 
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
