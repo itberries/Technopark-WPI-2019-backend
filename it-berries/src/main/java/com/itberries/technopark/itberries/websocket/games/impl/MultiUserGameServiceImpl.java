@@ -214,6 +214,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         } else {
             LOGGER.info(String.format("user with id=%s has already exist in queue", userId));
         }
+        LOGGER.info(String.format("WAITERS LIST: %s", waiters.toString()));
         if (waiters.size() > 1) {
             //Достаем двух игроков
             Long user1 = waiters.poll();
