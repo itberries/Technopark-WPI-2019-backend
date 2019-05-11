@@ -109,6 +109,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
             }
         }
+        LOGGER.info(String.format("Status of current task %s", resolved));
         //обновляем таймер в случае, если задача была завершена
         if (Boolean.TRUE.equals(resolved)) {
             LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
@@ -122,9 +123,10 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 sendMessageToUser(mpGameSession.getPlayer1().getId(),
                         new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_STEPPED")));
             }
+        }else {
+            sendMessageToUser(user.getId(), turnResult);
+            LOGGER.info(String.format("send message to user id=%d, turn = %s\n", user.getId(), turn));
         }
-        sendMessageToUser(user.getId(), turnResult);
-        LOGGER.info(String.format("send message to user id=%d, turn = %s\n", user.getId(), turn));
         checkGameEnd(player);
     }
 

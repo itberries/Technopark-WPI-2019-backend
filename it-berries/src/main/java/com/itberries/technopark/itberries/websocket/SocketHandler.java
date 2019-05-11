@@ -142,7 +142,7 @@ public class SocketHandler extends TextWebSocketHandler {
     }
 
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
-        LOGGER.warn("Transportation problem handle", throwable);
+        LOGGER.warn("Transportation problem handle: ", throwable.getMessage());
         try {
             User user = (User) session.getAttributes().get("user");
             if ("singleplayer".equals(sessionData.get(user).getMode())) {

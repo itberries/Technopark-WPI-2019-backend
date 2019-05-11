@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class MPGamePlayer {
     private Long id;
@@ -96,11 +97,12 @@ public class MPGamePlayer {
                 Map<String, String> answer = turnMatch.getPayload().getData();
                 if (result == Boolean.TRUE) {//если ответ был дан верный, удаляем эту пару
                     List<Map<String, String>> data1 = matchAnswerList.getData();
-                    data1.remove(answer);
+                    removeData(data1, answer);
+
                     matchAnswerList.setData(data1);
                     String changedTask = gson.toJson(matchAnswerList);
                     resolvedTasks.get(currentPosition).setTask(changedTask);
-                    if (matchAnswerList.getData().size() == 0) {
+                    if (matchAnswerList.getData().isEmpty()) {
                         tasks.get(currentPosition).setResolved(Boolean.TRUE); //игра полностью завершена
                         resolved = Boolean.TRUE;
                     }
@@ -125,6 +127,30 @@ public class MPGamePlayer {
         }
         movePosition();
         return resolved;
+    }
+
+    private void removeData(List<Map<String, String>> data1, Map<String, String> answer) {
+        Optional<Map.Entry<String, String>> first = answer.entrySet().stream().findFirst();
+        if (first.isPresent()) {
+            Map.Entry<String, String> stringStringEntry = first.get();
+            String key = stringStringEntry.getKey();
+            String value = stringStringEntry.getValue();
+            int idx = -1;
+            for (int i = 0; i < data1.size(); i++) {
+                Map<String, String> stringStringMap = data1.get(i);
+                if (stringStringMap.containsKey(key) && stringStringMap.get(key).equals(value)) {
+                    idx = i;
+                    break;
+                } else if (stringStringMap.containsKey(value) && stringStringMap.get(value).equals(key)) {
+                    idx = i;
+                    break;
+                }
+            }
+
+            if (idx != -1) {
+                data1.remove(idx);
+            }
+        }
     }
 
     /**
