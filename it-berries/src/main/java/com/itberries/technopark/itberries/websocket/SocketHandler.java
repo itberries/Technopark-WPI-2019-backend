@@ -93,7 +93,7 @@ public class SocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         User user = (User) session.getAttributes().get("user");
         if (user.getId() != null) {
-            LOGGER.info("Connected user with id  via socket" + user.getId());
+            LOGGER.info("Connected user with id  via socket " + user.getId());
         } else {
             LOGGER.info("user id = NULL");
         }

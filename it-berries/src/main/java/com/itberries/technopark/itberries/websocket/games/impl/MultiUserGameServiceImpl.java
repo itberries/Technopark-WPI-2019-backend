@@ -9,11 +9,16 @@ import com.itberries.technopark.itberries.services.IRewardService;
 import com.itberries.technopark.itberries.websocket.events.*;
 import com.itberries.technopark.itberries.websocket.games.IMPGenerateGameService;
 import com.itberries.technopark.itberries.websocket.games.IMultiUserGameService;
-import com.itberries.technopark.itberries.websocket.games.models.GameSession;
+import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnChainDAO;
+import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnMatchDAO;
+import com.itberries.technopark.itberries.websocket.games.dao.IAnswerOnQuestionDAO;
 import com.itberries.technopark.itberries.websocket.games.models.MPGame;
 import com.itberries.technopark.itberries.websocket.games.models.MPGamePlayer;
 import com.itberries.technopark.itberries.websocket.games.models.MPGameSession;
 import com.itberries.technopark.itberries.websocket.games.services.ICheckAnswerService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerChainService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerMatchService;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.CheckAnswerQuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +32,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class MultiUserGameServiceImpl implements IMultiUserGameService {
@@ -44,17 +48,24 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     private Gson gson = new Gson();
     private IMPGenerateGameService impGenerateGameService;
 
+    private IAnswerOnMatchDAO iAnswerOnMatchDAO;
+    private IAnswerOnChainDAO iAnswerOnChainDAO;
+    private IAnswerOnQuestionDAO iAnswerOnQuestionDAO;
+
     @Autowired
     public MultiUserGameServiceImpl(ObjectMapper objectMapper,
                                     ICheckAnswerService iCheckAnswerService,
                                     IUserDAO iUserDAO,
                                     IRewardService iRewardService,
-                                    IMPGenerateGameService impGenerateGameService) {
+                                    IMPGenerateGameService impGenerateGameService, IAnswerOnMatchDAO iAnswerOnMatchDAO, IAnswerOnChainDAO iAnswerOnChainDAO, IAnswerOnQuestionDAO iAnswerOnQuestionDAO) {
         this.objectMapper = objectMapper;
         this.iCheckAnswerService = iCheckAnswerService;
         this.iUserDAO = iUserDAO;
         this.iRewardService = iRewardService;
         this.impGenerateGameService = impGenerateGameService;
+        this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
+        this.iAnswerOnChainDAO = iAnswerOnChainDAO;
+        this.iAnswerOnQuestionDAO = iAnswerOnQuestionDAO;
     }
 
     @Override
@@ -172,10 +183,12 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         switch (type) {
             case "match":
                 TurnMatch turnMatch = (TurnMatch) turn;
+                iCheckAnswerService = new CheckAnswerMatchService(iAnswerOnMatchDAO, objectMapper);
                 result = iCheckAnswerService
                         .checkAnswerByGameId(correctAnswer, gson.toJson(turnMatch.getPayload().getData()));
                 break;
             case "chain":
+                iCheckAnswerService = new CheckAnswerChainService(iAnswerOnChainDAO, objectMapper);
                 TurnChain turnChain = (TurnChain) turn;
                 result = iCheckAnswerService
                         .checkAnswerByGameId(correctAnswer, gson.toJson(turnChain.getPayload().getData()));
@@ -183,6 +196,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
             case "question":
                 TurnQuestion turnQuestion = (TurnQuestion) turn;
+                iCheckAnswerService = new CheckAnswerQuestionService();
                 result = iCheckAnswerService.checkAnswerByGameId(correctAnswer, turnQuestion.getPayload().getData());
                 break;
             default:
