@@ -49,7 +49,7 @@ public class MPGame {
         this.answer = answer;
     }
 
-    @JsonProperty("answer")
+    @JsonIgnore
     public String getAnswer() {
         return answer;
     }

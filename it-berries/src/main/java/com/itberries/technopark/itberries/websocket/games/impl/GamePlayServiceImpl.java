@@ -277,11 +277,11 @@ public class GamePlayServiceImpl implements IGamePlayService {
         boolean result = checkAnswer(type, turn, correctAnswer);
 
         TurnResult turnResult;
+
         if (result) {
             turnResult = new TurnResult(new TurnResult.Payload("true"));
             //увеличиваем количество верных ответов на 1
-            //todo: не очень удачная проверка, следует заменить
-            statusGames.get(user.getId()).setCorrectAnswers(statusGames.get(user.getId()).getCorrectAnswers() + 1);
+            statusGames.get(user.getId()).increaseCorrectAnswersAmount(turn);
             //Сохраняем шаг пользователя на случай разрыва сессии
             saveUserStep(user.getId(), turn);
             logger.info(String.format("handleGameTurn: turn correct, turn: %s\n", turn));

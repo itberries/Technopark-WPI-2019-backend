@@ -1,5 +1,15 @@
 package com.itberries.technopark.itberries.websocket.games.models;
 
+import com.google.gson.Gson;
+import com.itberries.technopark.itberries.websocket.events.Turn;
+import com.itberries.technopark.itberries.websocket.events.TurnMatch;
+import com.itberries.technopark.itberries.websocket.games.services.strategies.models.MatchAnswerList;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BooleanSupplier;
+
 /**
  * Состояние игры пользователя
  */
@@ -85,6 +95,57 @@ public class GamePlayerStatus {
 
     public void setCorrectAnswers(int correctAnswers) {
         this.correctAnswers = correctAnswers;
+    }
+
+    public boolean increaseCorrectAnswersAmount(Turn turn) {
+        Gson gson = new Gson();
+        boolean result = Boolean.FALSE;
+        if (!"match".equals(this.type)) {
+            this.correctAnswers += 1;
+            result = Boolean.TRUE;
+        } else {
+            TurnMatch turnMatch = (TurnMatch) turn;
+            //все пары
+            MatchAnswerList matchAnswerList = gson.fromJson(this.correctAnswer, MatchAnswerList.class);
+            //ответ пользователя
+            Map<String, String> answer = turnMatch.getPayload().getData();
+
+            List<Map<String, String>> data1 = matchAnswerList.getData();
+
+            if (Boolean.TRUE.equals(removeData(data1, answer))) { //если действительно пришла новая верная пара, которой до этого не было
+                this.correctAnswer += 1;
+                result = Boolean.TRUE;
+            }
+            matchAnswerList.setData(data1);
+            this.correctAnswer = gson.toJson(matchAnswerList);
+        }
+        return result;
+    }
+
+    private boolean removeData(List<Map<String, String>> data1, Map<String, String> answer) {
+        Optional<Map.Entry<String, String>> first = answer.entrySet().stream().findFirst();
+        if (first.isPresent()) {
+            Map.Entry<String, String> stringStringEntry = first.get();
+            String key = stringStringEntry.getKey();
+            String value = stringStringEntry.getValue();
+            int idx = -1;
+            for (int i = 0; i < data1.size(); i++) {
+                Map<String, String> stringStringMap = data1.get(i);
+                if (stringStringMap.containsKey(key) && stringStringMap.get(key).equals(value)) {
+                    idx = i;
+                    break;
+                } else if (stringStringMap.containsKey(value) && stringStringMap.get(value).equals(key)) {
+                    idx = i;
+                    break;
+                }
+            }
+
+            if (idx != -1) {
+                data1.remove(idx);
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
     }
 
     public int getTotalQuestions() {
