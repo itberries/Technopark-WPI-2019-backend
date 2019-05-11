@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.itberries.technopark.itberries.websocket.events.Turn;
 import com.itberries.technopark.itberries.websocket.events.TurnMatch;
 import com.itberries.technopark.itberries.websocket.games.services.strategies.models.MatchAnswerList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.function.BooleanSupplier;
  * Состояние игры пользователя
  */
 public class GamePlayerStatus {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GamePlayerStatus.class);
     /**
      * Тип игры (match)
      */
@@ -118,6 +121,8 @@ public class GamePlayerStatus {
             }
             matchAnswerList.setData(data1);
             this.correctAnswer = gson.toJson(matchAnswerList);
+
+            LOGGER.info(String.format("MATCH ANSWER LIST: %s", matchAnswerList.toString()));
         }
         return result;
     }
