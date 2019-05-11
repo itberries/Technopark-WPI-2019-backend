@@ -51,41 +51,50 @@ public class SocketHandler extends TextWebSocketHandler {
     }
 
     protected void handleTextMessage(WebSocketSession session, TextMessage jsonTextMessage) throws Exception {
-        User user = (User) session.getAttributes().get("user");
-        final Long userId = user.getId();
+
         try {
-            Message message = objectMapper.readValue(jsonTextMessage.getPayload(), Message.class);
+            User user = (User) session.getAttributes().get("user");
+            final Long userId = user.getId();
 
 
-            if (message.getClass() == JoinGame.class) {
-                //проверяем какой mode игры
-                JoinGame joinGame = (JoinGame) message;
-                if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
-                    LOGGER.info("JoinGame message for SINGLEPLAYER received");
-                    IGamePlayService.joinGame(joinGame, session, user);
-                    sessionData.get(user).setMode("singleplayer");
-                } else {
-                    LOGGER.info("JoinGame message for MULTIPLAYER received");
-                    iMultiUserGameService.joinGame(joinGame, session, user);
-                    sessionData.get(user).setMode("multiplayer");
+            try {
+                Message message = objectMapper.readValue(jsonTextMessage.getPayload(), Message.class);
 
+
+                if (message.getClass() == JoinGame.class) {
+                    //проверяем какой mode игры
+                    JoinGame joinGame = (JoinGame) message;
+                    if (GAME_MODE_SINGLEPLAYER.equals(joinGame.getMode())) {
+                        LOGGER.info("JoinGame message for SINGLEPLAYER received");
+                        IGamePlayService.joinGame(joinGame, session, user);
+                        sessionData.get(user).setMode("singleplayer");
+                    } else {
+                        LOGGER.info("JoinGame message for MULTIPLAYER received");
+                        iMultiUserGameService.joinGame(joinGame, session, user);
+                        sessionData.get(user).setMode("multiplayer");
+
+                    }
+                } else if (Turn.class.isAssignableFrom(message.getClass())) {
+                    Turn turn = (Turn) message;
+                    if (GAME_MODE_SINGLEPLAYER.equals(sessionData.get(user).getMode())) {
+                        LOGGER.info("Turn message for SINGLEPLAYER received");
+                        IGamePlayService.handleGameTurn(turn, session, user);
+                    } else {
+                        LOGGER.info("Turn message for MULTIPLAYER received");
+                        iMultiUserGameService.handleGameTurn(turn, session, user);
+                    }
+                } else if (message.getClass() == DeliveryStatus.class) {
+                    iMultiUserGameService.startTimer((DeliveryStatus) message, session, user);
                 }
-            } else if (Turn.class.isAssignableFrom(message.getClass())) {
-                Turn turn = (Turn) message;
-                if (GAME_MODE_SINGLEPLAYER.equals(sessionData.get(user).getMode())) {
-                    LOGGER.info("Turn message for SINGLEPLAYER received");
-                    IGamePlayService.handleGameTurn(turn, session, user);
-                } else {
-                    LOGGER.info("Turn message for MULTIPLAYER received");
-                    iMultiUserGameService.handleGameTurn(turn, session, user);
-                }
-            } else if (message.getClass() == DeliveryStatus.class) {
-                iMultiUserGameService.startTimer((DeliveryStatus) message, session, user);
+            } catch (JsonParseException e) {
+                e.printStackTrace();
+            } catch (IOException ex) {
+                LOGGER.error("wrong json format response", ex);
             }
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (IOException ex) {
-            LOGGER.error("wrong json format response", ex);
+        } catch (Exception ex) {
+            LOGGER.error("Did not find user in session");
+            DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
     }
 
