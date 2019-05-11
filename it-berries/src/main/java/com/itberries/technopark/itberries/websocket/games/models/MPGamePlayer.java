@@ -26,6 +26,7 @@ public class MPGamePlayer {
     private List<MPGame> resolvedTasks;
     private int currentPosition;
     private static final Logger LOGGER = LoggerFactory.getLogger(MPGamePlayer.class);
+    private boolean isWinner;
 
     public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
         this.id = id;
@@ -35,6 +36,14 @@ public class MPGamePlayer {
         this.resolvedTasks = tasks;
         //todo: сформировать задачи для пользователя Q-C-M  Q-C-M  Q-C-M
 
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
     }
 
     public List<MPGame> getTasks() {
@@ -120,7 +129,7 @@ public class MPGamePlayer {
                     tasks.get(currentPosition).setResolved(Boolean.TRUE);
                     resolved = Boolean.TRUE;
                 }
-
+                break;
             default:
                 LOGGER.error("---------------ERROR! WRONG GAME TYPE!------------");
 

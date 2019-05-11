@@ -138,6 +138,28 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             //Проверить,не заслужил ли пользователь новую ачивку?
             Reward reward = iRewardService.updateRewardsByUser(player.getId());
             sendMessageToUser(player.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+            final MPGameSession mpGameSession = gameMap.get(player.getId());
+            int num = 0;
+            if (Boolean.TRUE.equals(mpGameSession.getPlayer1().getId().equals(player.getId()))) {
+                player = mpGameSession.getPlayer1();
+                num = 1;
+            } else {
+                player = mpGameSession.getPlayer2();
+                num = 2;
+            }
+
+            if (num == 1) {
+                mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
+                mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
+                sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
+            } else {
+                mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
+                mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
+                sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
+            }
+
             LOGGER.info(String.format("updated score for user id = \n", player.getId()));
             //проставляем флаг, что игра завершена - нужно для восстановления сессии
             //sessions.get(player.getId()).setGameCompleted(Boolean.TRUE);
@@ -146,7 +168,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
     private boolean isCompletedGame(MPGamePlayer player) {
         final int TOTAL_NUMBERS_MP_GAMES = 3;
-        return Objects.equals(TOTAL_NUMBERS_MP_GAMES - 1, player.getCurrentPosition());
+        return Objects.equals(TOTAL_NUMBERS_MP_GAMES, player.getCurrentPosition());
     }
 
     @Override
@@ -216,6 +238,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 break;
             default:
                 LOGGER.error("---------------ERROR! WRONG GAME TYPE!------------");
+                break;
         }
         return result;
     }
