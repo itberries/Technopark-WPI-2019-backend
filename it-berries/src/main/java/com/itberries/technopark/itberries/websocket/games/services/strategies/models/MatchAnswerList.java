@@ -25,6 +25,13 @@ public class MatchAnswerList {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "MatchAnswerList{" +
+                "data=" + data +
+                '}';
+    }
+
     public static void main(String[] args) {
         Gson gson = new Gson();
 

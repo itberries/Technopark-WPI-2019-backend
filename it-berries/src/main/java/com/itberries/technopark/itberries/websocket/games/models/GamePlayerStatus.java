@@ -53,6 +53,12 @@ public class GamePlayerStatus {
      */
     private String correctAnswer;
 
+    /**
+     * Задачи, на которые еще не было
+     * дано верных ответов (пары в мэтчах)
+     */
+    private String unAnsweredTask;
+
     public GamePlayerStatus(String type,
                             int correctAnswers,
                             int totalQuestions,
@@ -66,6 +72,7 @@ public class GamePlayerStatus {
         this.stepId = stepId;
         this.gameId = gameId;
         this.correctAnswer = correctAnswer;
+        this.unAnsweredTask =  this.correctAnswer;
     }
 
     public String getCorrectAnswer() {
@@ -109,18 +116,18 @@ public class GamePlayerStatus {
         } else {
             TurnMatch turnMatch = (TurnMatch) turn;
             //все пары
-            MatchAnswerList matchAnswerList = gson.fromJson(this.correctAnswer, MatchAnswerList.class);
+            MatchAnswerList matchAnswerList = gson.fromJson(this.unAnsweredTask, MatchAnswerList.class);
             //ответ пользователя
             Map<String, String> answer = turnMatch.getPayload().getData();
 
             List<Map<String, String>> data1 = matchAnswerList.getData();
 
             if (Boolean.TRUE.equals(removeData(data1, answer))) { //если действительно пришла новая верная пара, которой до этого не было
-                this.correctAnswer += 1;
+                this.correctAnswers += 1;
                 result = Boolean.TRUE;
             }
             matchAnswerList.setData(data1);
-            this.correctAnswer = gson.toJson(matchAnswerList);
+            this.unAnsweredTask = gson.toJson(matchAnswerList);
 
             LOGGER.info(String.format("MATCH ANSWER LIST: %s", matchAnswerList.toString()));
         }
