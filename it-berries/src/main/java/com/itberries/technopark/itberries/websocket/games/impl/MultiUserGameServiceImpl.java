@@ -224,8 +224,9 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         LOGGER.info(String.format("init game for user1=%s, user2=%s", user1, user2));
         final Integer START_GAME_POSITION = 0;
         final List<MPGame> multiPlayerGamesData = impGenerateGameService.getMultiPlayerGamesData();
-        MPGameSession mpGameSession = new MPGameSession(new MPGamePlayer(user1, START_GAME_POSITION),
-                new MPGamePlayer(user2, START_GAME_POSITION), impGenerateGameService.getMultiPlayerGamesData());
+        LocalDateTime dateTimeStart = LocalDateTime.now();
+        MPGameSession mpGameSession = new MPGameSession(new MPGamePlayer(user1, START_GAME_POSITION, dateTimeStart),
+                new MPGamePlayer(user2, START_GAME_POSITION, dateTimeStart), impGenerateGameService.getMultiPlayerGamesData());
 
         gameMap.put(user1, mpGameSession);
         gameMap.put(user2, mpGameSession);

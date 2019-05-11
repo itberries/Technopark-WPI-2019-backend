@@ -10,7 +10,7 @@ public class MPGamePlayer {
     private List<MPGame> tasks = new ArrayList<>();
     private int currentPosition;
 
-    public MPGamePlayer(Long id, Integer currentPosition) {
+    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart) {
         this.id = id;
         this.dateTimeStart = dateTimeStart;
         this.currentPosition = currentPosition;
