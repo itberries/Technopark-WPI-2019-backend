@@ -91,9 +91,15 @@ public class SocketHandler extends TextWebSocketHandler {
             } catch (IOException ex) {
                 LOGGER.error("wrong json format response", ex);
             }
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             LOGGER.error("Did not find user in session");
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
+        }
+        catch (Exception ex) {
+            LOGGER.error("Exception while handle game message");
+            LOGGER.error(ex.getMessage());
+            DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("SERVER_ERROR"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
     }
