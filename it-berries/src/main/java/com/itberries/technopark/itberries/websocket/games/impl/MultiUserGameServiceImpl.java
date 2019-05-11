@@ -145,7 +145,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     }
 
     private boolean isCompletedGame(MPGamePlayer player) {
-        final int TOTAL_NUMBERS_MP_GAMES = 9;
+        final int TOTAL_NUMBERS_MP_GAMES = 3;
         return Objects.equals(TOTAL_NUMBERS_MP_GAMES - 1, player.getCurrentPosition());
     }
 
