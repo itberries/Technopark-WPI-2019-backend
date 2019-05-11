@@ -112,21 +112,32 @@ public class MPGamePlayer {
                     String changedTask = gson.toJson(matchAnswerList);
                     resolvedTasks.get(currentPosition).setTask(changedTask);
                     if (matchAnswerList.getData().isEmpty()) {
-                        tasks.get(currentPosition).setResolved(Boolean.TRUE); //игра полностью завершена
+                        if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                            tasks.get(currentPosition).setResolved(Boolean.TRUE);
+                            movePosition();
+                        }
                         resolved = Boolean.TRUE;
+
                     }
                 }
                 break;
             case "chain":
                 if (result == Boolean.TRUE) {
-                    tasks.get(currentPosition).setResolved(Boolean.TRUE);
+                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                        tasks.get(currentPosition).setResolved(Boolean.TRUE);
+                        movePosition();
+                    }
                     resolved = Boolean.TRUE;
                 }
                 break;
 
             case "question":
                 if (result == Boolean.TRUE) {
-                    tasks.get(currentPosition).setResolved(Boolean.TRUE);
+
+                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                        tasks.get(currentPosition).setResolved(Boolean.TRUE);
+                        movePosition();
+                    }
                     resolved = Boolean.TRUE;
                 }
                 break;
@@ -134,7 +145,6 @@ public class MPGamePlayer {
                 LOGGER.error("---------------ERROR! WRONG GAME TYPE!------------");
 
         }
-        movePosition();
         return resolved;
     }
 
