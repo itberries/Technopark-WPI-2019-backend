@@ -91,13 +91,19 @@ public class SocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        User user = (User) session.getAttributes().get("user");
-        if (user.getId() != null) {
-            LOGGER.info("Connected user with id  via socket " + user.getId());
-        } else {
-            LOGGER.info("user id = NULL");
+        try {
+            User user = (User) session.getAttributes().get("user");
+            if (user.getId() != null) {
+                LOGGER.info("Connected user with id  via socket " + user.getId());
+            } else {
+                LOGGER.info("user id = NULL");
+            }
+            sessionData.put(user, new WebSocketData(session));
+        }catch (Exception ex){
+            LOGGER.error("Did not find user in session");
+            DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
-        sessionData.put(user, new WebSocketData(session));
     }
 
     @Override
