@@ -5,12 +5,22 @@ public class MPGame {
     private String task;
     private String answer;
     private String type;
+    private Boolean resolved;
 
     public MPGame(Long id, String task, String answer, String type) {
         this.id = id;
         this.task = task;
         this.answer = answer;
         this.type = type;
+        this.resolved = Boolean.FALSE;
+    }
+
+    public Boolean getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
     }
 
     @Override
@@ -49,5 +59,13 @@ public class MPGame {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
     }
 }

@@ -78,14 +78,17 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         LOGGER.info(String.format("handleGameTurn [%s] from user [%s]", turn, user.getId()));
         MPGameSession mpGameSession = gameMap.get(user.getId());
         MPGamePlayer player;
+        int num = 0;
         if (Boolean.TRUE.equals(mpGameSession.getPlayer1().getId().equals(user.getId()))) {
             player = mpGameSession.getPlayer1();
+            num = 1;
         } else {
             player = mpGameSession.getPlayer2();
+            num = 2;
         }
 
         TurnResult turnResult;
-
+        Boolean resolved = Boolean.FALSE;
         LocalDateTime answerTime = LocalDateTime.now();
         if (Duration.between(answerTime, player.getDateTimeStart()).toMinutes() >= 1) {
             LOGGER.info(String.format("timeout for user [%s]", user.getId()));
@@ -95,21 +98,31 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             if (result) {
                 turnResult = new TurnResult(new TurnResult.Payload("true"));
                 //увеличиваем количество верных ответов на 1 (сдвигаем позицию игрока)
-                player.movePosition();//todo: изменится ли мне исходный игрок?
+                resolved = player.markRightAnswer(turn, result);//todo: изменится ли мне исходный игрок?
 
                 //Сохраняем шаг пользователя на случай разрыва сессии
 
                 LOGGER.info(String.format("handleGameTurn MP: turn correct, turn: %s\n", turn));
             } else {
                 turnResult = new TurnResult(new TurnResult.Payload("false"));
-                player.movePosition();//todo: изменится ли мне исходный игрок?
+                resolved = player.markRightAnswer(turn, result);//todo: изменится ли мне исходный игрок?
                 LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
             }
         }
-        //обновляем таймер
-        LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
-        player.setDateTimeStart(LocalDateTime.now());
-
+        //обновляем таймер в случае, если задача была завершена
+        if (Boolean.TRUE.equals(resolved)) {
+            LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
+            player.setDateTimeStart(LocalDateTime.now());
+            sendMessageToUser(user.getId(), turnResult);
+            sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
+            if (num == 1) {
+                sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_STEPPED")));
+            } else {
+                sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_STEPPED")));
+            }
+        }
         sendMessageToUser(user.getId(), turnResult);
         LOGGER.info(String.format("send message to user id=%d, turn = %s\n", user.getId(), turn));
         checkGameEnd(player);
@@ -301,7 +314,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 TurnResult turnResult = new TurnResult(new TurnResult.Payload("TIMEOUT"));
                 try {
                     sendMessageToUser(player.getId(), turnResult);
-                    player.movePosition(); //todo: проверить сдвинится ли
+                    player.skipTask(); //todo: проверить сдвинится ли
                     player.setDateTimeStart(LocalDateTime.now());
                     checkGameEnd(player);
                 } catch (IOException e) {

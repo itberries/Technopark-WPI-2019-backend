@@ -21,6 +21,9 @@ public class MatchAnswerList {
     public MatchAnswerList() {
     }
 
+    public void setData(List<Map<String, String>> data) {
+        this.data = data;
+    }
 
     public static void main(String[] args) {
         Gson gson = new Gson();
