@@ -93,12 +93,12 @@ public class SocketHandler extends TextWebSocketHandler {
             }
         } catch (NullPointerException ex) {
             LOGGER.error("Did not find user in session");
+            LOGGER.error(String.format("ERROR = %s", ex.getMessage()));
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             LOGGER.error("Exception while handle game message");
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(String.format("ERROR = %s", ex.getMessage()));
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("SERVER_ERROR"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
@@ -114,8 +114,9 @@ public class SocketHandler extends TextWebSocketHandler {
                 LOGGER.info("user id = NULL");
             }
             sessionData.put(user, new WebSocketData(session));
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             LOGGER.error("Did not find user in session");
+            LOGGER.error(String.format("ERROR = %s", ex.getMessage()));
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
@@ -132,8 +133,9 @@ public class SocketHandler extends TextWebSocketHandler {
             }
             sessionData.remove(user);
             LOGGER.info("Disconnected user with id  " + user.getId());
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             LOGGER.error("Did not find user in session");
+            LOGGER.error(String.format("ERROR = %s", ex.getMessage()));
             DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
@@ -141,10 +143,19 @@ public class SocketHandler extends TextWebSocketHandler {
 
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
         LOGGER.warn("Transportation problem handle", throwable);
-        User user = (User) session.getAttributes().get("user");
-        if ("singleplayer".equals(sessionData.get(user).getMode())) {
-            IGamePlayService.clearStateAfterCompletedGame(user);
+        try {
+            User user = (User) session.getAttributes().get("user");
+            if ("singleplayer".equals(sessionData.get(user).getMode())) {
+                IGamePlayService.clearStateAfterCompletedGame(user);
+            } else {
+                iMultiUserGameService.clearStateAfterCompletedGame(user);
+            }
+            sessionData.remove(user);
+        } catch (NullPointerException ex) {
+            LOGGER.error("Did not find user in session");
+            LOGGER.error(String.format("ERROR = %s", ex.getMessage()));
+            DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("USER_NOT_FONUD_IN_SESSION"));
+            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
-        sessionData.remove(user);
     }
 }

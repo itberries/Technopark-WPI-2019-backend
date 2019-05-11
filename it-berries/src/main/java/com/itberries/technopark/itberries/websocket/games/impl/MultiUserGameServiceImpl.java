@@ -240,8 +240,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         final Integer START_GAME_POSITION = 0;
         final List<MPGame> multiPlayerGamesData = impGenerateGameService.getMultiPlayerGamesData();
         LocalDateTime dateTimeStart = LocalDateTime.now();
-        MPGameSession mpGameSession = new MPGameSession(new MPGamePlayer(user1, START_GAME_POSITION, dateTimeStart),
-                new MPGamePlayer(user2, START_GAME_POSITION, dateTimeStart), impGenerateGameService.getMultiPlayerGamesData());
+        MPGameSession mpGameSession = new MPGameSession(new MPGamePlayer(user1, START_GAME_POSITION, dateTimeStart, multiPlayerGamesData),
+                new MPGamePlayer(user2, START_GAME_POSITION, dateTimeStart, multiPlayerGamesData), impGenerateGameService.getMultiPlayerGamesData());
 
         gameMap.put(user1, mpGameSession);
         gameMap.put(user2, mpGameSession);

@@ -10,10 +10,11 @@ public class MPGamePlayer {
     private List<MPGame> tasks = new ArrayList<>();
     private int currentPosition;
 
-    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart) {
+    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
         this.id = id;
         this.dateTimeStart = dateTimeStart;
         this.currentPosition = currentPosition;
+        this.tasks = tasks;
         //todo: сформировать задачи для пользователя Q-C-M  Q-C-M  Q-C-M
 
     }
