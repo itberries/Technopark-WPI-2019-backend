@@ -5,6 +5,7 @@ import java.util.Objects;
 public class User {
     private Long id;
     private Long score;
+    private Long rank;
 
     public User() {
     }
@@ -28,6 +29,14 @@ public class User {
 
     public void setScore(Long score) {
         this.score = score;
+    }
+
+    public Long getRank() {
+        return rank;
+    }
+
+    public void setRank(Long rank) {
+        this.rank = rank;
     }
 
     public User(Long id) {

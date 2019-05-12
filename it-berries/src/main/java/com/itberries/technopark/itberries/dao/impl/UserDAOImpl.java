@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -69,5 +70,27 @@ public class UserDAOImpl implements IUserDAO {
         jdbcTemplate.update(sql, new MapSqlParameterSource()
                 .addValue("value", value)
                 .addValue("userId", userId));
+    }
+
+    @Override
+    public List<User> getLeaderboardForUser(Long userId) {
+        final String sql = "(SELECT u.id, u.score, DENSE_RANK()  OVER (ORDER BY u.score DESC) AS rank\n" +
+                " FROM users u\n" +
+                " LIMIT 10)\n" +
+                "UNION\n" +
+                "(\n" +
+                "  WITH summary AS (\n" +
+                "    SELECT u.id, u.score, DENSE_RANK() OVER (ORDER BY u.score DESC) AS rank\n" +
+                "    FROM users u)\n" +
+                "    SELECT s.*\n" +
+                "    FROM summary s\n" +
+                "    WHERE s.id = :userId\n" +
+                ")";
+        try {
+            SqlParameterSource namedParameters = new MapSqlParameterSource("userId", userId);
+            return jdbcTemplate.query(sql,namedParameters,userRowMapper);
+        } catch (DataAccessException ex) {
+            return null;
+        }
     }
 }

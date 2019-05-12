@@ -12,6 +12,11 @@ public class UserRowMapper implements RowMapper<User> {
         User user = new User();
         user.setId(resultSet.getLong("id"));
         user.setScore(resultSet.getLong("score"));
+        try {
+            user.setRank(resultSet.getLong("rank"));
+        } catch (Exception ex) {
+            user.setRank(Long.parseLong("-1"));
+        }
         return user;
     }
 }
