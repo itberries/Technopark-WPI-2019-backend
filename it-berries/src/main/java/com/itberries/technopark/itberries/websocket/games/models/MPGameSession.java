@@ -46,4 +46,14 @@ public class MPGameSession {
     public void setPlayer2(MPGamePlayer player2) {
         this.player2 = player2;
     }
+
+    @Override
+    public String toString() {
+        return "MPGameSession{" +
+                "player1=" + player1 +
+                ", player2=" + player2 +
+                ", tasks=" + tasks +
+                ", states=" + states +
+                '}';
+    }
 }

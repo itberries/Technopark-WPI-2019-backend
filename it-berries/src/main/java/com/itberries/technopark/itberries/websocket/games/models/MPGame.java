@@ -3,7 +3,7 @@ package com.itberries.technopark.itberries.websocket.games.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MPGame {
+public class MPGame  implements Cloneable{
     private Long id;
     private String task;
     @JsonIgnore
@@ -73,5 +73,16 @@ public class MPGame {
 
     public void setTask(String task) {
         this.task = task;
+    }
+
+    @Override
+    protected MPGame clone() throws CloneNotSupportedException {
+        MPGame clone = (MPGame) super.clone();
+        clone.setTask(task);
+        clone.setResolved(resolved);
+        clone.setAnswer(answer);
+        clone.setId(id);
+        clone.setType(type);
+        return clone;
     }
 }

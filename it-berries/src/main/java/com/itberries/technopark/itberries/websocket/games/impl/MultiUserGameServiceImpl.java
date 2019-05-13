@@ -139,6 +139,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             }
             checkGameEnd(player);
         }
+        LOGGER.info("STATUS=");
+        LOGGER.info(mpGameSession.toString());
     }
 
 

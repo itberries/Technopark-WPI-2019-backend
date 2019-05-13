@@ -1,0 +1,18 @@
+{
+  "type": "joinGame",
+  "mode": "multiplayer"
+}
+
+
+{"type":"turnMatch","payload":{"data":{"непрерывный":"Иррациональные числа"}},"mode":"multiplayer"}
+{"type":"turnMatch","payload":{"data":{"дискретный":"Целые числа"}},"mode":"multiplayer"}
+{"type":"turnMatch","payload":{"data":{"дискретный":"Натуральные числа"}},"mode":"multiplayer"}
+{"type":"turnMatch","payload":{"data":{"непрерывный" :"Рациональные числа"}},"mode":"multiplayer"}
+
+
+{
+  "type": "turnChain",
+  "payload": {
+    "data": 3
+  }
+}

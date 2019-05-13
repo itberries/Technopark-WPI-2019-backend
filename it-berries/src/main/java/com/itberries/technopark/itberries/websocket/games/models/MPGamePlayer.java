@@ -14,12 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
-public class MPGamePlayer {
+public class MPGamePlayer implements Cloneable {
     private Long id;
     private LocalDateTime dateTimeStart;
     private List<MPGame> tasks;
@@ -28,13 +25,26 @@ public class MPGamePlayer {
     private static final Logger LOGGER = LoggerFactory.getLogger(MPGamePlayer.class);
     private boolean isWinner;
 
-    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
+    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks)  {
         this.id = id;
         this.dateTimeStart = dateTimeStart;
         this.currentPosition = currentPosition;
-        this.tasks = tasks;
-        this.resolvedTasks = tasks;
-        //todo: сформировать задачи для пользователя Q-C-M  Q-C-M  Q-C-M
+        this.tasks = new ArrayList<>();
+        for(int i = 0; i<tasks.size(); i++){
+            try {
+                this.tasks.add(tasks.get(i).clone());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.resolvedTasks = new ArrayList<>();
+        for(int i = 0; i<tasks.size(); i++){
+            try {
+                this.resolvedTasks.add(tasks.get(i).clone());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -110,9 +120,14 @@ public class MPGamePlayer {
 
                     matchAnswerList.setData(data1);
                     String changedTask = gson.toJson(matchAnswerList);
+
+                    LOGGER.info(String.format("Осталось пар: %s, %s",
+                            matchAnswerList.getData().size(),
+                            matchAnswerList.getData()));
+
                     resolvedTasks.get(currentPosition).setTask(changedTask);
                     if (matchAnswerList.getData().isEmpty()) {
-                        if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                        if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
                             tasks.get(currentPosition).setResolved(Boolean.TRUE);
                             movePosition();
                         }
@@ -123,7 +138,7 @@ public class MPGamePlayer {
                 break;
             case "chain":
                 if (result == Boolean.TRUE) {
-                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
                         tasks.get(currentPosition).setResolved(Boolean.TRUE);
                         movePosition();
                     }
@@ -134,7 +149,7 @@ public class MPGamePlayer {
             case "question":
                 if (result == Boolean.TRUE) {
 
-                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())){
+                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
                         tasks.get(currentPosition).setResolved(Boolean.TRUE);
                         movePosition();
                     }
@@ -189,5 +204,22 @@ public class MPGamePlayer {
 
     public boolean getCurrentTaskStatus() {
         return tasks.get(currentPosition).getResolved();
+    }
+
+    @Override
+    public String toString() {
+        return "MPGamePlayer{" +
+                "id=" + id +
+                ", dateTimeStart=" + dateTimeStart +
+                ", tasks=" + tasks +
+                ", resolvedTasks=" + resolvedTasks +
+                ", currentPosition=" + currentPosition +
+                ", isWinner=" + isWinner +
+                '}';
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
