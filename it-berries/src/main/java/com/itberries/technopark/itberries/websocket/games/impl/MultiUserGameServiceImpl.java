@@ -139,8 +139,6 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             }
             checkGameEnd(player);
         }
-        LOGGER.info("STATUS=");
-        LOGGER.info(mpGameSession.toString());
     }
 
 
@@ -151,6 +149,9 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             //Проверить,не заслужил ли пользователь новую ачивку?
             Reward reward = iRewardService.updateRewardsByUser(player.getId());
             sendMessageToUser(player.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+            LOGGER.info(String.format("Send message to user %s, message=%s",
+                    player.getId(),
+                    new GameCompleted.Payload(score, reward)));
             final MPGameSession mpGameSession = gameMap.get(player.getId());
             int num = 0;
             if (Boolean.TRUE.equals(mpGameSession.getPlayer1().getId().equals(player.getId()))) {
