@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(value = Turn.class, name = "turn"),
         @JsonSubTypes.Type(value = JoinGame.class, name = "joinGame"),
-        @JsonSubTypes.Type(value = JoinGame.class, name = "deliveryStatus"),
+        @JsonSubTypes.Type(value = DeliveryStatus.class, name = "deliveryStatus"),
+        @JsonSubTypes.Type(value = DeliveryStepStatus.class, name = "deliveryStepStatus"),
         @JsonSubTypes.Type(value = RecoveryGame.class, name = "recoveryGame"),
         @JsonSubTypes.Type(value = JoinGame.class, name = "gameCompleted"),
         @JsonSubTypes.Type(value = JoinGame.class, name = "MPStartGameMessage")})

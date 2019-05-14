@@ -128,10 +128,10 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
                 if (num == 1) {
                     sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                            new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_STEPPED")));
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", resolved)));
                 } else {
                     sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                            new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_STEPPED")));
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", resolved)));
                 }
             } else {
                 sendMessageToUser(user.getId(), turnResult);
@@ -144,35 +144,92 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
     private void checkGameEnd(MPGamePlayer player) throws IOException {
         if (isCompletedGame(player)) {
-            int score = 100;  //todo: придумать получаемое количество очков пооригинальнее
-            iUserDAO.updateScore(score, player.getId());
-            //Проверить,не заслужил ли пользователь новую ачивку?
-            Reward reward = iRewardService.updateRewardsByUser(player.getId());
-            sendMessageToUser(player.getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
-            LOGGER.info(String.format("Send message to user %s, message=%s",
-                    player.getId(),
-                    new GameCompleted.Payload(score, reward)));
             final MPGameSession mpGameSession = gameMap.get(player.getId());
-            int num = 0;
+            int amountAnswersUser1 = mpGameSession.getPlayer1().getAmountRightAnswers();
+            int amountAnswersUser2 = mpGameSession.getPlayer2().getAmountRightAnswers();
+
+
+            int currentPlayerNumber = 0;
             if (Boolean.TRUE.equals(mpGameSession.getPlayer1().getId().equals(player.getId()))) {
-                player = mpGameSession.getPlayer1();
-                num = 1;
+                currentPlayerNumber = 1;
             } else {
-                player = mpGameSession.getPlayer2();
-                num = 2;
+                currentPlayerNumber = 2;
             }
 
-            if (num == 1) {
+            int winnerNum;
+            if (amountAnswersUser1 == amountAnswersUser2) {
+                winnerNum = 0;//ничья, но выигрывает  num (так как раньше ответил)
+            } else if (amountAnswersUser1 > amountAnswersUser2) {
+                winnerNum = 1;
+            } else {
+                winnerNum = 2;
+            }
+
+            int score = 100;  //todo: придумать получаемое количество очков пооригинальнее
+
+
+            if (currentPlayerNumber == 1 && currentPlayerNumber == winnerNum) {
+
+                iUserDAO.updateScore(score, mpGameSession.getPlayer1().getId());
+                //Проверить,не заслужил ли пользователь новую ачивку?
+                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
+
+
+                sendMessageToUser(mpGameSession.getPlayer1().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer1().getId(),
+                        new GameCompleted.Payload(score, reward)));
+
+
                 LOGGER.info(String.format("PLAYER with ID=%s WIN", player.getId()));
                 mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
                 mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
                 sendMessageToUser(mpGameSession.getPlayer2().getId(),
                         new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
-            } else {
+            } else if (currentPlayerNumber == 2 && currentPlayerNumber == winnerNum) {
+
+                iUserDAO.updateScore(score, mpGameSession.getPlayer2().getId());
+                //Проверить,не заслужил ли пользователь новую ачивку?
+                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
+
+
+                sendMessageToUser(mpGameSession.getPlayer2().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer2().getId(),
+                        new GameCompleted.Payload(score, reward)));
+
+
                 mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
                 mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
                 sendMessageToUser(mpGameSession.getPlayer1().getId(),
                         new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
+            }else {
+                //увеличиваем очки обоим пользователям
+                iUserDAO.updateScore(score, mpGameSession.getPlayer1().getId());
+                iUserDAO.updateScore(score, mpGameSession.getPlayer2().getId());
+
+                sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("DRAW")));
+                sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                        new DeliveryStatus(new DeliveryStatus.Payload("DRAW")));
+                //Проверить,не заслужили ли пользователи новую ачивки
+
+                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
+                sendMessageToUser(mpGameSession.getPlayer1().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer1().getId(),
+                        new GameCompleted.Payload(score, reward)));
+
+                reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
+                sendMessageToUser(mpGameSession.getPlayer2().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer2().getId(),
+                        new GameCompleted.Payload(score, reward)));
+
+
+                mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
+                mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
+
             }
 
             LOGGER.info(String.format("updated score for user id = %s", player.getId()));

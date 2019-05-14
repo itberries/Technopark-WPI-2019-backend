@@ -24,13 +24,15 @@ public class MPGamePlayer implements Cloneable {
     private int currentPosition;
     private static final Logger LOGGER = LoggerFactory.getLogger(MPGamePlayer.class);
     private boolean isWinner;
+    private int amountRightAnswers;
 
-    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks)  {
+    public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
+        this.amountRightAnswers = 0;
         this.id = id;
         this.dateTimeStart = dateTimeStart;
         this.currentPosition = currentPosition;
         this.tasks = new ArrayList<>();
-        for(int i = 0; i<tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             try {
                 this.tasks.add(tasks.get(i).clone());
             } catch (CloneNotSupportedException e) {
@@ -38,7 +40,7 @@ public class MPGamePlayer implements Cloneable {
             }
         }
         this.resolvedTasks = new ArrayList<>();
-        for(int i = 0; i<tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             try {
                 this.resolvedTasks.add(tasks.get(i).clone());
             } catch (CloneNotSupportedException e) {
@@ -88,6 +90,13 @@ public class MPGamePlayer implements Cloneable {
         return tasks.get(currentPosition).getAnswer();
     }
 
+    public int getAmountRightAnswers() {
+        return amountRightAnswers;
+    }
+
+    public void setAmountRightAnswers(int amountRightAnswers) {
+        this.amountRightAnswers = amountRightAnswers;
+    }
 
     /**
      * В случае верного ответа игрока сдвигаем на
@@ -96,7 +105,9 @@ public class MPGamePlayer implements Cloneable {
     private void movePosition() {
         //сдвигать нужо только в случаеб если игрок ответил на все вопросы предыдущей иры
         MPGame mpGame = tasks.get(currentPosition);
-        if (mpGame.getResolved() == Boolean.TRUE) {
+        if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
+                || mpGame.getType().equals("question")
+                || mpGame.getType().equals("chain")) {
             currentPosition += 1;
         }
     }
@@ -132,6 +143,7 @@ public class MPGamePlayer implements Cloneable {
                             movePosition();
                         }
                         resolved = Boolean.TRUE;
+                        amountRightAnswers += 1;
 
                     }
                 }
@@ -140,10 +152,12 @@ public class MPGamePlayer implements Cloneable {
                 if (result == Boolean.TRUE) {
                     if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
                         tasks.get(currentPosition).setResolved(Boolean.TRUE);
-                        movePosition();
                     }
                     resolved = Boolean.TRUE;
+                    amountRightAnswers += 1;
+
                 }
+                movePosition();
                 break;
 
             case "question":
@@ -154,7 +168,9 @@ public class MPGamePlayer implements Cloneable {
                         movePosition();
                     }
                     resolved = Boolean.TRUE;
+                    amountRightAnswers += 1;
                 }
+                movePosition();
                 break;
             default:
                 LOGGER.error("---------------ERROR! WRONG GAME TYPE!------------");
