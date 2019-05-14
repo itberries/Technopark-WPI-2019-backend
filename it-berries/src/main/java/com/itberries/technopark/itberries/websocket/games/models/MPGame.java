@@ -10,8 +10,12 @@ public class MPGame  implements Cloneable{
     private String answer;
     private String type;
     private Boolean resolved;
+    /**
+     * Условие задачи
+     */
+    private String note;
 
-    public MPGame(Long id, String task, String answer, String type) {
+    public MPGame(Long id, String task, String answer, String type, String note) {
         this.id = id;
         this.task = task;
         this.answer = answer;
@@ -34,6 +38,8 @@ public class MPGame  implements Cloneable{
                 ", task='" + task + '\'' +
                 ", answer='" + answer + '\'' +
                 ", type='" + type + '\'' +
+                ", resolved=" + resolved +
+                ", note='" + note + '\'' +
                 '}';
     }
 
@@ -75,6 +81,14 @@ public class MPGame  implements Cloneable{
         this.task = task;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     @Override
     protected MPGame clone() throws CloneNotSupportedException {
         MPGame clone = (MPGame) super.clone();
@@ -83,6 +97,7 @@ public class MPGame  implements Cloneable{
         clone.setAnswer(answer);
         clone.setId(id);
         clone.setType(type);
+        clone.setNote(note);
         return clone;
     }
 }

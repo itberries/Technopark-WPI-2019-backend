@@ -21,7 +21,6 @@ public class MPGenerateGameService implements IMPGenerateGameService {
     @Override
     public List<MPGame> getMultiPlayerGamesData() {
         List<MPGame> tasks = iInteracriveGameDao.getTasks();
-
         return tasks;
     }
 }

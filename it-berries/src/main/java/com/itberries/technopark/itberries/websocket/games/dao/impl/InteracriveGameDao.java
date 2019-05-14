@@ -25,22 +25,28 @@ public class InteracriveGameDao implements IInteracriveGameDao {
     @Override
     public List<MPGame> getTasks() {
         final String sql = "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
+                "             join steps st on st.id = mg.step_id\n" +
+                "             join cards cr on cr.step_id = st.id\n" +
                 "             join mini_games_types mgt on mg.type_id = mgt.id\n" +
                 "             join answers_on_chain a on mg.id = a.game_id) X\n" +
                 "where num <= 1\n" +
                 "UNION\n" +
                 "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
+                "             join steps st on st.id = mg.step_id\n" +
+                "             join cards cr on cr.step_id = st.id\n" +
                 "             join mini_games_types mgt on mg.type_id = mgt.id\n" +
                 "             join answers_on_match aom on mg.id = aom.game_id) X\n" +
                 "where num <= 1\n" +
                 "UNION\n" +
                 "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
+                "             join steps st on st.id = mg.step_id\n" +
+                "             join cards cr on cr.step_id = st.id\n" +
                 "             join mini_games_types mgt on mg.type_id = mgt.id\n" +
                 "             join answers_on_question a2 on mg.id = a2.game_id) X\n" +
                 "where num <= 1";
