@@ -21,6 +21,7 @@ public class MPGame  implements Cloneable{
         this.answer = answer;
         this.type = type;
         this.resolved = Boolean.FALSE;
+        this.note = note;
     }
 
     public Boolean getResolved() {
