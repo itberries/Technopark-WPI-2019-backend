@@ -10,9 +10,9 @@ public class MPGameRowMapper implements RowMapper<MPGame> {
     @Override
     public MPGame mapRow(ResultSet resultSet, int i) throws SQLException {
         return new MPGame(resultSet.getLong("id"),
-                resultSet.getString("task"),
+                resultSet.getString("note1"),
                 resultSet.getString("answer"),
                 resultSet.getString("type"),
-                resultSet.getString("note"));
+                resultSet.getString("note2"));
     }
 }

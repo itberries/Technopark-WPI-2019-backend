@@ -25,7 +25,7 @@ public class InteracriveGameDao implements IInteracriveGameDao {
     @Override
     public List<MPGame> getTasks() {
         final String sql = "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note as note1, mgt.type, answer, cr.note as note2, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
                 "             join steps st on st.id = mg.step_id\n" +
                 "             join cards cr on cr.step_id = st.id\n" +
@@ -34,7 +34,7 @@ public class InteracriveGameDao implements IInteracriveGameDao {
                 "where num <= 1\n" +
                 "UNION\n" +
                 "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note as note1, mgt.type, answer, cr.note as note2, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
                 "             join steps st on st.id = mg.step_id\n" +
                 "             join cards cr on cr.step_id = st.id\n" +
@@ -43,7 +43,7 @@ public class InteracriveGameDao implements IInteracriveGameDao {
                 "where num <= 1\n" +
                 "UNION\n" +
                 "select *\n" +
-                "from (select mg.id, mg.note, mgt.type, answer, cr.note, row_number() over (partition by mgt.type) num\n" +
+                "from (select mg.id, mg.note as note1, mgt.type, answer, cr.note as note2, row_number() over (partition by mgt.type) num\n" +
                 "      from mini_games mg\n" +
                 "             join steps st on st.id = mg.step_id\n" +
                 "             join cards cr on cr.step_id = st.id\n" +
