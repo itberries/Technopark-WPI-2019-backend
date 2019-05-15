@@ -1,0 +1,2393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="dmitrii_borodin" id="insert_modified_original_content">
+
+        <!-- insert types of games -->
+        <insert tableName="mini_games_types">
+            <column name="type" value="match"/>
+        </insert>
+        <insert tableName="mini_games_types">
+            <column name="type" value="chain"/>
+        </insert>
+        <insert tableName="mini_games_types">
+            <column name="type" value="question"/>
+        </insert>
+
+        <!-- insert sections -->
+        <insert tableName="sections">
+            <column name="id" value="1"/>
+            <column name="name" value="basic"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="2"/>
+        </insert>
+        <insert tableName="sections">
+            <column name="id" value="2"/>
+            <column name="name" value="intermediate"/>
+            <column name="parent_id" value="1"/>
+            <column name="child_id" value="3"/>
+        </insert>
+        <insert tableName="sections">
+            <column name="id" value="3"/>
+            <column name="name" value="advanced"/>
+            <column name="parent_id" value="2"/>
+            <column name="child_id" value="0"/>
+        </insert>
+
+        <!-- insert subsections with steps, cards, games -->
+        <!-- basic section -->
+        <insert tableName="subsections">
+            <column name="id" value="1"/>
+            <column name="name" value="Измерение информации"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="2"/>
+        </insert>
+
+            <!-- step 1 -->
+            <insert tableName="steps">
+                <column name="id" value="1"/>
+                <column name="name" value="Алфавитный подход к измерению информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="2"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="1"/>
+                    <column name="note" value="Алфавитный подход позволяет измерить информационный объем сообщения,
+                                                представленного на некотором языке, независимо от содержания. Для
+                                                количественного выражения любой величины необходима, единица измерения.
+                                                Измерение осуществляется путем сопоставления измеряемой величины с
+                                                единицей измерения. При алфавитном подходе считается, что каждый
+                                                символ  имеет определенный информационный вес - несет фиксированное
+                                                количество информации. Все символы одного алфавита имеют один и тот же
+                                                вес, зависящий от мощности алфавита. Информационный вес символа двоичного
+                                                алфавита принят за минимальную единицу измерения информации и называется
+                                                1 бит. (binary digit - &quot;двоичная цифра&quot;)"/>
+                    <column name="image" value="http://images.myshared.ru/5/487720/slide_1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="1"/>
+                </insert>
+            <!-- end step 1 -->
+
+            <!-- step 2 -->
+            <insert tableName="steps">
+                <column name="id" value="2"/>
+                <column name="name" value="Единица измерения информации"/>
+                <column name="type" value="training"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="1"/>
+                <column name="child_id" value="3"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="2"/>
+                    <column name="note" value="Чему равна минимальная единица измерения информации?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="2"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="1"/>
+                    <column name="step_id" value="2"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;1 байт&quot;,&quot;1 бит&quot;,&quot;1 болт&quot;,&quot;1 килобайт&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="2"/>
+                    <column name="game_id" value="1"/>
+                </insert>
+            <!-- end step 2 -->
+
+            <!-- step 3 -->
+            <insert tableName="steps">
+                <column name="id" value="3"/>
+                <column name="name" value="Информационный вес символа произвольного алфавита"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="2"/>
+                <column name="child_id" value="4"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="3"/>
+                    <column name="note" value="Мощность исходного алфавита N связана с разрядностью двоичного кода i,
+                                                требуемой для кодирования всех символов исходного алфавита, соотношением:
+                                                N = 2^i. Разрядность двоичного кода принято считать информационным весом
+                                                символа алфавита. Информационный вес символа алфавита выражается в битах."/>
+                    <column name="image" value="http://informatika.edusite.ru/8_0011.bmp"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="3"/>
+                </insert>
+            <!-- end step 3 -->
+
+            <!-- step 4 -->
+            <insert tableName="steps">
+                <column name="id" value="4"/>
+                <column name="name" value="Определение мощности алфавита"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="3"/>
+                <column name="child_id" value="5"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="4"/>
+                    <column name="note" value="По какой формуле определяется мощность любого алфавита?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="4"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="2"/>
+                    <column name="step_id" value="4"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;N = 2 ^ i&quot;,&quot;N = log(i)&quot;,&quot;N = e ^ (log(i))&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="1"/>
+                    <column name="game_id" value="2"/>
+                </insert>
+            <!-- end step 4 -->
+
+            <!-- step 5 -->
+            <insert tableName="steps">
+                <column name="id" value="5"/>
+                <column name="name" value="Определение информационного веса"/>
+                <column name="type" value="training"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="4"/>
+                <column name="child_id" value="6"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="5"/>
+                    <column name="note" value="Соотнеси элементы формулы определения информационного веса и их значения."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="5"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="3"/>
+                    <column name="step_id" value="5"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;N&quot;:&quot;мощность алфавита&quot;},{&quot;i&quot;:&quot;информационный вес символа&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;N&quot;:&quot;мощность алфавита&quot;},{&quot;i&quot;:&quot;информационный вес символа&quot;}]}"/>
+                    <column name="game_id" value="3"/>
+                </insert>
+            <!-- end step 5 -->
+
+            <!-- step 6 -->
+            <insert tableName="steps">
+                <column name="id" value="6"/>
+                <column name="name" value="Информационный объем сообщения"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="5"/>
+                <column name="child_id" value="7"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="6"/>
+                    <column name="note" value="Информационный объем сообщения (количество информации в сообщении),
+                                                представленного символами естественного или формального языка,
+                                                складывается из информационных весов составляющих его символов.
+                                                Информационный объем сообщения L равен произведению количества символов
+                                                в сообщении K на информационный вес алфавита i: L = K * i."/>
+                    <column name="image" value="http://images.myshared.ru/6/631306/slide_1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="6"/>
+                </insert>
+            <!-- end step 6 -->
+
+            <!-- step 7 -->
+            <insert tableName="steps">
+                <column name="id" value="7"/>
+                <column name="name" value="Пароли с дополнительными сведениями"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="6"/>
+                <column name="child_id" value="8"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="7"/>
+                    <column name="note" value="При регистрации в компьютерной системе каждому пользователю выдаётся
+                                                пароль, состоящий из 15 символов и содержащий только символы из
+                                                12-символьного набора: А, В, C, D, Е, F, G, H, К, L, M, N. В базе
+                                                данных для хранения сведений о каждом пользователе отведено одинаковое
+                                                и минимально возможное целое число байт. При этом используют посимвольное
+                                                кодирование паролей, все символы кодируют одинаковым и минимально
+                                                возможным количеством бит. Кроме собственно пароля, для каждого
+                                                пользователя в системе хранятся дополнительные сведения, для чего отведено
+                                                12 байт на одного пользователя. Определите объём памяти (в байтах),
+                                                необходимый для хранения сведений о 50 пользователях. "/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="7"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="4"/>
+                    <column name="step_id" value="7"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;10&quot;,&quot;100&quot;,&quot;1000&quot;,&quot;10000&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="3"/>
+                    <column name="game_id" value="4"/>
+                </insert>
+            <!-- end step 7 -->
+
+            <!-- step 8 -->
+            <insert tableName="steps">
+                <column name="id" value="8"/>
+                <column name="name" value="Индивидуальные номера"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="7"/>
+                <column name="child_id" value="9"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="8"/>
+                    <column name="note" value="В некоторой стране проживает 1000 человек. Индивидуальные номера
+                                                налогоплательщиков-физических лиц в этой стране содержат только цифры
+                                                0, 1, 2 и 3. Каково минимальное количество разрядов в ИНН в этой стране,
+                                                если различные между собой номера имеют абсолютно все жители?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="8"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="5"/>
+                    <column name="step_id" value="8"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="4"/>
+                    <column name="game_id" value="5"/>
+                </insert>
+            <!-- end step 8 -->
+
+            <!-- step 9 -->
+            <insert tableName="steps">
+                <column name="id" value="9"/>
+                <column name="name" value="Единицы измерения информации, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="8"/>
+                <column name="child_id" value="10"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="9"/>
+                    <column name="note" value="В наше время подготовка текстов в основном осуществляется с помощью
+                                                компьютеров. Можно говорить о &quot;компьютерном алфавите&quot;,
+                                                включающем следующие символы: строчные и прописные русские и латинские
+                                                буквы, цифры, знаки препинания, знаки арифметических операций, скобки
+                                                и др. Такой алфавит содержит 256 символов. Поскольку 256 = 2^8,
+                                                информационный вес каждого символа этого алфавита равен 8 битам. Величина,
+                                                равная восьми битам, называется байтом. 1 байт - информационный вес
+                                                символа алфавита мощностью 256. На практике для измерения информационных
+                                                объемов используются более крупные единицы измерения (килобайт, мегабайт,
+                                                гигабайт, терабайт и др.)"/>
+                    <column name="image" value="http://images.myshared.ru/5/487720/slide_2.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="9"/>
+                </insert>
+            <!-- end step 9 -->
+
+            <!-- step 10 -->
+            <insert tableName="steps">
+                <column name="id" value="10"/>
+                <column name="name" value="Единицы измерения информации, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="9"/>
+                <column name="child_id" value="11"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="10"/>
+                    <column name="note" value="Соотнеси единицы измерения информации и их значения."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="10"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="6"/>
+                    <column name="step_id" value="10"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;8 бит&quot;},{&quot;1 килобайт&quot;:&quot;1024 байта&quot;},{&quot;1 мегабайт&quot;:&quot;1024 килобайта&quot;},{&quot;1 гигабайт&quot;:&quot;1024 мегабайта&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;8 бит&quot;},{&quot;1 килобайт&quot;:&quot;1024 байта&quot;},{&quot;1 мегабайт&quot;:&quot;1024 килобайта&quot;},{&quot;1 гигабайт&quot;:&quot;1024 мегабайта&quot;}]}"/>
+                    <column name="game_id" value="6"/>
+                </insert>
+            <!-- end step 10 -->
+
+            <!-- step 11 -->
+            <insert tableName="steps">
+                <column name="id" value="11"/>
+                <column name="name" value="Единицы измерения информации, ч.3"/>
+                <column name="type" value="training"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="10"/>
+                <column name="child_id" value="12"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="11"/>
+                    <column name="note" value="Построй последовательность единиц измерения в порядке убывания величины."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="11"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="7"/>
+                    <column name="step_id" value="11"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;312 ГБ&quot;,&quot;128 МБ&quot;,&quot;8 МБ&quot;,&quot;8 КБ&quot;,&quot;2096 Б&quot;,&quot;10 Б&quot;,&quot;1 Б&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;312 ГБ&quot;,&quot;128 МБ&quot;,&quot;8 МБ&quot;,&quot;8 КБ&quot;,&quot;2096 Б&quot;,&quot;10 Б&quot;,&quot;1 Б&quot;]}"/>
+                    <column name="game_id" value="7"/>
+                </insert>
+            <!-- end step 11 -->
+
+            <!-- step 12 -->
+            <insert tableName="steps">
+                <column name="id" value="12"/>
+                <column name="name" value="Единицы измерения информации, ч.4"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="11"/>
+                <column name="child_id" value="13"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="12"/>
+                    <column name="note" value="Сколько бит содержит 8 МБ?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="12"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="8"/>
+                    <column name="step_id" value="12"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;2^23&quot;,&quot;2^26&quot;,&quot;8 * 10^6&quot;,&quot;64 * 10^6&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="8"/>
+                </insert>
+            <!-- end step 12 -->
+
+            <!-- step 13 -->
+            <insert tableName="steps">
+                <column name="id" value="13"/>
+                <column name="name" value="Единицы измерения информации, ч.5"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="1"/>
+                <column name="parent_id" value="12"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="13"/>
+                    <column name="note" value="Соотнеси единицы измерения информации и их значения."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="13"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="9"/>
+                    <column name="step_id" value="13"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;1 Б&quot;:&quot;8 б&quot;},{&quot;1 КБ&quot;:&quot;8192 б&quot;},{&quot;1 МБ&quot;:&quot;8388608 б&quot;},{&quot;1 ГБ&quot;:&quot;8589934592 б&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;1 Б&quot;:&quot;8 б&quot;},{&quot;1 КБ&quot;:&quot;8192 б&quot;},{&quot;1 МБ&quot;:&quot;8388608 б&quot;},{&quot;1 ГБ&quot;:&quot;8589934592 б&quot;}]}"/>
+                    <column name="game_id" value="9"/>
+                </insert>
+            <!-- end step 13 -->
+
+
+
+
+        <insert tableName="subsections">
+            <column name="id" value="2"/>
+            <column name="name" value="Системы счисления"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="1"/>
+            <column name="child_id" value="3"/>
+        </insert>
+
+            <!-- step 14 -->
+            <insert tableName="steps">
+                <column name="id" value="14"/>
+                <column name="name" value="Общие сведения о системах счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="15"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="14"/>
+                    <column name="note" value="Система счисления - это знаковая система, в которой приняты определенные
+                        правила записи чисел. Знаки, с помощью которых записывают числа, называют цифрами, а их
+                        совокупность - алфавитом системы счисления. Системы счисления различаются выбором узловых
+                        чисел (чисел, которые обозначаются цифрами) и способами образования алгоритмических чисел
+                        (чисел, получаемых из операций над узловыми числами). Можно выделить следующие виды систем
+                        счисления: 1. унарная система; 2. непозиционные системы; 3. позиционные системы;"/>
+                    <column name="image" value="https://новиков-дм.рф/wp-content/uploads/2017/09/8-1-2.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="14"/>
+                </insert>
+            <!-- end step 14 -->
+
+            <!-- step 15 -->
+            <insert tableName="steps">
+                <column name="id" value="15"/>
+                <column name="name" value="Вопрос о системах счисления"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="14"/>
+                <column name="child_id" value="16"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="15"/>
+                    <column name="note" value="Что из перечисленного НЕ является видом системы счисления?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="15"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="10"/>
+                    <column name="step_id" value="15"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;позиционная&quot;,&quot;унарная&quot;,&quot;компланарная&quot;,&quot;непозиционная&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="3"/>
+                    <column name="game_id" value="10"/>
+                </insert>
+            <!-- end step 15 -->
+
+            <!-- step 16 -->
+            <insert tableName="steps">
+                <column name="id" value="16"/>
+                <column name="name" value="Позиционные и непозиционные системы счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="15"/>
+                <column name="child_id" value="17"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="16"/>
+                    <column name="note" value="Система счисления называется непозиционной, если количественный эквивалент
+                    (количественное значение) цифры в числе не зависит от ее положения в записи числа. Система счисления
+                    называется позиционной, если количественный эквивалент цифры зависит от ее позиции в записи числа.
+                    (например, 21 и 12 - разные числа). Основание позиционной системы счисления равно количеству цифр,
+                    составляющих ее алфавит."/>
+                    <column name="image" value="https://sites.google.com/site/sekretydvoicnojss/_/rsrc/1487905904386/cto-takoe-sistema-scislenia/%D1%81%D1%813.JPG"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="16"/>
+                </insert>
+            <!-- end step 16 -->
+
+            <!-- step 17 -->
+            <insert tableName="steps">
+                <column name="id" value="17"/>
+                <column name="name" value="Позиционные системы счисления, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="16"/>
+                <column name="child_id" value="18"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="17"/>
+                    <column name="note" value="Соотнеси данные системы счисления по признаку позиционности"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="17"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="11"/>
+                    <column name="step_id" value="17"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;древнеегипетская&quot;:&quot;непозиционная&quot;},{&quot;древневавилонская&quot;:&quot;позиционная&quot;},{&quot;римская&quot;:&quot;непозиционная&quot;},{&quot;арабская&quot;:&quot;позиционная&quot;},{&quot;унарная&quot;:&quot;непозиционная&quot;},{&quot;алфавитная&quot;:&quot;непозиционная&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;древнеегипетская&quot;:&quot;непозиционная&quot;},{&quot;древневавилонская&quot;:&quot;позиционная&quot;},{&quot;римская&quot;:&quot;непозиционная&quot;},{&quot;арабская&quot;:&quot;позиционная&quot;},{&quot;унарная&quot;:&quot;непозиционная&quot;},{&quot;алфавитная&quot;:&quot;непозиционная&quot;}]}"/>
+                    <column name="game_id" value="11"/>
+                </insert>
+            <!-- end step 17 -->
+
+            <!-- step 18 -->
+            <insert tableName="steps">
+                <column name="id" value="18"/>
+                <column name="name" value="Развернутая форма записи числа в системе счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="17"/>
+                <column name="child_id" value="19"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="18"/>
+                    <column name="note" value="Основанием позиционной системы счисления может служить любое натуральное
+                    число q &gt; 1. Алфавитом произвольной позиционной системы счисления с основанием q служат числа 0 ...
+                    q-1, каждое из которых может быть записано с помощью одного уникального символа; младшей цифрой
+                    всегда является 0. В позиционной системе счисления с основанием q любое число может быть представлено
+                    в виде:"/>
+                    <column name="image" value="http://images.myshared.ru/17/1067694/slide_8.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="18"/>
+                </insert>
+            <!-- end step 18 -->
+
+            <!-- step 19 -->
+            <insert tableName="steps">
+                <column name="id" value="19"/>
+                <column name="name" value="Развернутая форма записи, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="18"/>
+                <column name="child_id" value="20"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="19"/>
+                    <column name="note" value="Что может служить основанием позиционной системы счисления?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="19"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="12"/>
+                    <column name="step_id" value="19"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;вещественное число&quot;,&quot;рациональное число&quot;,&quot;натуральное число&quot;,&quot;комплексное число&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="3"/>
+                    <column name="game_id" value="12"/>
+                </insert>
+            <!-- end step 19 -->
+
+            <!-- step 20 -->
+            <insert tableName="steps">
+                <column name="id" value="20"/>
+                <column name="name" value="Двоичная система счисления, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="19"/>
+                <column name="child_id" value="21"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="20"/>
+                    <column name="note" value="Двоичной системой счисления называется позиционная система счисления с
+                    основанием 2. Для записи чисел в двоичной системе счисления используются цифры 0 и 1. На основании
+                    формулы из предыдущего раздела для целых двоичных чисел можно записать: A(n-1)A(n-2)..A1A0 = A(n-1) *
+                    2 ^ (n-1) + A(n-2) * 2 ^ (n-2) + ... + A0 * 2^0. "/>
+                    <column name="image" value="https://cf.ppt-online.org/files/slide/u/ufDJcjVPrG27lZ1MQ6iFmytpLdOUAxSHICgbqo/slide-15.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="20"/>
+                </insert>
+            <!-- end step 20 -->
+
+            <!-- step 21 -->
+            <insert tableName="steps">
+                <column name="id" value="21"/>
+                <column name="name" value="Двоичная система счисления, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="20"/>
+                <column name="child_id" value="22"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="21"/>
+                    <column name="note" value="Отметь, что является двоичным числом, а что нет"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="21"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="13"/>
+                    <column name="step_id" value="21"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;1&quot;:&quot;да&quot;},{&quot;10&quot;:&quot;да&quot;},{&quot;12&quot;:&quot;нет&quot;},{&quot;10011101&quot;:&quot;да&quot;},{&quot;-1&quot;:&quot;да&quot;},{&quot;0,01&quot;:&quot;да&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;1&quot;:&quot;да&quot;},{&quot;10&quot;:&quot;да&quot;},{&quot;12&quot;:&quot;нет&quot;},{&quot;10011101&quot;:&quot;да&quot;},{&quot;-1&quot;:&quot;да&quot;},{&quot;0,01&quot;:&quot;да&quot;}]}"/>
+                    <column name="game_id" value="13"/>
+                </insert>
+            <!-- end step 21 -->
+
+            <!-- step 22 -->
+            <insert tableName="steps">
+                <column name="id" value="22"/>
+                <column name="name" value="Двоичная система счисления, ч.3"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="21"/>
+                <column name="child_id" value="23"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="22"/>
+                    <column name="note" value="Укажите, какие целые числа от 8 до 11 содержат в двоичной записи ровно две единицы. "/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="22"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="14"/>
+                    <column name="step_id" value="22"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;8&quot;:&quot;нет&quot;},{&quot;9&quot;:&quot;да&quot;},{&quot;10&quot;:&quot;да&quot;},{&quot;11&quot;:&quot;нет&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;8&quot;:&quot;нет&quot;},{&quot;9&quot;:&quot;да&quot;},{&quot;10&quot;:&quot;да&quot;},{&quot;11&quot;:&quot;нет&quot;}]}"/>
+                    <column name="game_id" value="14"/>
+                </insert>
+            <!-- end step 22 -->
+
+            <!-- step 23 -->
+            <insert tableName="steps">
+                <column name="id" value="23"/>
+                <column name="name" value="Двоичная система счисления, ч.4"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="22"/>
+                <column name="child_id" value="24"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="23"/>
+                    <column name="note" value="Расположи двоичные числа в порядке возрастания"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="23"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="15"/>
+                    <column name="step_id" value="23"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;0&quot;,&quot;1&quot;,&quot;101&quot;,&quot;110&quot;,&quot;111&quot;,&quot;1000&quot;,&quot;1010&quot;, &quot;1111&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer" value="{&quot;data&quot;:[&quot;0&quot;,&quot;1&quot;,&quot;101&quot;,&quot;110&quot;,&quot;111&quot;,&quot;1000&quot;,&quot;1010&quot;, &quot;1111&quot;]}"/>
+                    <column name="game_id" value="15"/>
+                </insert>
+            <!-- end step 23 -->
+
+            <!-- step 24 -->
+            <insert tableName="steps">
+                <column name="id" value="24"/>
+                <column name="name" value="Двоичная система счисления, ч.5"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="23"/>
+                <column name="child_id" value="25"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="24"/>
+                    <column name="note" value="Сколько единиц в двоичной записи десятичного числа 519?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="24"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="16"/>
+                    <column name="step_id" value="24"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="4"/>
+                    <column name="game_id" value="16"/>
+                </insert>
+            <!-- end step 24 -->
+
+            <!-- step 25 -->
+            <insert tableName="steps">
+                <column name="id" value="25"/>
+                <column name="name" value="Двоичная система счисления, ч.6"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="24"/>
+                <column name="child_id" value="26"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="25"/>
+                    <column name="note" value="Сколько единиц в двоичной записи содержат следующие числа?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="25"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="17"/>
+                    <column name="step_id" value="25"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;},{&quot;11&quot;:&quot;3&quot;},{&quot;3&quot;:&quot;2&quot;},{&quot;33&quot;:&quot;2&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;},{&quot;11&quot;:&quot;3&quot;},{&quot;3&quot;:&quot;2&quot;},{&quot;33&quot;:&quot;2&quot;}]}"/>
+                    <column name="game_id" value="17"/>
+                </insert>
+            <!-- end step 25 -->
+
+            <!-- step 26 -->
+            <insert tableName="steps">
+                <column name="id" value="26"/>
+                <column name="name" value="Перевод в десятичную систему счисления"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="25"/>
+                <column name="child_id" value="27"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="26"/>
+                    <column name="note" value="Развернутая форма записи &quot;подсказывает&quot; правило перевода
+                    натуральных двоичных чисел в десятичную систему счисления: необходимо вычислить сумму степеней двойки,
+                    соответствующих единицам в свернутой форме записи двоичного числа."/>
+                    <column name="image" value="https://studfiles.net/html/2706/250/html_iK44_mJiSB.LpT8/img-OnbBEp.png"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="26"/>
+                </insert>
+            <!-- end step 26 -->
+
+            <!-- step 27 -->
+            <insert tableName="steps">
+                <column name="id" value="27"/>
+                <column name="name" value="Перевод в десятичную систему из двоичной, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="26"/>
+                <column name="child_id" value="28"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="27"/>
+                    <column name="note" value="Найди соответствие между десятичными и двоичными числами"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="27"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="18"/>
+                    <column name="step_id" value="27"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;},{&quot;2&quot;:&quot;10&quot;},{&quot;57&quot;:&quot;111001&quot;},{&quot;33&quot;:&quot;100001&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;1&quot;:&quot;1&quot;},{&quot;2&quot;:&quot;10&quot;},{&quot;57&quot;:&quot;111001&quot;},{&quot;33&quot;:&quot;100001&quot;}]}"/>
+                    <column name="game_id" value="18"/>
+                </insert>
+            <!-- end step 27 -->
+
+            <!-- step 28 -->
+            <insert tableName="steps">
+                <column name="id" value="28"/>
+                <column name="name" value="Правило перевода целых десятичных чисел в систему счисления с основанием q"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="27"/>
+                <column name="child_id" value="29"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="28"/>
+                    <column name="note" value="Для перевода целого десятичного числа в систему счисления с основанием q
+                    следует: 1. последовательно выполнять деление данного числа и получаемых целых частных на основание
+                    новой системы счисления до тех пор, пока не получим частное, равное нулю; 2. полученные остатки,
+                    являющиеся цифрами числа в новой системе сичсления, привести в соответствии с алфавитом новой системы
+                    счисления; 3. составить число в новой системе счисления, записывая его, начиная с последнего полученного
+                    остатка."/>
+                    <column name="image" value="http://images.myshared.ru/17/1056561/slide_4.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="28"/>
+                </insert>
+            <!-- end step 28 -->
+
+            <!-- step 29 -->
+            <insert tableName="steps">
+                <column name="id" value="29"/>
+                <column name="name" value="Прямой перевод между системами счисления"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="28"/>
+                <column name="child_id" value="30"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="29"/>
+                    <column name="note" value="Даны 4 целых числа, записанных в различных системах счисления. Определи,
+                    сколько единиц они содержат в двоичной записи."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="29"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="19"/>
+                    <column name="step_id" value="29"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;31_10&quot;:&quot;5&quot;},{&quot;F1_16&quot;:&quot;5&quot;},{&quot;261_8&quot;:&quot;4&quot;},{&quot;711_8&quot;:&quot;5&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer" value="{&quot;data&quot;:[{&quot;31_10&quot;:&quot;5&quot;},{&quot;F1_16&quot;:&quot;5&quot;},{&quot;261_8&quot;:&quot;4&quot;},{&quot;711_8&quot;:&quot;5&quot;}]}"/>
+                    <column name="game_id" value="19"/>
+                </insert>
+            <!-- end step 29 -->
+
+            <!-- step 30 -->
+            <insert tableName="steps">
+                <column name="id" value="30"/>
+                <column name="name" value="Шестнадцатеричная арифметика "/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="29"/>
+                <column name="child_id" value="31"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="30"/>
+                    <column name="note" value="Чему равно значение выражения 8F – 80 шестнадцатеричной системы счисления в десятичной системе?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="30"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="20"/>
+                    <column name="step_id" value="30"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;10&quot;,&quot;20&quot;,&quot;25&quot;,&quot;15&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="4"/>
+                    <column name="game_id" value="20"/>
+                </insert>
+            <!-- end step 30 -->
+
+            <!-- step 31 -->
+            <insert tableName="steps">
+                <column name="id" value="31"/>
+                <column name="name" value="Сравнение чисел в разных системах счисления"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="30"/>
+                <column name="child_id" value="32"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="31"/>
+                    <column name="note" value="Даны 4 целых числа, записанных в двоичной системе: 10001011; 10111000; 10011011; 10110100. Сколько среди них чисел, больших, чем 9A_16?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="31"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="21"/>
+                    <column name="step_id" value="31"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="3"/>
+                    <column name="game_id" value="21"/>
+                </insert>
+            <!-- end step 31 -->
+
+            <!-- step 32 -->
+            <insert tableName="steps">
+                <column name="id" value="32"/>
+                <column name="name" value="Прямое сложение в системах счисления"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="31"/>
+                <column name="child_id" value="33"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="32"/>
+                    <column name="note" value="Сколько единиц содержится в двоичной записи значения выражения: 4^2020 + 2^2017 – 15?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="32"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="22"/>
+                    <column name="step_id" value="32"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;3&quot;,&quot;15&quot;,&quot;2015&quot;,&quot;2017&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="3"/>
+                    <column name="game_id" value="22"/>
+                </insert>
+            <!-- end step 32 -->
+
+            <!-- step 33 -->
+            <insert tableName="steps">
+                <column name="id" value="33"/>
+                <column name="name" value="Определение основания"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="2"/>
+                <column name="parent_id" value="32"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="33"/>
+                    <column name="note" value="В системе счисления с некоторым основанием десятичное число 18 записывается в виде 30. Укажите это основание."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="33"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="23"/>
+                    <column name="step_id" value="33"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;3&quot;,&quot;6&quot;,&quot;9&quot;,&quot;12&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer" value="2"/>
+                    <column name="game_id" value="23"/>
+                </insert>
+            <!-- end step 33 -->
+
+        <insert tableName="subsections">
+            <column name="id" value="3"/>
+            <column name="name" value="Элементы алгебры логики"/>
+            <column name="id_section" value="1"/>
+            <column name="parent_id" value="2"/>
+            <column name="child_id" value="0"/>
+        </insert>
+            <!-- step 34 -->
+            <insert tableName="steps">
+                <column name="id" value="34"/>
+                <column name="name" value="Высказывание"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="35"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="34"/>
+                    <column name="note" value="Высказывание - предложение на любом языке, содержание которого можно
+                    однозначно определить, как истинное или ложное. В русском языке высказывания выражают повествовательными
+                    предложениями. Но не всякое повествовательное предложение является высказыванием. Например,
+                    предложение &quot;Это предложение является ложным&quot; не является высказыванием, так как относительно
+                    него нельзя сказать, истинно оно или ложно, чтобы не получить противоречие. Побудительные и
+                    вопросительные предложения высказываниями не являются. Высказывания могут строиться с использованием
+                    знаков различных формальных языков - математики, физики и т.п. Бывают простые и сложные."/>
+                    <column name="image" value="https://fs01.infourok.ru/images/doc/82/98710/img8.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="34"/>
+                </insert>
+            <!-- end step 34 -->
+
+            <!-- step 35 -->
+            <insert tableName="steps">
+                <column name="id" value="35"/>
+                <column name="name" value="Определение высказываний, ч.1"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="34"/>
+                <column name="child_id" value="36"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="35"/>
+                    <column name="note" value="Что НЕ является высказыванием?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="35"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="24"/>
+                    <column name="step_id" value="35"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;вопросительное предложение&quot;,&quot;факт биографии&quot;,&quot;математическое тождество&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="1"/>
+                    <column name="game_id" value="24"/>
+                </insert>
+            <!-- end step 35 -->
+
+            <!-- step 36 -->
+            <insert tableName="steps">
+                <column name="id" value="36"/>
+                <column name="name" value="Определение высказываний, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="35"/>
+                <column name="child_id" value="37"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="36"/>
+                    <column name="note" value="Определить, являются ли данные предложения высказываниями"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="36"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="25"/>
+                    <column name="step_id" value="36"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;Джон Сноу - Король Севера&quot;:&quot;да&quot;},{&quot;Данное высказывание ложно&quot;:&quot;нет&quot;},{&quot;5 + 4 = 9&quot;:&quot;да&quot;},{&quot;Доколе?&quot;:&quot;нет&quot;},{&quot;Плати налоги&quot;:&quot;нет&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;Джон Сноу - Король Севера&quot;:&quot;да&quot;},{&quot;Данное высказывание ложно&quot;:&quot;нет&quot;},{&quot;5 + 4 = 9&quot;:&quot;да&quot;},{&quot;Доколе?&quot;:&quot;нет&quot;},{&quot;Плати налоги&quot;:&quot;нет&quot;}]}"/>
+                    <column name="game_id" value="25"/>
+                </insert>
+            <!-- end step 36 -->
+
+            <!-- step 37 -->
+            <insert tableName="steps">
+                <column name="id" value="37"/>
+                <column name="name" value="Формирование высказываний"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="36"/>
+                <column name="child_id" value="38"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="37"/>
+                    <column name="note" value="С помощью чего нельзя сформировать высказывание?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="37"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="26"/>
+                    <column name="step_id" value="37"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;Азбука Морзе&quot;,&quot;Натуральные числа&quot;,&quot;Язык Майя&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="26"/>
+                </insert>
+            <!-- end step 37 -->
+
+            <!-- step 38 -->
+            <insert tableName="steps">
+                <column name="id" value="38"/>
+                <column name="name" value="Логические операции"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="37"/>
+                <column name="child_id" value="39"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="38"/>
+                    <column name="note" value="Конъюнкция - логическая операция, ставящая в соответствие каждым двум
+                    высказываниям новое высказывание, являющееся истинным тогда и только тогда, когда оба высказывания
+                    истинны. Для записи используют знаки: И, ^, *, &amp;, например: А &amp; B. Дизъюнкция - логическая
+                    операция, которая каждым двум высказываниям ставит в соответствие новое высказывание, являющееся
+                    ложным тогда и только тогда, когда оба исходных высказывания ложны. Для записи используют знаки: ИЛИ,
+                    |, +, v, например: А ИЛИ B. Инверсия - логическая операция, которая каждому высказыванию ставит в
+                    соответствие новое высказывание, значение которого противоположно исходному. Для записи используют
+                    знаки: НЕ, ¬, ˜, !, например: НЕ А."/>
+                    <column name="image" value="http://images.myshared.ru/10/990983/slide_6.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="38"/>
+                </insert>
+            <!-- end step 38 -->
+
+            <!-- step 39 -->
+            <insert tableName="steps">
+                <column name="id" value="39"/>
+                <column name="name" value="Определение логических операций"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="38"/>
+                <column name="child_id" value="40"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="39"/>
+                    <column name="note" value="Соотнеси знаки операций их операциям"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="39"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="27"/>
+                    <column name="step_id" value="39"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;И&quot;:&quot;конъюнкция&quot;},{&quot;^&quot;:&quot;конъюнкция&quot;},{&quot;*&quot;:&quot;конъюнкция&quot;},{&quot;&amp;&quot;:&quot;конъюнкция&quot;},{&quot;ИЛИ&quot;:&quot;дизъюнкция&quot;},{&quot;+&quot;:&quot;дизъюнкция&quot;},{&quot;|&quot;:&quot;дизъюнкция&quot;},{&quot;v&quot;:&quot;дизъюнкция&quot;},{&quot;НЕ&quot;:&quot;инверсия&quot;},{&quot;!&quot;:&quot;инверсия&quot;},{&quot;¬&quot;:&quot;инверсия&quot;},{&quot;˜&quot;:&quot;инверсия&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;И&quot;:&quot;конъюнкция&quot;},{&quot;^&quot;:&quot;конъюнкция&quot;},{&quot;*&quot;:&quot;конъюнкция&quot;},{&quot;&amp;&quot;:&quot;конъюнкция&quot;},{&quot;ИЛИ&quot;:&quot;дизъюнкция&quot;},{&quot;+&quot;:&quot;дизъюнкция&quot;},{&quot;|&quot;:&quot;дизъюнкция&quot;},{&quot;v&quot;:&quot;дизъюнкция&quot;},{&quot;НЕ&quot;:&quot;инверсия&quot;},{&quot;!&quot;:&quot;инверсия&quot;},{&quot;¬&quot;:&quot;инверсия&quot;},{&quot;˜&quot;:&quot;инверсия&quot;}]}"/>
+                    <column name="game_id" value="27"/>
+                </insert>
+            <!-- end step 39 -->
+
+            <!-- step 40 -->
+            <insert tableName="steps">
+                <column name="id" value="40"/>
+                <column name="name" value="Логические уравнения, ч.1"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="39"/>
+                <column name="child_id" value="41"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="40"/>
+                    <column name="note" value="Сколько различных решений имеет уравнение (K ∨ L) ∧ (M ∨ N) = 1, где K, L, M, N – логические переменные?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="40"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="28"/>
+                    <column name="step_id" value="40"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;3&quot;,&quot;6&quot;,&quot;9&quot;,&quot;12&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="3"/>
+                    <column name="game_id" value="28"/>
+                </insert>
+            <!-- end step 40 -->
+
+            <!-- step 41 -->
+            <insert tableName="steps">
+                <column name="id" value="41"/>
+                <column name="name" value="Логические уравнения, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="40"/>
+                <column name="child_id" value="42"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="41"/>
+                    <column name="note" value="A, B и С — целые числа, для которых истинно высказывание ¬ (А = B) ∧ ((A > B)→(B > C)) ∧ ((B > A)→(С > B)). Чему равно В, если A = 45 и C = 43?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="41"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="29"/>
+                    <column name="step_id" value="41"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;0&quot;,&quot;1&quot;,&quot;43&quot;,&quot;44&quot;,&quot;45&quot;,&quot;46&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="4"/>
+                    <column name="game_id" value="29"/>
+                </insert>
+            <!-- end step 41 -->
+
+            <!-- step 42 -->
+            <insert tableName="steps">
+                <column name="id" value="42"/>
+                <column name="name" value="Логические уравнения, ч.3"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="41"/>
+                <column name="child_id" value="43"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="42"/>
+                    <column name="note" value="Составьте таблицу истинности для логической функции X = (А ↔ B) ∨ ¬(A → (B ∨ C))
+                    в которой столбец значений аргумента А представляет собой двоичную запись числа 27, столбец значений
+                    аргумента В — числа 77, столбец значений аргумента С — числа 120. Число в столбце записывается сверху
+                    вниз от старшего разряда к младшему(включая нулевой набор). Чему равна полученная двоичная запись
+                    значений функции X в десятичной системе счисления?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="42"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="30"/>
+                    <column name="step_id" value="42"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;170&quot;,&quot;171&quot;,&quot;180&quot;,&quot;181&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="30"/>
+                </insert>
+            <!-- end step 42 -->
+
+            <!-- step 43 -->
+            <insert tableName="steps">
+                <column name="id" value="43"/>
+                <column name="name" value="Построение таблиц истинности логических выражений"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="42"/>
+                <column name="child_id" value="44"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="43"/>
+                    <column name="note" value="Для построения таблицы истинности нужно: 1. подсчитать n - число переменных
+                    в выражении; 2. подсчитать общее число логических операций в выражении; 3. установить последовательность
+                    выполнения логических операций с учетом скобок и приоритетов; 4. определить число столбцов в таблице:
+                    число переменных + число операций; 5. заполнить шапку таблицы, включив в нее переменные и операции в
+                    соответствии с последовательностью, установленной в п.3; 6. определить число строк в таблице m = 2^n;
+                    7. выписать наборы входных переменных с учетом того, что они представляют собой ряд n-разрядных двоичных
+                    чисел от 0 до 2^n - 1; 8. провести заполнение таблицы по столбцам, выполняя логические операции в
+                    соответствии с установленной последовательностью."/>
+                    <column name="image" value="https://sites.google.com/site/webkvestsistemyscislenia/_/rsrc/1505482372764/pismennaa-numeracia-u-drevnih-narodov/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.JPG"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="43"/>
+                </insert>
+            <!-- end step 43 -->
+
+            <!-- step 44 -->
+            <insert tableName="steps">
+                <column name="id" value="44"/>
+                <column name="name" value="Алгоритм построения таблицы истинности"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="43"/>
+                <column name="child_id" value="45"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="44"/>
+                    <column name="note" value="Построй последовательность создания таблицы истинности логической функции"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="44"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="31"/>
+                    <column name="step_id" value="44"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;подсчитать n - число переменных в выражении&quot;,&quot;подсчитать общее число логических операций в выражении&quot;,&quot;установить последовательность выполнения логических операций с учетом скобок и приоритетов&quot;,&quot;определить число столбцов в таблице: число переменных + число операций&quot;,&quot;заполнить шапку таблицы, включив в нее переменные и операции в соответствии с последовательностью, установленной в п.3&quot;,&quot;определить число строк в таблице m = 2^n&quot;,&quot;выписать наборы входных переменных с учетом того, что они представляют собой ряд n-разрядных двоичных чисел от 0 до 2^n - 1&quot;,&quot;провести заполнение таблицы по столбцам, выполняя логические операции в соответствии с установленной последовательностью&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;подсчитать n - число переменных в выражении&quot;,&quot;подсчитать общее число логических операций в выражении&quot;,&quot;установить последовательность выполнения логических операций с учетом скобок и приоритетов&quot;,&quot;определить число столбцов в таблице: число переменных + число операций&quot;,&quot;заполнить шапку таблицы, включив в нее переменные и операции в соответствии с последовательностью, установленной в п.3&quot;,&quot;определить число строк в таблице m = 2^n&quot;,&quot;выписать наборы входных переменных с учетом того, что они представляют собой ряд n-разрядных двоичных чисел от 0 до 2^n - 1&quot;,&quot;провести заполнение таблицы по столбцам, выполняя логические операции в соответствии с установленной последовательностью&quot;]}"/>
+                    <column name="game_id" value="31"/>
+                </insert>
+            <!-- end step 44 -->
+
+            <!-- step 45 -->
+            <insert tableName="steps">
+                <column name="id" value="45"/>
+                <column name="name" value="Свойства логических операций, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="44"/>
+                <column name="child_id" value="46"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="45"/>
+                    <column name="note" value="Основные свойства логических операций называют законами алгебры логики:
+                    1. переместительный (коммутативный) закон: A &amp; B = B &amp; A (для умножения), A v B = B v A
+                    (для сложения); 2. сочетательный (ассоциативный) закон: (A &amp; B) &amp; C = A &amp; (B &amp; C)
+                    (для умножения), (A v B) v C = A v (B v C) (для сложения);  3. распределительный (дистрибутивный)
+                    закон: A &amp; (B v C) = (A &amp; B) v (A &amp; C) (для умножения), A v (B &amp; C) = (A v B) &amp; (A v C)
+                    (для сложения); 4. закон двойного отрицания: НЕ (НЕ А) = А; 5. закон исключенного третьего: A &amp; (НЕ А) = 0
+                    (для умножения), A v (НЕ А) = 1 (для сложения); 6. закон повторения: A &amp; A = A (для умножения),
+                    A v A = A (для сложения); 7. законы операций с 0 и 1: A &amp; 0 = 0, A &amp; 1 = A (для умножения),
+                    A v 0 = A, A v 1 = 1 (для сложения); 8. законы общей инверсии (законы Де-Моргана): НЕ(A &amp; B) = НЕ А v НЕ B
+                    (для умножения), НЕ (A v B) = НЕ А &amp; НЕ B (для сложения)."/>
+                    <column name="image" value="https://ucarecdn.com/eec6dafa-38e2-4239-accc-08b371efb9e2/"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="45"/>
+                </insert>
+            <!-- end step 45 -->
+
+            <!-- step 46 -->
+            <insert tableName="steps">
+                <column name="id" value="46"/>
+                <column name="name" value="Свойства логических операций, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="45"/>
+                <column name="child_id" value="47"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="46"/>
+                    <column name="note" value="Определи, какие свойства описываются выражениями."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="46"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="32"/>
+                    <column name="step_id" value="46"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;A &amp; B = B &amp; A&quot;:&quot;коммутативность&quot;},{&quot;A v B = B v A &quot;:&quot;коммутативность&quot;},{&quot;(A &amp; B) &amp; C = A &amp; (B &amp; C)&quot;:&quot;ассоциативность&quot;},{&quot;(A v B) v C = A v (B v C)&quot;:&quot;ассоциативность&quot;},{&quot;A &amp; (B v C) = (A &amp; B) v (A &amp; C)&quot;:&quot;дистрибутивность&quot;},{&quot;A v (B &amp; C) = (A v B) &amp; (A v C)&quot;:&quot;дистрибутивность&quot;},{&quot;НЕ (НЕ А) = А&quot;:&quot;двойное отрицание&quot;},{&quot;A &amp; (НЕ А) = 0&quot;:&quot;исключенное третье&quot;},{&quot;A v A = A&quot;:&quot;закон повторения&quot;},{&quot;НЕ(A &amp; B) = НЕ А v НЕ B&quot;:&quot;общая инверсия&quot;},{&quot;НЕ (A v B) = НЕ А &amp; НЕ B&quot;:&quot;общая инверсия&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;A &amp; B = B &amp; A&quot;:&quot;коммутативность&quot;},{&quot;A v B = B v A &quot;:&quot;коммутативность&quot;},{&quot;(A &amp; B) &amp; C = A &amp; (B &amp; C)&quot;:&quot;ассоциативность&quot;},{&quot;(A v B) v C = A v (B v C)&quot;:&quot;ассоциативность&quot;},{&quot;A &amp; (B v C) = (A &amp; B) v (A &amp; C)&quot;:&quot;дистрибутивность&quot;},{&quot;A v (B &amp; C) = (A v B) &amp; (A v C)&quot;:&quot;дистрибутивность&quot;},{&quot;НЕ (НЕ А) = А&quot;:&quot;двойное отрицание&quot;},{&quot;A &amp; (НЕ А) = 0&quot;:&quot;исключенное третье&quot;},{&quot;A v A = A&quot;:&quot;закон повторения&quot;},{&quot;НЕ(A &amp; B) = НЕ А v НЕ B&quot;:&quot;общая инверсия&quot;},{&quot;НЕ (A v B) = НЕ А &amp; НЕ B&quot;:&quot;общая инверсия&quot;}]}"/>
+                    <column name="game_id" value="32"/>
+                </insert>
+            <!-- end step 46 -->
+
+            <!-- step 47 -->
+            <insert tableName="steps">
+                <column name="id" value="47"/>
+                <column name="name" value="Логические элементы, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="46"/>
+                <column name="child_id" value="48"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="47"/>
+                    <column name="note" value="Логический элемент И (конъюнктор) реализует операцию логического умножения.
+                    Единица на выходе этого элемента появится только тогда, когда на всех входах будут единицы. Логический
+                    элемент ИЛИ (дизъюнктор) реализует операцию логического сложения. Если хотя бы на одном из входов будет
+                    единица, то на выходе элемента также будет единица. Логический элемент НЕ (инвертор) реализует операцию
+                    отрицания. Если на входе элемента 0, то на выходе будет 1 и наоборот."/>
+                    <column name="image" value="https://иванов-ам.рф/informatika_10_fgos/ur_26/ur_26_01.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="47"/>
+                </insert>
+            <!-- end step 47 -->
+
+            <!-- step 48 -->
+            <insert tableName="steps">
+                <column name="id" value="48"/>
+                <column name="name" value="Логические элементы, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="47"/>
+                <column name="child_id" value="49"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="48"/>
+                    <column name="note" value="Что из этого выдаст на выход единицу при наличии единицы на всех входах?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="48"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="33"/>
+                    <column name="step_id" value="48"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;кондуктор&quot;,&quot;конъюнктор&quot;,&quot;компуктер&quot;,&quot;дизъюнктор&quot;,&quot;инвертор&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="33"/>
+                </insert>
+            <!-- end step 48 -->
+
+            <!-- step 49 -->
+            <insert tableName="steps">
+                <column name="id" value="49"/>
+                <column name="name" value="Монотонные функции, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="48"/>
+                <column name="child_id" value="50"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="49"/>
+                    <column name="note" value="Монотонная логическая (булева) функция — булева функция, которая монотонно
+                    возрастает (точнее не убывает) по каждому аргументу. Из элементарных булевых функций монотонными
+                    являются, например, конъюнкция и дизъюнкция. Не являются монотонными, например, штрих Шеффера и
+                    стрелка Пирса. "/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/04d9/00185b50-c66747e0/img6.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="49"/>
+                </insert>
+            <!-- end step 49 -->
+
+            <!-- step 50 -->
+            <insert tableName="steps">
+                <column name="id" value="50"/>
+                <column name="name" value="Монотонные функции, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="49"/>
+                <column name="child_id" value="51"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="50"/>
+                    <column name="note" value="Определи, какие функции являются монотонными, а какие нет"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="50"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="34"/>
+                    <column name="step_id" value="50"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;инверсия&quot;:&quot;немонотонная&quot;},{&quot;конъюнкция&quot;:&quot;монотонная&quot;},{&quot;дизъюнкция&quot;:&quot;монотонная&quot;},{&quot;штрих Шеффера&quot;:&quot;немонотонная&quot;},{&quot;стрелка Пирса&quot;:&quot;немонотонная&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;инверсия&quot;:&quot;немонотонная&quot;},{&quot;конъюнкция&quot;:&quot;монотонная&quot;},{&quot;дизъюнкция&quot;:&quot;монотонная&quot;},{&quot;штрих Шеффера&quot;:&quot;немонотонная&quot;},{&quot;стрелка Пирса&quot;:&quot;немонотонная&quot;}]}"/>
+                    <column name="game_id" value="34"/>
+                </insert>
+            <!-- end step 50 -->
+
+            <!-- step 51 -->
+            <insert tableName="steps">
+                <column name="id" value="51"/>
+                <column name="name" value="Логические выражения"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="50"/>
+                <column name="child_id" value="52"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="51"/>
+                    <column name="note" value="Каждое из логических выражений F и G содержит 5 переменных. В таблицах
+                    истинности выражений F и G есть ровно 5 одинаковых строк, причём ровно в 4 из них в столбце значений
+                    стоит 1.Сколько строк таблицы истинности для выражения F ∨ G содержит 1 в столбце значений?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="51"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="35"/>
+                    <column name="step_id" value="51"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;31&quot;,&quot;15&quot;,&quot;7&quot;,&quot;3&quot;,&quot;1&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="1"/>
+                    <column name="game_id" value="35"/>
+                </insert>
+            <!-- end step 51 -->
+
+            <!-- step 52 -->
+            <insert tableName="steps">
+                <column name="id" value="52"/>
+                <column name="name" value="Побитовая конъюнкция"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="51"/>
+                <column name="child_id" value="53"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="52"/>
+                    <column name="note" value="Обозначим через m&amp;n поразрядную конъюнкцию неотрицательных целых чисел m и n.
+                    Например, 14&amp;5 = 11102&amp;01012 = 01002 = 4.Для какого наименьшего неотрицательного целого числа А
+                    формула x&amp;25 ≠ 0 → (x&amp;9 = 0 → x&amp;А ≠ 0)тождественно истинна (то есть принимает значение 1
+                    при любом неотрицательном целом значении переменной х)?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="52"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="36"/>
+                    <column name="step_id" value="52"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;4&quot;,&quot;8&quot;,&quot;16&quot;,&quot;32&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="3"/>
+                    <column name="game_id" value="36"/>
+                </insert>
+            <!-- end step 52 -->
+
+            <!-- step 53 -->
+            <insert tableName="steps">
+                <column name="id" value="53"/>
+                <column name="name" value="Числовая плоскость"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="52"/>
+                <column name="child_id" value="54"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="53"/>
+                    <column name="note" value="Сколько существует целых значений числа A, при которых формула ((x &lt; 6) → (x^2 &lt; A)) ∧ ((y^2 &lt;= A) → (y &lt;=; 6)) тождественно истинна при любых целых неотрицательных x и y?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="53"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="37"/>
+                    <column name="step_id" value="53"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;23&quot;,&quot;24&quot;,&quot;25&quot;,&quot;26&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="1"/>
+                    <column name="game_id" value="37"/>
+                </insert>
+            <!-- end step 53 -->
+
+            <!-- step 54 -->
+            <insert tableName="steps">
+                <column name="id" value="54"/>
+                <column name="name" value="Множества"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="53"/>
+                <column name="child_id" value="55"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="54"/>
+                    <column name="note" value="Элементами множества А являются натуральные числа. Известно, что выражение
+                    (x ∈ {2, 4, 6, 8, 10, 12}) → (((x ∈ {3, 6, 9, 12, 15}) ∧ ¬(x ∈ A)) → ¬(x ∈ {2, 4, 6, 8, 10, 12}))
+                    истинно (т. е. принимает значение 1) при любом значении переменной х. Определите наименьшее возможное
+                    значение суммы элементов множества A."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="54"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="38"/>
+                    <column name="step_id" value="54"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;17&quot;,&quot;18&quot;,&quot;19&quot;,&quot;20&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="38"/>
+                </insert>
+            <!-- end step 54 -->
+
+            <!-- step 55 -->
+            <insert tableName="steps">
+                <column name="id" value="55"/>
+                <column name="name" value="Числовая прямая"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="3"/>
+                <column name="parent_id" value="54"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="55"/>
+                    <column name="note" value="На числовой прямой даны два отрезка: P = [17, 40] и Q = [20, 57]. Отрезок A таков, что приведённая ниже формула истинна при любом значении переменной х: ¬(x ∈ A) →(((x ∈ P) ⋀ (x ∈ Q)) → (x ∈ A)) Какова наименьшая возможная длина отрезка A?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="55"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="39"/>
+                    <column name="step_id" value="55"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;17&quot;,&quot;18&quot;,&quot;19&quot;,&quot;20&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="4"/>
+                    <column name="game_id" value="39"/>
+                </insert>
+            <!-- end step 55 -->
+
+
+
+
+
+
+
+        <!-- end basic section -->
+
+        <!-- intermediate section -->
+        <insert tableName="subsections">
+            <column name="id" value="4"/>
+            <column name="name" value="Организация компьютерных сетей"/>
+            <column name="id_section" value="2"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+        </insert>
+
+            <!-- step 56 -->
+            <insert tableName="steps">
+                <column name="id" value="56"/>
+                <column name="name" value="Компьютерные сети, ч.1"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="57"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="56"/>
+                    <column name="note" value="Сети нужны для обмена информацией между компьютерами, совместного использования
+                    общих программ, данных и устройств. Например, если в кабинете информатики ученики могут работать с
+                    одними и теми же данными, то их компьютеры объединены в локальную сеть.  Интернет - это глобальная
+                    компьютерная сеть, связывающая между собой миллионы компьютеров и сетей со всего мира. Компьютеры,
+                    подключенные к сети, условно можно разделить на две категории. Те компьютеры сети, которые хранят,
+                    сортируют и поставляют общую для сети информацию, управляют общими устройствами, называются серверами.
+                    Компьютеры, которые эту информацию используют, называются клиентами."/>
+                    <column name="image" value="https://st2.depositphotos.com/3223379/5350/i/950/depositphotos_53508771-stock-photo-global-computer-network.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="56"/>
+                </insert>
+            <!-- end step 56 -->
+
+            <!-- step 57 -->
+            <insert tableName="steps">
+                <column name="id" value="57"/>
+                <column name="name" value="Компьютерные сети, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="56"/>
+                <column name="child_id" value="58"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="57"/>
+                    <column name="note" value="Определи, какие сети являются локальными, а какие глобальными."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="57"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="40"/>
+                    <column name="step_id" value="57"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;компьютерный класс в школе&quot;:&quot;локальная&quot;},{&quot;SMART TV + домашний ПК&quot;:&quot;локальная&quot;},{&quot;компьютеры в Пятерочках&quot;:&quot;глобальная&quot;},{&quot;Интернет&quot;:&quot;глобальная&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;компьютерный класс в школе&quot;:&quot;локальная&quot;},{&quot;SMART TV + домашний ПК&quot;:&quot;локальная&quot;},{&quot;компьютеры в Пятерочках&quot;:&quot;глобальная&quot;},{&quot;Интернет&quot;:&quot;глобальная&quot;}]}"/>
+                    <column name="game_id" value="40"/>
+                </insert>
+            <!-- end step 57 -->
+
+            <!-- step 58 -->
+            <insert tableName="steps">
+                <column name="id" value="58"/>
+                <column name="name" value="Единицы передачи информации"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="57"/>
+                <column name="child_id" value="59"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="58"/>
+                    <column name="note" value="Основная характеристика подключения компьютера к сети Интернет - скорость
+                    передачи данных по имеющемуся каналу связи. Она измеряется в битах в секунду (бит/с), а также Кбит/с
+                    (1 Кбит = 1024 бита), Мбит/с и Гбит/с."/>
+                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/0e8f/0010c3e6-a3e3e950/640/img5.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="58"/>
+                </insert>
+            <!-- end step 58 -->
+
+            <!-- step 59 -->
+            <insert tableName="steps">
+                <column name="id" value="59"/>
+                <column name="name" value="Скорость передачи информации, ч.1"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="58"/>
+                <column name="child_id" value="60"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="59"/>
+                    <column name="note" value="За один час заданная компьютерная сеть передает 3600 КБит. Сколько бит в секунду передает система?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="59"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="41"/>
+                    <column name="step_id" value="59"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;1&quot;,&quot;256&quot;,&quot;1024&quot;,&quot;4096&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="3"/>
+                    <column name="game_id" value="41"/>
+                </insert>
+            <!-- end step 59 -->
+
+            <!-- step 60 -->
+            <insert tableName="steps">
+                <column name="id" value="60"/>
+                <column name="name" value="Скорость передачи информации, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="59"/>
+                <column name="child_id" value="61"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="60"/>
+                    <column name="note" value="Расположи величины в порядке возрастания"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="60"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="42"/>
+                    <column name="step_id" value="60"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;4 б/с&quot;,&quot;60 Б/мин&quot;,&quot;0,08 КБ/мин&quot;,&quot;0,02 Кб/с&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;4 б/с&quot;,&quot;60 Б/мин&quot;,&quot;0,08 КБ/мин&quot;,&quot;0,02 Кб/с&quot;]}"/>
+                    <column name="game_id" value="42"/>
+                </insert>
+            <!-- end step 60 -->
+
+            <!-- step 61 -->
+            <insert tableName="steps">
+                <column name="id" value="61"/>
+                <column name="name" value="Скорость передачи информации, ч.3"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="60"/>
+                <column name="child_id" value="62"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="61"/>
+                    <column name="note" value="В чем измеряется пропускная способность системы?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="61"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="43"/>
+                    <column name="step_id" value="61"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;КБ/с&quot;,&quot;Кб/с&quot;,&quot;Б/с&quot;,&quot;б/с&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="4"/>
+                    <column name="game_id" value="43"/>
+                </insert>
+            <!-- end step 61 -->
+
+            <!-- step 62 -->
+            <insert tableName="steps">
+                <column name="id" value="62"/>
+                <column name="name" value="Восстановление IP-адресов, ч.1"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="61"/>
+                <column name="child_id" value="63"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="62"/>
+                    <column name="note" value="На месте преступления были обнаружены четыре обрывка бумаги. Следствие
+                    установило, что на них записаны фрагменты одного IP-адреса. Криминалисты обозначили эти фрагменты
+                    буквами А, Б, В и Г. Восстановите IP-адрес."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="62"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="44"/>
+                    <column name="step_id" value="62"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;20&quot;,&quot;4.18&quot;,&quot;2.162&quot;,&quot;.61&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;20&quot;,&quot;4.18&quot;,&quot;2.162&quot;,&quot;.61&quot;]}"/>
+                    <column name="game_id" value="44"/>
+                </insert>
+            <!-- end step 62 -->
+
+            <!-- step 63 -->
+            <insert tableName="steps">
+                <column name="id" value="63"/>
+                <column name="name" value="Восстановление IP-адресов, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="62"/>
+                <column name="child_id" value="64"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="63"/>
+                    <column name="note" value="На месте преступления были обнаружены четыре обрывка бумаги. Следствие
+                    установило, что на них записаны фрагменты одного IP-адреса. Криминалисты обозначили эти фрагменты буквами
+                    А, Б, В и Г. Восстановите IP-адрес."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="63"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="45"/>
+                    <column name="step_id" value="63"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;18&quot;,&quot;3.25&quot;,&quot;3.231&quot;,&quot;.64&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;18&quot;,&quot;3.25&quot;,&quot;3.231&quot;,&quot;.64&quot;]}"/>
+                    <column name="game_id" value="45"/>
+                </insert>
+            <!-- end step 63 -->
+
+            <!-- step 64 -->
+            <insert tableName="steps">
+                <column name="id" value="64"/>
+                <column name="name" value="Подсчет количества адресов в сети"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="63"/>
+                <column name="child_id" value="65"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="64"/>
+                    <column name="note" value="Маской подсети называется 32-разрядное двоичное число, которое определяет,
+                    какая часть IP-адреса компьютера относится к адресу сети, а какая часть IP-адреса определяет адрес
+                    компьютера в подсети. В маске подсети старшие биты, отведенные в IP-адресе компьютера для адреса сети,
+                    имеют значение 1; младшие биты, отведенные в IP-адресе компьютера для адреса компьютера в подсети,
+                    имеют значение 0. Если маска подсети 255.255.255.224 и IP-адрес компьютера в сети 162.198.0.157,
+                    то чему равен порядковый номер компьютера в сети?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="64"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="46"/>
+                    <column name="step_id" value="64"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;29&quot;,&quot;30&quot;,&quot;31&quot;,&quot;32&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="1"/>
+                    <column name="game_id" value="46"/>
+                </insert>
+            <!-- end step 64 -->
+
+            <!-- step 65 -->
+            <insert tableName="steps">
+                <column name="id" value="65"/>
+                <column name="name" value="Восстановление URL, ч.1"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="64"/>
+                <column name="child_id" value="66"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="65"/>
+                    <column name="note" value="Идентификатор некоторого ресурса сети Интернет имеет следующий вид:
+                    http://www.ftp.ru/index.html Какая часть этого идентификатора указывает на протокол, используемый
+                    для передачи ресурса? Выпишите нужную часть."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="65"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="47"/>
+                    <column name="step_id" value="65"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;http://&quot;,&quot;www.&quot;,&quot;ftp&quot;,&quot;.ru&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="1"/>
+                    <column name="game_id" value="47"/>
+                </insert>
+            <!-- end step 65 -->
+
+            <!-- step 66 -->
+            <insert tableName="steps">
+                <column name="id" value="66"/>
+                <column name="name" value="Восстановление URL, ч.2"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="65"/>
+                <column name="child_id" value="67"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="66"/>
+                    <column name="note" value="На сервере test.edu находится файл demo.net, доступ к которому осуществляется
+                    по протоколу http. Запишите последовательность этих букв, которая кодирует адрес указанного файла в Интернете."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="66"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="48"/>
+                    <column name="step_id" value="66"/>
+                    <column name="type_id" value="2"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;http&quot;,&quot;://&quot;,&quot;test&quot;,&quot;.edu&quot;,&quot;/&quot;,&quot;demo&quot;,&quot;.net&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_chain">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[&quot;http&quot;,&quot;://&quot;,&quot;test&quot;,&quot;.edu&quot;,&quot;/&quot;,&quot;demo&quot;,&quot;.net&quot;]}"/>
+                    <column name="game_id" value="48"/>
+                </insert>
+            <!-- end step 66 -->
+
+            <!-- step 67 -->
+            <insert tableName="steps">
+                <column name="id" value="67"/>
+                <column name="name" value="Определение адреса сети"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="66"/>
+                <column name="child_id" value="68"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="67"/>
+                    <column name="note" value="В терминологии сетей TCP/IP маской сети называют двоичное число, которое
+                    показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая – к адресу узла в этой
+                    сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла
+                    и его маске. По заданным IP-адресу узла и маске определите адрес сети: IP-адрес: 145.92.137.88
+                    Маска: 255.255.240.0 При выборе ответа, сопоставьте элементам получаемого адреса слово &quot;да&quot;,
+                    во всех остальных случаях выберите &quot;нет&quot;."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="67"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="49"/>
+                    <column name="step_id" value="67"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;0&quot;:&quot;да&quot;},{&quot;145&quot;:&quot;нет&quot;},{&quot;255&quot;:&quot;нет&quot;},{&quot;137&quot;:&quot;нет&quot;},{&quot;128&quot;:&quot;да&quot;},{&quot;240&quot;:&quot;нет&quot;},{&quot;88&quot;:&quot;нет&quot;},{&quot;92&quot;:&quot;да&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;0&quot;:&quot;да&quot;},{&quot;145&quot;:&quot;нет&quot;},{&quot;255&quot;:&quot;нет&quot;},{&quot;137&quot;:&quot;нет&quot;},{&quot;128&quot;:&quot;да&quot;},{&quot;240&quot;:&quot;нет&quot;},{&quot;88&quot;:&quot;нет&quot;},{&quot;92&quot;:&quot;да&quot;}]}"/>
+                    <column name="game_id" value="49"/>
+                </insert>
+            <!-- end step 67 -->
+
+            <!-- step 68 -->
+            <insert tableName="steps">
+                <column name="id" value="68"/>
+                <column name="name" value="Определение маски"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="67"/>
+                <column name="child_id" value="69"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="68"/>
+                    <column name="note" value="В терминологии сетей TCP/IP маска сети — это двоичное число, меньшее 232;
+                    в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места нули. Маска определяет,
+                    какая часть IP-адреса узла сети относится к адресу сети, а какая – к адресу самого узла в этой сети.
+                    Обычно маска записывается по тем же правилам, что и IP-адрес — в виде четырёх байт, причём каждый байт
+                    записывается в виде десятичного числа. Адрес сети получается в результате применения поразрядной конъюнкции
+                    к заданному IP-адресу узла и маске. Например, если IP-адрес узла равен 231.32.255.131, а маска равна
+                    255.255.240.0, то адрес сети равен 231.32.240.0. Для узла с IP-адресом 224.128.112.142 адрес сети равен
+                    224.128.64.0. Чему равен третий слева байт маски в десятичной системе? "/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="68"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="50"/>
+                    <column name="step_id" value="68"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;110&quot;,&quot;112&quot;,&quot;192&quot;,&quot;240&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="3"/>
+                    <column name="game_id" value="50"/>
+                </insert>
+            <!-- end step 68 -->
+
+            <!-- step 69 -->
+            <insert tableName="steps">
+                <column name="id" value="69"/>
+                <column name="name" value="Маска подсети"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="4"/>
+                <column name="parent_id" value="68"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="69"/>
+                    <column name="note" value="Для узла с IP-адресом 203.155.196.98 адрес сети равен 203.155.192.0.
+                    Найдите наибольшее возможное количество единиц в двоичной записи маски подсети."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="56"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="51"/>
+                    <column name="step_id" value="69"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;20&quot;,&quot;21&quot;,&quot;22&quot;,&quot;23&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="2"/>
+                    <column name="game_id" value="51"/>
+                </insert>
+            <!-- end step 69 -->
+
+
+
+
+
+        <!-- end intermediate section -->
+
+        <!-- advanced section -->
+        <insert tableName="subsections">
+            <column name="id" value="5"/>
+            <column name="name" value="Персональный компьютер"/>
+            <column name="id_section" value="3"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+        </insert>
+
+            <!-- step 70 -->
+            <insert tableName="steps">
+                <column name="id" value="70"/>
+                <column name="name" value="Системный блок"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="0"/>
+                <column name="child_id" value="71"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="70"/>
+                    <column name="note" value="Основной частью персонального компьютера является ситемный блок. В системном
+                    блоке находятся: 1. материнская плата - к ней подключены все остальные устройства системного блока;
+                    через материнскую плату происходит обмен информацией между устройствами, их питание электроэнергией;
+                    2. оперативная память (RAM); 3. жесткий диск - магнитный диск в герметичном корпусе, служащий для длительного
+                    хранения информации; 4. дисковод и накопитель;  5. видеокарта (Video Card) - предназначена для связи
+                    системного блока и монитора; передает изображение на монитор и производит часть вычислений по подготовке
+                    вывода изображения на экран монитора; 6. звуковая карта (Sound Card) - предназначена для подготовки звуков,
+                    воспроизводимых колонками, в том числе для записи звука с микрофона; 7. сетевая карта - служит для
+                    соединения компьютера с другими компьютерами по компьютерной сети; 8. блок питания - преобразует
+                    ток электрической сети в ток, подходящий для внутренних компонентов компьютера; 9. порты компьютера -
+                    разъемы на системном блоке, предназначенные для подключения внешних устройств."/>
+                    <column name="image" value="https://ds02.infourok.ru/uploads/ex/0564/00087d5b-78b69451/img1.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="70"/>
+                </insert>
+            <!-- end step 70 -->
+
+            <!-- step 71 -->
+            <insert tableName="steps">
+                <column name="id" value="71"/>
+                <column name="name" value="Части системного блока"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="70"/>
+                <column name="child_id" value="72"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="71"/>
+                    <column name="note" value="Что НЕ является составной частью системного блока?"/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="71"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="52"/>
+                    <column name="step_id" value="71"/>
+                    <column name="type_id" value="3"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[&quot;материнская плата&quot;,&quot;сетевая карта&quot;,&quot;видеокарта&quot;,&quot;оперативная память&quot;, &quot;FLASH-память&quot;]}"/>
+                </insert>
+                <insert tableName="answers_on_question">
+                    <column name="answer"
+                            value="5"/>
+                    <column name="game_id" value="52"/>
+                </insert>
+            <!-- end step 71 -->
+
+            <!-- step 72 -->
+            <insert tableName="steps">
+                <column name="id" value="72"/>
+                <column name="name" value="Внешние устройства"/>
+                <column name="type" value="theory"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="71"/>
+                <column name="child_id" value="73"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="72"/>
+                    <column name="note" value="Все устройства компьютера, которые не входят в состав системного блока,
+                    будем называть внешними. К основным внешним устройствам принято относить клавиатуру, мышь и монитор.
+                     Для вывода информации на бумагу предназначены принтеры. Принтеры бывают черно-белыми и цветными.
+                     Также они различаются по способу действия. Принтеры ударного действия наносят удар по красящей ленте,
+                     соприкасающейся с бумагой. В матричном принтере удар по красящей ленте наносит группа иголок,
+                     установленных в печатающей головке. Принтеры безударного действия распыляют на бумагу чернила."/>
+                    <column name="image" value="http://images.myshared.ru/4/262213/slide_6.jpg"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="72"/>
+                </insert>
+            <!-- end step 72 -->
+
+            <!-- step 73 -->
+            <insert tableName="steps">
+                <column name="id" value="73"/>
+                <column name="name" value="Внешние и внутренние устройства"/>
+                <column name="type" value="interactive"/>
+                <column name="subsection_id" value="5"/>
+                <column name="parent_id" value="72"/>
+                <column name="child_id" value="0"/>
+            </insert>
+                <insert tableName="cards">
+                    <column name="id" value="73"/>
+                    <column name="note" value="Определи, что является внешним и внутренним элементом ПК."/>
+                    <column name="image" value=""/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="step_id" value="73"/>
+                </insert>
+                <insert tableName="mini_games">
+                    <column name="id" value="53"/>
+                    <column name="step_id" value="73"/>
+                    <column name="type_id" value="1"/>
+                    <column name="parent_id" value="0"/>
+                    <column name="child_id" value="0"/>
+                    <column name="note"
+                            value="{&quot;data&quot;:[{&quot;материнская плата&quot;:&quot;внутренний&quot;},{&quot;сетевая карта&quot;:&quot;внутренний&quot;},{&quot;видеокарта&quot;:&quot;внутренний&quot;},{&quot;блок питания&quot;:&quot;внутренний&quot;},{&quot;оперативная память&quot;:&quot;внутренний&quot;},{&quot;USB-накопитель&quot;:&quot;внешний&quot;},{&quot;жесткий диск&quot;:&quot;внутренний&quot;},{&quot;звуковая карта&quot;:&quot;внутренний&quot;},{&quot;порты компьютера&quot;:&quot;внутренний&quot;},{&quot;принтер&quot;:&quot;внешний&quot;},{&quot;монитор&quot;:&quot;внешний&quot;},{&quot;мышь&quot;:&quot;внешний&quot;},{&quot;клавиатура&quot;:&quot;внешний&quot;},{&quot;WI-FI роутер&quot;:&quot;внешний&quot;}]}"/>
+                </insert>
+                <insert tableName="answers_on_match">
+                    <column name="answer"
+                            value="{&quot;data&quot;:[{&quot;материнская плата&quot;:&quot;внутренний&quot;},{&quot;сетевая карта&quot;:&quot;внутренний&quot;},{&quot;видеокарта&quot;:&quot;внутренний&quot;},{&quot;блок питания&quot;:&quot;внутренний&quot;},{&quot;оперативная память&quot;:&quot;внутренний&quot;},{&quot;USB-накопитель&quot;:&quot;внешний&quot;},{&quot;жесткий диск&quot;:&quot;внутренний&quot;},{&quot;звуковая карта&quot;:&quot;внутренний&quot;},{&quot;порты компьютера&quot;:&quot;внутренний&quot;},{&quot;принтер&quot;:&quot;внешний&quot;},{&quot;монитор&quot;:&quot;внешний&quot;},{&quot;мышь&quot;:&quot;внешний&quot;},{&quot;клавиатура&quot;:&quot;внешний&quot;},{&quot;WI-FI роутер&quot;:&quot;внешний&quot;}]}"/>
+                    <column name="game_id" value="53"/>
+                </insert>
+            <!-- end step 73 -->
+
+        <!-- end advanced section -->
+        <!-- end insert subsections with steps, cards, games -->
+
+        <!-- insert user states -->
+        <insert tableName="users_states">
+            <column name="user_id" value="64559520"/>
+            <column name="step_id" value="1"/>
+            <column name="subsection_id" value="1"/>
+            <column name="section_id" value="1"/>
+            <column name="has_passed_application" value="false"/>
+        </insert>
+        <insert tableName="users_states">
+            <column name="user_id" value="37924905"/>
+            <column name="step_id" value="1"/>
+            <column name="subsection_id" value="1"/>
+            <column name="section_id" value="1"/>
+            <column name="has_passed_application" value="false"/>
+        </insert>
+
+
+    </changeSet>
+</databaseChangeLog>
