@@ -99,12 +99,13 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         } else {
             TurnResult turnResult;
             Boolean resolved = Boolean.FALSE;
+            boolean result = Boolean.FALSE;
             LocalDateTime answerTime = LocalDateTime.now();
             if (Duration.between(answerTime, player.getDateTimeStart()).toMinutes() >= 1) {
                 LOGGER.info(String.format("timeout for user [%s]", user.getId()));
                 turnResult = new TurnResult(new TurnResult.Payload("false"));
             } else {
-                boolean result = checkAnswer(player.getCurrentGameType(), turn, player.getCurrentGameAnswer());
+                result = checkAnswer(player.getCurrentGameType(), turn, player.getCurrentGameAnswer());
                 if (result) {
                     turnResult = new TurnResult(new TurnResult.Payload("true"));
                     //увеличиваем количество верных ответов на 1 (сдвигаем позицию игрока)
@@ -128,10 +129,10 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
                 if (num == 1) {
                     sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", resolved)));
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", result)));
                 } else {
                     sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", resolved)));
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", result)));
                 }
             } else {
                 sendMessageToUser(user.getId(), turnResult);
