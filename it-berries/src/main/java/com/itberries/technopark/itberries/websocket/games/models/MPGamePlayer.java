@@ -150,25 +150,23 @@ public class MPGamePlayer implements Cloneable {
                 break;
             case "chain":
                 if (result == Boolean.TRUE) {
-                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
-                        tasks.get(currentPosition).setResolved(Boolean.TRUE);
-                    }
-                    resolved = Boolean.TRUE;
                     amountRightAnswers += 1;
-
+                }
+                resolved = Boolean.TRUE;
+                if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
+                    tasks.get(currentPosition).setResolved(Boolean.TRUE);
                 }
                 movePosition();
                 break;
 
             case "question":
                 if (result == Boolean.TRUE) {
-
-                    if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
-                        tasks.get(currentPosition).setResolved(Boolean.TRUE);
-                        movePosition();
-                    }
-                    resolved = Boolean.TRUE;
                     amountRightAnswers += 1;
+                }
+                resolved = Boolean.TRUE;
+
+                if (!Boolean.TRUE.equals(tasks.get(currentPosition).getResolved())) {
+                    tasks.get(currentPosition).setResolved(Boolean.TRUE);
                 }
                 movePosition();
                 break;
