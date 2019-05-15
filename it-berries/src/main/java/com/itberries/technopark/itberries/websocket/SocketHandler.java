@@ -98,6 +98,7 @@ public class SocketHandler extends TextWebSocketHandler {
             //session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         } catch (Exception ex) {
             LOGGER.error("Exception while handle game message");
+            LOGGER.info(ex.toString());
             //DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("SERVER_ERROR"));
             //session.sendMessage(new TextMessage(objectMapper.writeValueAsString(deliveryStatus)));
         }
