@@ -30,7 +30,7 @@ public class GameCompletedMP extends Message {
 
     public static class Payload {
 
-        private final Integer score;
+        private final Integer coins;
 
         private final Reward reward;
 
@@ -42,29 +42,17 @@ public class GameCompletedMP extends Message {
         private String note;
 
         @JsonCreator
-        public Payload(@JsonProperty("score") Integer score,
+        public Payload(@JsonProperty("coins") Integer coins,
                        @JsonProperty("reward") Reward reward,
                        @JsonProperty("gameStatus") String gameStatus,
                        @JsonProperty("note") String note) {
-            this.score = score;
+            this.coins = coins;
             this.reward = reward;
             this.gameStatus = gameStatus;
             this.note = note;
         }
 
-        @Override
-        public String toString() {
-            return "Payload{" +
-                    "score=" + score +
-                    ", reward=" + reward +
-                    ", gameStatus='" + gameStatus + '\'' +
-                    ", note='" + note + '\'' +
-                    '}';
-        }
 
-        public Integer getScore() {
-            return score;
-        }
 
         public String getGameStatus() {
             return gameStatus;
@@ -78,8 +66,18 @@ public class GameCompletedMP extends Message {
             return reward;
         }
 
-        public Integer getResult() {
-            return score;
+        public Integer getCoins() {
+            return coins;
+        }
+
+        @Override
+        public String toString() {
+            return "Payload{" +
+                    "coins=" + coins +
+                    ", reward=" + reward +
+                    ", gameStatus='" + gameStatus + '\'' +
+                    ", note='" + note + '\'' +
+                    '}';
         }
     }
 

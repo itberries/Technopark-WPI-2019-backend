@@ -29,8 +29,8 @@
   }
 }
 
-{"type":"turnMatch","payload":{"data":{"мощность алфавита":"N"}},"mode":"multiplayer"}
-{"type":"turnMatch","payload":{"data":{"информационный вес символа":"i"}},"mode":"multiplayer"}
+{"type":"turnMatch","payload":{"data":{"мощность алфавита":"N"}}}
+{"type":"turnMatch","payload":{"data":{"информационный вес символа":"i"}}}
 
 
 
