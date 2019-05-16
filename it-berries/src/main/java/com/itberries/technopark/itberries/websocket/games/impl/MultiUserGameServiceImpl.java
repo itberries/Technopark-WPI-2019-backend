@@ -89,6 +89,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             num = 2;
         }
 
+        boolean result = Boolean.FALSE;
         //проверка на то, что игра не завершена
         if (mpGameSession.getPlayer2().isWinner()) {
             sendMessageToUser(player.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MP_GAME_IS_OVER")));
@@ -97,47 +98,51 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             sendMessageToUser(player.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MP_GAME_IS_OVER")));
 
         } else {
-            TurnResult turnResult;
+            TurnResultMP turnResult;
             Boolean resolved = Boolean.FALSE;
-            boolean result = Boolean.FALSE;
+
             LocalDateTime answerTime = LocalDateTime.now();
             if (Duration.between(answerTime, player.getDateTimeStart()).toMinutes() >= 1) {
                 LOGGER.info(String.format("timeout for user [%s]", user.getId()));
-                turnResult = new TurnResult(new TurnResult.Payload("false"));
+                turnResult = new TurnResultMP(new TurnResultMP.Payload("false", "false"));//две попытки нужно дать
             } else {
                 result = checkAnswer(player.getCurrentGameType(), turn, player.getCurrentGameAnswer());
                 if (result) {
-                    turnResult = new TurnResult(new TurnResult.Payload("true"));
                     //увеличиваем количество верных ответов на 1 (сдвигаем позицию игрока)
-                    resolved = player.markRightAnswer(turn, result);//todo: изменится ли мне исходный игрок?
-
+                    resolved = player.markRightAnswer(turn, result);
+                    turnResult = new TurnResultMP(new TurnResultMP.Payload("true", String.valueOf(resolved)));
                     //Сохраняем шаг пользователя на случай разрыва сессии
-
                     LOGGER.info(String.format("handleGameTurn MP: turn correct, turn: %s\n", turn));
                 } else {
-                    turnResult = new TurnResult(new TurnResult.Payload("false"));
-                    resolved = player.markRightAnswer(turn, result);//todo: изменится ли мне исходный игрок?
+                    resolved = player.markRightAnswer(turn, result);
+                    turnResult = new TurnResultMP(new TurnResultMP.Payload("true", String.valueOf(resolved)));
                     LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
                 }
-            }
-            sendMessageToUser(user.getId(), turnResult);
-            LOGGER.info(String.format("send message to user id=%d, turn = %s\n", user.getId(), turn));
 
-            LOGGER.info(String.format("Status of current task %s", resolved));
-            //обновляем таймер в случае, если задача была завершена
-            if (Boolean.TRUE.equals(resolved)) {
-                LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
-                player.setDateTimeStart(LocalDateTime.now());
+
                 sendMessageToUser(user.getId(), turnResult);
-                sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
-                if (num == 1) {
-                    sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", result)));
-                } else {
-                    sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", result)));
+                LOGGER.info(String.format("user id=%d, user turn was = %s\n", user.getId(), turn));
+                LOGGER.info(String.format("send message to user id=%d, user turnResult  = %s\n", user.getId(), turnResult));
+                LOGGER.info(String.format("Status of current task completed %s", resolved));
+
+                //обновляем таймер в случае, если задача была завершена
+                if (Boolean.TRUE.equals(resolved)) {
+                    LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
+                    player.setDateTimeStart(LocalDateTime.now());
+                    //sendMessageToUser(user.getId(), turnResult);
+                    //sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
+                    if (num == 1) {
+                        sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
+                    } else {
+                        sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
+                    }
                 }
+
+
             }
+
             checkGameEnd(player);
         }
     }
@@ -176,7 +181,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
 
 
-                sendMessageToUser(mpGameSession.getPlayer1().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                sendMessageToUser(mpGameSession.getPlayer1().getId(), new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer1().getId(),
                         new GameCompleted.Payload(score, reward)));
@@ -185,8 +190,9 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 LOGGER.info(String.format("PLAYER with ID=%s WIN", player.getId()));
                 mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
                 mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
+
                 sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
+                        new GameCompletedMP(new GameCompletedMP.Payload(0, null, "lose", "")));
             } else if (currentPlayerNumber == 2 && currentPlayerNumber == winnerNum) {
 
                 iUserDAO.updateScore(score, mpGameSession.getPlayer2().getId());
@@ -194,7 +200,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
 
 
-                sendMessageToUser(mpGameSession.getPlayer2().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                sendMessageToUser(mpGameSession.getPlayer2().getId(), new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer2().getId(),
                         new GameCompleted.Payload(score, reward)));
@@ -203,26 +209,23 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
                 mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
                 sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                        new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_WIN")));
-            }else {
+                        new GameCompletedMP(new GameCompletedMP.Payload(0, null, "lose", "")));
+            } else {
                 //увеличиваем очки обоим пользователям
                 iUserDAO.updateScore(score, mpGameSession.getPlayer1().getId());
                 iUserDAO.updateScore(score, mpGameSession.getPlayer2().getId());
 
-                sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                        new DeliveryStatus(new DeliveryStatus.Payload("DRAW")));
-                sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                        new DeliveryStatus(new DeliveryStatus.Payload("DRAW")));
-                //Проверить,не заслужили ли пользователи новую ачивки
 
                 Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
-                sendMessageToUser(mpGameSession.getPlayer1().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer1().getId(),
                         new GameCompleted.Payload(score, reward)));
 
                 reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
-                sendMessageToUser(mpGameSession.getPlayer2().getId(), new GameCompleted(new GameCompleted.Payload(score, reward)));
+                sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer2().getId(),
                         new GameCompleted.Payload(score, reward)));
@@ -409,7 +412,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             final long MAXIMUM_TIME_FOR_TASK = 1;
             if (Duration.between(player.getDateTimeStart(), LocalDateTime.now())
                     .toMinutes() >= MAXIMUM_TIME_FOR_TASK) {
-                TurnResult turnResult = new TurnResult(new TurnResult.Payload("TIMEOUT"));
+                TurnResultMP turnResult = new TurnResultMP(new TurnResultMP.Payload("TIMEOUT", "false"));
                 try {
                     sendMessageToUser(player.getId(), turnResult);
                     player.skipTask(); //todo: проверить сдвинится ли

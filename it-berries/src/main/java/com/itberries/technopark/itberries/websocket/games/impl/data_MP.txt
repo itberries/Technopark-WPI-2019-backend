@@ -10,12 +10,27 @@
 {"type":"turnMatch","payload":{"data":{"непрерывный" :"Рациональные числа"}},"mode":"multiplayer"}
 
 
+
+
+
+
+{
+  "type": "turnQuestion",
+  "payload": {
+    "data": 2
+  }
+}
+
+
 {
   "type": "turnChain",
   "payload": {
-    "data": 3
+    "data": ["312 ГБ","128 МБ","8 МБ","8 КБ","2096 Б","10 Б","1 Б"]
   }
 }
+
+{"type":"turnMatch","payload":{"data":{"мощность алфавита":"N"}},"mode":"multiplayer"}
+{"type":"turnMatch","payload":{"data":{"информационный вес символа":"i"}},"mode":"multiplayer"}
 
 
 

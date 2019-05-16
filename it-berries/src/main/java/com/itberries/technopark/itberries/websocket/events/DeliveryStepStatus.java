@@ -32,25 +32,25 @@ public class DeliveryStepStatus extends Message {
 
         private final String result;
 
-        private final Boolean right;
+        private final String data;
 
         @JsonCreator
         public Payload(@JsonProperty("result") String result,
-                       @JsonProperty("right") Boolean right) {
+                       @JsonProperty("data") String data) {
             this.result = result;
-            this.right = right;
+            this.data = data;
         }
 
         @Override
         public String toString() {
             return "Payload{" +
                     "result='" + result + '\'' +
-                    ", right='" + right + '\'' +
+                    ", data='" + data + '\'' +
                     '}';
         }
 
-        public Boolean getRight() {
-            return right;
+        public String getData() {
+            return data;
         }
 
         public String getResult() {
