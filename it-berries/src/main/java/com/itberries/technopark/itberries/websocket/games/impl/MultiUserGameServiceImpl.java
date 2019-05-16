@@ -221,14 +221,14 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                         new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer1().getId(),
-                        new GameCompleted.Payload(score, reward)));
+                        new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", ""))));
 
                 reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
                 sendMessageToUser(mpGameSession.getPlayer2().getId(),
                         new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", "")));
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer2().getId(),
-                        new GameCompleted.Payload(score, reward)));
+                        new GameCompletedMP(new GameCompletedMP.Payload(score / 2, reward, "draw", ""))));
 
 
                 mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
@@ -260,6 +260,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
     @Override
     public void clearStateAfterCompletedGame(User user) throws IOException {
+        int score = 100;
         LOGGER.info(String.format("Clear state after close connection for user id =%s", user.getId()));
         waiters.remove(user.getId());
 
@@ -272,13 +273,29 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             MPGameSession mpGameSession = first.get().getValue();
             MPGamePlayer player1 = mpGameSession.getPlayer1();
             MPGamePlayer player2 = mpGameSession.getPlayer2();
-            final DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT"));
+            //final DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT"));
             if (player1.getId().equals(user.getId())) {
-                sendMessageToUser(player2.getId(), deliveryStatus);
-                LOGGER.info(String.format("notify user2 = %s for %s = \n", player2.getId(), deliveryStatus));
+              //  sendMessageToUser(player2.getId(), deliveryStatus);
+
+                iUserDAO.updateScore(score, player2.getId());
+                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
+                sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer2().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
+
+
+
             } else {
-                sendMessageToUser(player1.getId(), new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT")));
-                LOGGER.info(String.format("notify user1 = %s for %s = \n", player1.getId(), deliveryStatus));
+                iUserDAO.updateScore(score, player1.getId());
+                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
+                sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
+                LOGGER.info(String.format("Send message to user %s, message=%s",
+                        mpGameSession.getPlayer1().getId(),
+                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
+
             }
             sessions.remove(player1.getId());
             sessions.remove(player2.getId());
