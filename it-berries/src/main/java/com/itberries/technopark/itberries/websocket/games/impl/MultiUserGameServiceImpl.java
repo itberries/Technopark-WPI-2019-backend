@@ -286,7 +286,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                         new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
 
 
-
+                mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
+                mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
             } else {
                 iUserDAO.updateScore(score, player1.getId());
                 Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
@@ -295,7 +296,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 LOGGER.info(String.format("Send message to user %s, message=%s",
                         mpGameSession.getPlayer1().getId(),
                         new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
-
+                mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
+                mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
             }
             sessions.remove(player1.getId());
             sessions.remove(player2.getId());
