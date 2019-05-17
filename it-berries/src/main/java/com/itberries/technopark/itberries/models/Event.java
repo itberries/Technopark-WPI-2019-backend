@@ -3,6 +3,7 @@ package com.itberries.technopark.itberries.models;
 import java.util.Objects;
 
 public class Event {
+    private Long id;
     private String title;
     private String date;
     private String city;
@@ -14,7 +15,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String title, String date, String city, String previewUrl, String imageUrl, String description, String detailsUrl) {
+    public Event(String title, String date, String city, String previewUrl, String imageUrl, String description, String detailsUrl, Long id) {
         this.title = title;
         this.date = date;
         this.city = city;
@@ -22,6 +23,7 @@ public class Event {
         this.imageUrl = imageUrl;
         this.description = description;
         this.detailsUrl = detailsUrl;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -80,17 +82,12 @@ public class Event {
         this.detailsUrl = detailsUrl;
     }
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "title='" + title + '\'' +
-                ", date='" + date + '\'' +
-                ", city='" + city + '\'' +
-                ", previewUrl='" + previewUrl + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", detailsUrl='" + detailsUrl + '\'' +
-                '}';
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -98,7 +95,8 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(title, event.title) &&
+        return Objects.equals(id, event.id) &&
+                Objects.equals(title, event.title) &&
                 Objects.equals(date, event.date) &&
                 Objects.equals(city, event.city) &&
                 Objects.equals(previewUrl, event.previewUrl) &&
@@ -109,6 +107,20 @@ public class Event {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, date, city, previewUrl, imageUrl, description, detailsUrl);
+        return Objects.hash(id, title, date, city, previewUrl, imageUrl, description, detailsUrl);
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", city='" + city + '\'' +
+                ", previewUrl='" + previewUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", detailsUrl='" + detailsUrl + '\'' +
+                '}';
     }
 }

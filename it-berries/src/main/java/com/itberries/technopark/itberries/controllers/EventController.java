@@ -1,15 +1,13 @@
 package com.itberries.technopark.itberries.controllers;
 
 
-import com.itberries.technopark.itberries.responses.models.EventResponse;
+import com.itberries.technopark.itberries.models.EventDetailDTO;
+import com.itberries.technopark.itberries.responses.models.EventShortResponse;
 import com.itberries.technopark.itberries.services.IEventService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(value = "Контроллер для работы с событиями MAIL.RU")
@@ -26,7 +24,14 @@ public class EventController {
     @GetMapping(value = "/events/")
     @ResponseBody
     @ApiOperation(value = "Получить все события MAIL.RU")
-    EventResponse findAllEvents() {
-        return new EventResponse(iEventService.findAllEvents());
+    EventShortResponse findAllEvents() {
+        return new EventShortResponse(iEventService.findAllEvents());
+    }
+
+    @GetMapping(value = "/events/{id}/")
+    @ResponseBody
+    @ApiOperation(value = "Получить детальную информацию о событии")
+    EventDetailDTO getDetailEventInfoById(@PathVariable(name = "id") Long id) {
+        return iEventService.getEventById(id);
     }
 }

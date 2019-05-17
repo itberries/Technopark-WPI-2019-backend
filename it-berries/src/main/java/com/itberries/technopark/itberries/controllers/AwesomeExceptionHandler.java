@@ -54,4 +54,9 @@ public class AwesomeExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<AwesomeException> handleDataBaseUserException() {
         return new ResponseEntity<>(new AwesomeException("Cannot do query"), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ThereIsNoEventException.class)
+    protected ResponseEntity<AwesomeException> handleEventDataBaseUserException() {
+        return new ResponseEntity<>(new AwesomeException("Event with such id doesn't exist"), HttpStatus.NOT_FOUND);
+    }
 }

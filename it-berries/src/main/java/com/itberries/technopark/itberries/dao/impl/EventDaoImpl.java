@@ -2,6 +2,7 @@ package com.itberries.technopark.itberries.dao.impl;
 
 import com.itberries.technopark.itberries.dao.IEventDao;
 import com.itberries.technopark.itberries.models.Event;
+import com.itberries.technopark.itberries.responses.ThereIsNoEventException;
 import com.itberries.technopark.itberries.rowmapper.EventRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,7 +25,21 @@ public class EventDaoImpl implements IEventDao {
 
     @Override
     public List<Event> getAllEvents() {
-        final String sql = "select title, date, city, preview_url, image_url, description, details_url from events";
+        final String sql = "select id, title, date, city, image_url, description, details_url, preview_url from events";
         return jdbcTemplate.query(sql, new EventRowMapper());
+    }
+
+    @Override
+    public Event getEventById(Long id) {
+        try {
+            final String sql = "select id, title, date, city, image_url, description, details_url, preview_url \n" +
+                    "from events\n" +
+                    "where id = :id";
+
+            return jdbcTemplate.queryForObject(sql, new MapSqlParameterSource("id", id), new EventRowMapper());
+        } catch (Exception ex) {
+            throw new ThereIsNoEventException();
+        }
+
     }
 }

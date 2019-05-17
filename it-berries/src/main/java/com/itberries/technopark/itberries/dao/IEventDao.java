@@ -7,4 +7,6 @@ import java.util.List;
 public interface IEventDao {
 
     List<Event> getAllEvents();
+
+    Event getEventById(Long id);
 }
