@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="elena-oshkina" id="create-table-events">
+        <createTable tableName="events">
+            <column name="id" type="int"/>
+            <column name="title" type="text"/>
+            <column name="date" type="text"/>
+            <column name="city" type="text"/>
+            <column name="preview_url" type="text"/>
+            <column name="image_url" type="text"/>
+            <column name="description" type="text"/>
+            <column name="details_url" type="text"/>
+        </createTable>
+
+
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_events_id"
+                       tableName="events"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          tableName="events"/>
+
+
+        <rollback>
+            <dropTable tableName="events"/>
+        </rollback>
+    </changeSet>
+
+
+
+    <changeSet author="elena-oshkina" id="add-content-to-table-events">
+
+        <insert tableName="events">
+            <column name="title" value="Открытая экскурсия в Mail.Ru Group"/>
+            <column name="date" value="21 июня, 09.00"/>
+            <column name="city" value="Москва"/>
+            <column name="preview_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
+            <column name="image_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
+            <column name="description" value="Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;br&gt;
+Наш мир – это такие проекты как Одноклассники, ВКонтакте, Почта Mail.Ru, Delivery Club, MAPS.ME, игры и многие другие. Мы с радостью расскажем о них, проведем вас по нашей башне, удивим ее захватывающими видами и покажем невероятный и будоражащий мир IT!&lt;br&gt; &lt;strong&gt;  Вам точно будет интересно, если вы: &lt;strong&gt;  &lt;br&gt;
+            &lt;ul&gt;
+              &lt;li&gt; старше 14 лет; &lt;/li&gt;
+              &lt;li&gt; серьезно увлечены сферой IT / уже работаете в IT; &lt;/li&gt;
+              &lt;li&gt; ищете вдохновения для стартапа; &lt;/li&gt;
+              &lt;li&gt; хотите прикоснуться к миру IT, чтобы открыть для себя что-то новое. &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;br&gt;
+           &lt;strong&gt; Нам же будет интересно рассказать и показать вам: &lt;strong&gt;
+           &lt;ul&gt;
+              &lt;li&gt; почему мы — созвездие брендов; &lt;/li&gt;
+              &lt;li&gt; как под одной крышей развиваются очень разные бизнесы; &lt;/li&gt;
+              &lt;li&gt; что нас объединяет и заряжает; &lt;/li&gt;
+              &lt;li&gt; как мы успеваем много работать и здорово отдыхать. &lt;/li&gt;
+            &lt;/ul&gt;
+
+            &lt;strong&gt;Начало в 9:00.&lt;strong&gt;&lt;br&gt;
+
+            &lt;strong&gt;Продолжительность – 1,5 часа.&lt;strong&gt;&lt;br&gt;
+
+
+            Максимальное количество человек — 30.&lt;br&gt;
+"/>
+            <column name="details_url" value="https://corp.mail.ru/ru/press/events/578/"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
