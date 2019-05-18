@@ -67,7 +67,6 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
         this.iAnswerOnChainDAO = iAnswerOnChainDAO;
         this.iAnswerOnQuestionDAO = iAnswerOnQuestionDAO;
-        this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
         timeouts.put("match", 120);
         timeouts.put("chain", 120);
         timeouts.put("question", 30);
@@ -266,6 +265,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 mpGameSession.getPlayer2().setDateTimeStart(now);
             }
         }
+        this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
     }
 
     @Override
