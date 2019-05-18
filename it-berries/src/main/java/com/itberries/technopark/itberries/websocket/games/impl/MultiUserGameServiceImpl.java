@@ -30,8 +30,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.*;
 
 @Service
 public class MultiUserGameServiceImpl implements IMultiUserGameService {
@@ -52,6 +51,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     private IAnswerOnMatchDAO iAnswerOnMatchDAO;
     private IAnswerOnChainDAO iAnswerOnChainDAO;
     private IAnswerOnQuestionDAO iAnswerOnQuestionDAO;
+    private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
     @Autowired
     public MultiUserGameServiceImpl(ObjectMapper objectMapper,
@@ -67,9 +67,10 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
         this.iAnswerOnChainDAO = iAnswerOnChainDAO;
         this.iAnswerOnQuestionDAO = iAnswerOnQuestionDAO;
+        this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
         timeouts.put("match", 120);
         timeouts.put("chain", 120);
-        timeouts.put("question", 30);
+        timeouts.put("question", 10);
     }
 
     @Override
@@ -442,7 +443,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
         void checkTimeout(MPGamePlayer player) {
             final int MAXIMUM_TIME_FOR_TASK = timeouts.get(player.getCurrentGameType());
-            if (Duration.between(LocalDateTime.now(), player.getDateTimeStart())
+            if (Duration.between(player.getDateTimeStart(), LocalDateTime.now())
                     .toMillis() / 1000 >= MAXIMUM_TIME_FOR_TASK) {
 
                 player.setCurrentPositionTrue();
@@ -451,6 +452,15 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 try {
                     sendMessageToUser(player.getId(), turnResult);
                     player.setDateTimeStart(LocalDateTime.now());
+                    MPGameSession mpGameSession = gameMap.get(player.getId());
+                    if (mpGameSession.getPlayer1().getId().equals(player.getId()) == Boolean.TRUE) {
+                        sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", "false")));
+                    } else {
+                        sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", "false")));
+                    }
+
                     checkGameEnd(player);
                 } catch (IOException e) {
                     LOGGER.info("ERROR while TIMEOUT for player1", e.getCause());
