@@ -259,8 +259,11 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         if (READY_TO_START_MP_GAME.equals(deliveryStatus.getPayload().getResult())) {
             MPGameSession mpGameSession = gameMap.get(user.getId());
             LocalDateTime now = LocalDateTime.now();
-            mpGameSession.getPlayer1().setDateTimeStart(now);
-            mpGameSession.getPlayer2().setDateTimeStart(now);
+            if (user.getId().equals(mpGameSession.getPlayer1().getId())) {
+                mpGameSession.getPlayer1().setDateTimeStart(now);
+            } else {
+                mpGameSession.getPlayer2().setDateTimeStart(now);
+            }
         }
     }
 
@@ -438,13 +441,15 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
 
         void checkTimeout(MPGamePlayer player) {
-            final long MAXIMUM_TIME_FOR_TASK = 1;
-            if (Duration.between(player.getDateTimeStart(), LocalDateTime.now())
-                    .toMinutes() >= MAXIMUM_TIME_FOR_TASK) {
-                TurnResultMP turnResult = new TurnResultMP(new TurnResultMP.Payload("TIMEOUT", "false"));
+            final int MAXIMUM_TIME_FOR_TASK = timeouts.get(player.getCurrentGameType());
+            if (Duration.between(LocalDateTime.now(), player.getDateTimeStart())
+                    .toMillis() / 1000 >= MAXIMUM_TIME_FOR_TASK) {
+
+                player.setCurrentPositionTrue();
+                player.movePosition();
+                TurnResultMP turnResult = new TurnResultMP(new TurnResultMP.Payload("false", String.valueOf(Boolean.TRUE)));//две попытки нужно дать
                 try {
                     sendMessageToUser(player.getId(), turnResult);
-                    player.skipTask(); //todo: проверить сдвинится ли
                     player.setDateTimeStart(LocalDateTime.now());
                     checkGameEnd(player);
                 } catch (IOException e) {
