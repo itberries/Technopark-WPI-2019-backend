@@ -258,7 +258,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         final String READY_TO_START_MP_GAME = "READY_TO_START_MP_GAME";
         if (READY_TO_START_MP_GAME.equals(deliveryStatus.getPayload().getResult())) {
             MPGameSession mpGameSession = gameMap.get(user.getId());
-            LocalDateTime now = LocalDateTime.now();
+
             if (user.getId().equals(mpGameSession.getPlayer1().getId())) {
                 mpGameSession.getPlayer1().setReady(Boolean.TRUE);
             } else {
@@ -267,6 +267,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
             //После того как оба игрока готовы - включаем таймеры
             if (mpGameSession.getPlayer1().isReady() && mpGameSession.getPlayer2().isReady()) {
+                LocalDateTime now = LocalDateTime.now();
                 sendMessageToUser(mpGameSession.getPlayer1().getId(), new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_IS_READY")));
                 sendMessageToUser(mpGameSession.getPlayer2().getId(), new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_IS_READY")));
                 mpGameSession.getPlayer1().setDateTimeStart(now);
