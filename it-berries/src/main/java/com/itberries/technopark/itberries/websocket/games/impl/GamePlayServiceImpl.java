@@ -115,7 +115,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
                 && sessions.get(user.getId()).getLocalDateTime() != null
                 && Duration.between(sessions.get(user.getId()).getLocalDateTime(), LocalDateTime.now()).toMinutes() < MINIMUM_TIME_WITHOUT_CONNECTION
                 && statusGames.containsKey(user.getId())
-                && statusGames.get(user.getId()).getStepId().equals(joinGameMessage.getStepId())) {
+                && statusGames.get(user.getId()).getStepId().equals(joinGameMessage.getStepId()) && statusGames.get(user.getId()).getType().equals("match")) {
 
             sessions.get(user.getId()).setLocalDateTime(null);//обнуляем краш тайм
             sessions.get(user.getId()).setWebSocketSession(webSocketSession);//устанавливаем новую сессию
@@ -212,6 +212,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     /**
      * Мягкий разрыв сессии - сессия не удаляется полностью
+     *
      * @param user пользователь
      * @throws IOException
      */
@@ -222,6 +223,7 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     /**
      * Жесткий разрыв сессии  - сессия удаляется полностью
+     *
      * @param userId уникальный ключ пользователя
      * @throws IOException
      */
@@ -237,8 +239,9 @@ public class GamePlayServiceImpl implements IGamePlayService {
 
     /**
      * Проверка ответа пользователя
-     * @param type тип игры
-     * @param turn шаг пользователя
+     *
+     * @param type          тип игры
+     * @param turn          шаг пользователя
      * @param correctAnswer правильный ответ
      * @return true/false в зависимости от ответа пользователя
      * @throws IOException
