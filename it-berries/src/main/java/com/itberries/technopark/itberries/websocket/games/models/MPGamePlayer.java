@@ -25,6 +25,7 @@ public class MPGamePlayer implements Cloneable {
     private static final Logger LOGGER = LoggerFactory.getLogger(MPGamePlayer.class);
     private boolean isWinner;
     private int amountRightAnswers;
+    private boolean isReady;
 
     public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
         this.amountRightAnswers = 0;
@@ -47,7 +48,15 @@ public class MPGamePlayer implements Cloneable {
                 e.printStackTrace();
             }
         }
+        this.isReady =  Boolean.FALSE;
+    }
 
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     public boolean isWinner() {
@@ -237,6 +246,8 @@ public class MPGamePlayer implements Cloneable {
                 ", resolvedTasks=" + resolvedTasks +
                 ", currentPosition=" + currentPosition +
                 ", isWinner=" + isWinner +
+                ", amountRightAnswers=" + amountRightAnswers +
+                ", isReady=" + isReady +
                 '}';
     }
 
