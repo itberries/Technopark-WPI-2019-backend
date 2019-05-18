@@ -70,7 +70,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
         timeouts.put("match", 120);
         timeouts.put("chain", 120);
-        timeouts.put("question", 10);
+        timeouts.put("question", 30);
     }
 
     @Override
