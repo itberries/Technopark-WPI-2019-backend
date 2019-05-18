@@ -102,7 +102,7 @@ public class MPGamePlayer implements Cloneable {
      * В случае верного ответа игрока сдвигаем на
      * одну позицию
      */
-    private void movePosition() {
+    public void movePosition() {
         //сдвигать нужо только в случаеб если игрок ответил на все вопросы предыдущей иры
         MPGame mpGame = tasks.get(currentPosition);
         if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
@@ -119,6 +119,10 @@ public class MPGamePlayer implements Cloneable {
         String type = tasks.get(currentPosition).getType();
         switch (type) {
             case "match":
+                if(!result){
+                    movePosition();
+                    return true;
+                }
                 TurnMatch turnMatch = (TurnMatch) turn;
                 final String task = resolvedTasks.get(currentPosition).getTask();
                 //все пары
@@ -175,6 +179,10 @@ public class MPGamePlayer implements Cloneable {
 
         }
         return resolved;
+    }
+
+    public void setCurrentPositionTrue() {
+        tasks.get(currentPosition).setResolved(Boolean.TRUE);
     }
 
     private void removeData(List<Map<String, String>> data1, Map<String, String> answer) {

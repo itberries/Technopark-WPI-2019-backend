@@ -42,6 +42,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
     private ObjectMapper objectMapper;
     //private final CopyOnWriteArrayList<MPGameSession> games = new CopyOnWriteArrayList<>();
     private final Map<Long, MPGameSession> gameMap = new ConcurrentHashMap<>();
+    private final Map<String, Integer> timeouts = new HashMap<>();
     private ICheckAnswerService iCheckAnswerService;
     private IUserDAO iUserDAO;
     private IRewardService iRewardService;
@@ -66,6 +67,9 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
         this.iAnswerOnMatchDAO = iAnswerOnMatchDAO;
         this.iAnswerOnChainDAO = iAnswerOnChainDAO;
         this.iAnswerOnQuestionDAO = iAnswerOnQuestionDAO;
+        timeouts.put("match", 120);
+        timeouts.put("chain", 120);
+        timeouts.put("question", 30);
     }
 
     @Override
@@ -99,12 +103,15 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
         } else {
             TurnResultMP turnResult;
-            Boolean resolved = Boolean.FALSE;
+            Boolean resolved;
 
             LocalDateTime answerTime = LocalDateTime.now();
-            if (Duration.between(answerTime, player.getDateTimeStart()).toMinutes() >= 1) {
+            if (Duration.between(player.getDateTimeStart(), answerTime).toMillis() / 1000 >= timeouts.get(player.getCurrentGameType())) {
                 LOGGER.info(String.format("timeout for user [%s]", user.getId()));
-                turnResult = new TurnResultMP(new TurnResultMP.Payload("false", "false"));//две попытки нужно дать
+                resolved = Boolean.TRUE;
+                player.setCurrentPositionTrue();
+                player.movePosition();
+                turnResult = new TurnResultMP(new TurnResultMP.Payload("false", String.valueOf(resolved)));//две попытки нужно дать
             } else {
                 result = checkAnswer(player.getCurrentGameType(), turn, player.getCurrentGameAnswer());
                 if (result) {
@@ -119,29 +126,28 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                     LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
                 }
 
-
-                sendMessageToUser(user.getId(), turnResult);
-                LOGGER.info(String.format("user id=%d, user turn was = %s\n", user.getId(), turn));
-                LOGGER.info(String.format("send message to user id=%d, user turnResult  = %s\n", user.getId(), turnResult));
-                LOGGER.info(String.format("Status of current task completed %s", resolved));
-
-                //обновляем таймер в случае, если задача была завершена
-                if (Boolean.TRUE.equals(resolved)) {
-                    LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
-                    player.setDateTimeStart(LocalDateTime.now());
-                    //sendMessageToUser(user.getId(), turnResult);
-                    //sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
-                    if (num == 1) {
-                        sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
-                    } else {
-                        sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                                new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
-                    }
-                }
-
-
             }
+
+            sendMessageToUser(user.getId(), turnResult);
+            LOGGER.info(String.format("user id=%d, user turn was = %s\n", user.getId(), turn));
+            LOGGER.info(String.format("send message to user id=%d, user turnResult  = %s\n", user.getId(), turnResult));
+            LOGGER.info(String.format("Status of current task completed %s", resolved));
+
+            //обновляем таймер в случае, если задача была завершена
+            if (Boolean.TRUE.equals(resolved)) {
+                LOGGER.info(String.format("restart timer for user id = %s\n", user.getId()));
+                player.setDateTimeStart(LocalDateTime.now());
+                //sendMessageToUser(user.getId(), turnResult);
+                //sendMessageToUser(user.getId(), new DeliveryStatus(new DeliveryStatus.Payload("MINI_GAME_COMPLETED")));
+                if (num == 1) {
+                    sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
+                } else {
+                    sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                            new DeliveryStepStatus(new DeliveryStepStatus.Payload("OPPONENT_HAS_STEPPED", String.valueOf(result))));
+                }
+            }
+
 
             checkGameEnd(player);
         }
