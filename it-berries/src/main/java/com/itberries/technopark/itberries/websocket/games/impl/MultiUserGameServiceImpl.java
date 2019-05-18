@@ -115,7 +115,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                     LOGGER.info(String.format("handleGameTurn MP: turn correct, turn: %s\n", turn));
                 } else {
                     resolved = player.markRightAnswer(turn, result);
-                    turnResult = new TurnResultMP(new TurnResultMP.Payload("true", String.valueOf(resolved)));
+                    turnResult = new TurnResultMP(new TurnResultMP.Payload("false", String.valueOf(resolved)));
                     LOGGER.info(String.format("handleGameTurn MP: turn incorrect, turn: %s\n", turn));
                 }
 
