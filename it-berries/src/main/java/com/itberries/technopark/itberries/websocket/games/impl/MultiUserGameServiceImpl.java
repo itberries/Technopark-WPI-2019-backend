@@ -274,31 +274,35 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
             MPGamePlayer player1 = mpGameSession.getPlayer1();
             MPGamePlayer player2 = mpGameSession.getPlayer2();
             //final DeliveryStatus deliveryStatus = new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_HAS_LEFT"));
-            if (player1.getId().equals(user.getId())) {
-              //  sendMessageToUser(player2.getId(), deliveryStatus);
 
-                iUserDAO.updateScore(score, player2.getId());
-                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
-                sendMessageToUser(mpGameSession.getPlayer2().getId(),
-                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
-                LOGGER.info(String.format("Send message to user %s, message=%s",
-                        mpGameSession.getPlayer2().getId(),
-                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
+            if (!(player1.isWinner() || player2.isWinner())) {
+                if (player1.getId().equals(user.getId())) {
+                    //  sendMessageToUser(player2.getId(), deliveryStatus);
+                    iUserDAO.updateScore(score, player2.getId());
+                    Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer2().getId());
+                    sendMessageToUser(mpGameSession.getPlayer2().getId(),
+                            new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
+                    LOGGER.info(String.format("Send message to user %s, message=%s",
+                            mpGameSession.getPlayer2().getId(),
+                            new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
 
 
-                mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
-                mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
-            } else {
-                iUserDAO.updateScore(score, player1.getId());
-                Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
-                sendMessageToUser(mpGameSession.getPlayer1().getId(),
-                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
-                LOGGER.info(String.format("Send message to user %s, message=%s",
-                        mpGameSession.getPlayer1().getId(),
-                        new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
-                mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
-                mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
+                    mpGameSession.getPlayer2().setWinner(Boolean.TRUE);
+                    mpGameSession.getPlayer1().setWinner(Boolean.FALSE);
+                } else {
+                    iUserDAO.updateScore(score, player1.getId());
+                    Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
+                    sendMessageToUser(mpGameSession.getPlayer1().getId(),
+                            new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left")));
+                    LOGGER.info(String.format("Send message to user %s, message=%s",
+                            mpGameSession.getPlayer1().getId(),
+                            new GameCompletedMP(new GameCompletedMP.Payload(score, reward, "win", "opponnet_has_left"))));
+                    mpGameSession.getPlayer1().setWinner(Boolean.TRUE);
+                    mpGameSession.getPlayer2().setWinner(Boolean.FALSE);
+                }
             }
+
+
             sessions.remove(player1.getId());
             sessions.remove(player2.getId());
             gameMap.remove(player2.getId());
