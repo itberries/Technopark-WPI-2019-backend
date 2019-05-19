@@ -40,35 +40,99 @@
 
         <insert tableName="events">
             <column name="title" value="Открытая экскурсия в Mail.Ru Group"/>
-            <column name="date" value="21 июня, 09.00"/>
+            <column name="date" value="7 июня, 09.00"/>
             <column name="city" value="Москва"/>
-            <column name="preview_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
+            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
             <column name="image_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
-            <column name="description" value="Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;br&gt;
-Наш мир – это такие проекты как Одноклассники, ВКонтакте, Почта Mail.Ru, Delivery Club, MAPS.ME, игры и многие другие. Мы с радостью расскажем о них, проведем вас по нашей башне, удивим ее захватывающими видами и покажем невероятный и будоражащий мир IT!&lt;br&gt; &lt;strong&gt;  Вам точно будет интересно, если вы: &lt;strong&gt;  &lt;br&gt;
-            &lt;ul&gt;
-              &lt;li&gt; старше 14 лет; &lt;/li&gt;
-              &lt;li&gt; серьезно увлечены сферой IT / уже работаете в IT; &lt;/li&gt;
-              &lt;li&gt; ищете вдохновения для стартапа; &lt;/li&gt;
-              &lt;li&gt; хотите прикоснуться к миру IT, чтобы открыть для себя что-то новое. &lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;br&gt;
-           &lt;strong&gt; Нам же будет интересно рассказать и показать вам: &lt;strong&gt;
-           &lt;ul&gt;
-              &lt;li&gt; почему мы — созвездие брендов; &lt;/li&gt;
-              &lt;li&gt; как под одной крышей развиваются очень разные бизнесы; &lt;/li&gt;
-              &lt;li&gt; что нас объединяет и заряжает; &lt;/li&gt;
-              &lt;li&gt; как мы успеваем много работать и здорово отдыхать. &lt;/li&gt;
-            &lt;/ul&gt;
+            <column name="description" value="
+                    &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
+&lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
+&lt;p&gt;Наш мир – это такие проекты как Одноклассники, ВКонтакте, Почта Mail.Ru, Delivery Club, MAPS.ME, игры и многие другие. Мы с радостью расскажем о них, проведем вас по нашей башне, удивим ее захватывающими видами и покажем невероятный и будоражащий мир IT!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Вам точно будет интересно, если вы:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;* старше 14 лет;&lt;/p&gt;
+&lt;p&gt;* серьезно увлечены сферой IT / уже работаете в IT;&lt;/p&gt;
+&lt;p&gt;* ищете вдохновения для стартапа;&lt;/p&gt;
+&lt;p&gt;* хотите прикоснуться к миру IT, чтобы открыть для себя что-то новое.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Нам же будет интересно рассказать и показать вам:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;* почему мы — созвездие брендов;&lt;/p&gt;
+&lt;p&gt;* как под одной крышей развиваются очень разные бизнесы;&lt;/p&gt;
+&lt;p&gt;* что нас объединяет и заряжает;&lt;/p&gt;
+&lt;p&gt;* как мы успеваем много работать и здорово отдыхать.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Начало в 9:00.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Продолжительность – 1,5 часа.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Максимальное количество человек — 30.&lt;/p&gt;
+&lt;p&gt;Пожалуйста, расскажите в комментариях к заявке (поле «Дополнительно»), почему вы хотите принять участие в экскурсии.&lt;/p&gt;
+&lt;p&gt;Обратите внимание, что &lt;strong&gt;1 заявка – это регистрация 1 человека&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;После регистрации все заявки отправляются на рассмотрение. Письмо-подтверждение и &lt;strong&gt;приглашение участникам придет за несколько дней до мероприятия&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Даты следующих экскурсий скоро появятся в календаре.&lt;/p&gt;
+&lt;p&gt;Следите за обновлениями!&lt;/p&gt;
+&lt;p&gt;До встречи в Mail.Ru Group!&lt;/p&gt;
 
-            &lt;strong&gt;Начало в 9:00.&lt;strong&gt;&lt;br&gt;
-
-            &lt;strong&gt;Продолжительность – 1,5 часа.&lt;strong&gt;&lt;br&gt;
-
-
-            Максимальное количество человек — 30.&lt;br&gt;
 "/>
-            <column name="details_url" value="https://corp.mail.ru/ru/press/events/578/"/>
+            <column name="details_url" value="https://corp.mail.ru/ru/press/events/577/"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet author="dmitrii_borodin" id="add-content-to-table-events">
+
+        <insert tableName="events">
+            <column name="title" value="Обучающий семинар myTarget"/>
+            <column name="date" value="24 мая, 10.30"/>
+            <column name="city" value="Москва"/>
+            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
+            <column name="image_url" value="https://corp.mail.ru/static/redesign/images/default_event_header.png"/>
+            <column name="description" value="
+ &lt;p&gt;24 мая myTarget проведет обучающий семинар для клиентов  &lt;br&gt;
+            &lt;br&gt;
+            Сделаем обзор нашего нового инструментария и покажем самые свежие кейсы.&lt;br&gt;
+            &lt;br&gt;
+                С радостью ответим на все ваши вопросы о настройке рекламных кампаний. &lt;/p&gt;
+            &lt;p&gt;&lt;strong&gt;Программа мероприятия: &lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;11.00 - 11.30&lt;/strong&gt; Начало работы с myTarget. Ольга Чванова, myTarget.&lt;br&gt;
+                &lt;strong&gt;11.30 - 12.00&lt;/strong&gt; Как охватить весь мобильный рунет из одного окна? Александра Макарова, myTarget.&lt;br&gt;
+                &lt;strong&gt;12.00 - 12.30&lt;/strong&gt; Особенности и портрет аудитории OK.RU. Юлия Боброва, Одноклассники.&lt;br&gt;
+                &lt;strong&gt;12.30 - 13.00&lt;/strong&gt; Кофе-брейк.&lt;br&gt;
+                &lt;strong&gt;13.00 - 13.30&lt;/strong&gt; Динамический ремаркетинг myTarget. Анна Боровикова, myTarget.&lt;br&gt;
+                &lt;strong&gt;13.30 - 14.00&lt;/strong&gt; Технологии myTarget. Оля Олефиренко, myTarget.&lt;br&gt;
+                 &lt;/p&gt;
+            &lt;p&gt;Семинар состоится в офисе Mail.Ru Group, по адресу: г. Москва, м. Аэропорт, Ленинградский пр-т, д. 39, стр. 79, БЦ &quot;SkyLight&quot;. &lt;/p&gt;
+            &lt;p&gt;Просим обратить ваше внимание, что компания Mail.Ru Group не предоставляет гостевых парковочных мест. &lt;/p&gt;
+            &lt;p&gt;&lt;strong&gt;Регистрация на мероприятие обязательна! Пожалуйста, указывайте рабочую почту.&lt;/strong&gt;&lt;/p&gt;"/>
+            <column name="details_url" value="https://corp.mail.ru/ru/press/events/588/"/>
+        </insert>
+        <insert tableName="events">
+            <column name="title" value="MeetUp факультета разработки игр GeekUniversity #2"/>
+            <column name="date" value="25 мая, 14.00"/>
+            <column name="city" value="Москва"/>
+            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
+            <column name="image_url" value="https://corp.imgsmail.ru/media/images/descriptionblock-9c2cbdf2f06c3936e26d05fdd1dbc1a239e229f4ca71ffab787481bd42ce7f18.png.640x400_q95_box-0,19,528,350_crop_detail.png"/>
+            <column name="description" value="
+&lt;p&gt;&lt;strong&gt;&quot;Говорим про ECS&quot;&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;На митапе факультета разработки игр GeekUniversity обсудим с практиками, для чего и как применять архитектуру ECS (Entity Component System) и можно ли обойтись без нее. Встреча будет полезна как начинающим, так и практикующим разработчикам на Unity.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;14:00 - “Введение в Data-Oriented Programming на Unity”.&lt;/strong&gt; &lt;strong&gt;Валентин Симонов, Field Engineer, Unity Technologies.&lt;/strong&gt;&lt;br&gt;
+        Валентин расскажет о Data-Oriented Tech Stack (DOTS) и его частях: ECS, C# Job System, Burst Compiler, Unity Physics — технологиях которые позволят играм на Unity использовать все возможности современного десктопного и мобильного железа.&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Что такое Data-Oriented Programming. &lt;/li&gt;
+        &lt;li&gt;Какие задачи решают DOTS и входящие в него технологии. &lt;/li&gt;
+        &lt;li&gt;Что можно использовать уже сегодня.&lt;/li&gt;
+        &lt;li&gt;Какие возможности станут доступны в будущем.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;strong&gt;15:00 - &quot;От теории к практике. Опыт реализации DOTS в боевом проекте&quot;. Сергей Клименко, программист, студия Moonlight Mouse.&lt;/strong&gt;&lt;br&gt;
+        Сергей на примере разрабатываемой Moonlight Mouse игры - Elinor, расскажет о том, как реализовывать геймплейные механики в DOTS, с чего начать переход на DOD, как организовать данные и системы в ECS и как оптимизировать время выполнения систем с помощью C# Job System.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;16:00 - &quot;ECS для начинающих разработчиков&quot;. &lt;/strong&gt;&lt;strong&gt;Василий Маркевич, студент факультета разработки игр GeekUniversity, Project Manager, автор канала&lt;/strong&gt; &lt;a href=&quot;https://web.telegram.org/#/im?p=%40ecscomrade&quot;&gt;@ecscomrade&lt;/a&gt;.&lt;br&gt;
+        Василий поделится опытом разработки на ECS и ответит на два главных вопроса начинающего разработчика:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Почему мне НЕ нужен ECS?&lt;/li&gt;
+        &lt;li&gt;Почему мне НУЖЕН ECS?&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;strong&gt;Регистрация на MeetUp обязательна. Количество мест ограничено.&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt; &lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;*ECS — это шаблон проектирования &quot;Сущность Компонент Система&quot; (Entity Component System). Шаблон обеспечивает разделение данных (компоненты) и кода, который работает с этими данными (системы). Таким образом, данные могут храниться в памяти максимально эффективно для CPU, что позволяет полностью использовать кэш процессора при итерации по этим данным.&lt;/em&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;В реализации ECS от Unity, при написании Систем, которые обрабатывают большие объемы данных, можно использовать технологию C# Job System. Эта технология позволяет писать безопасный многопоточный код и использовать все возможности современных многоядерных процессоров. Более того, при использовании C#JS и компилятора Burst, который генерирует максимально оптимизированный машинный код под целевую платформу, производительность этого кода будет в десятки раз выше.&lt;/em&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;Шаблон проектирования ECS и его конкретная реализация в Unity является фундаментом, на котором строятся все остальные технологии Data-Oriented Tech Stack (DOTS). Сама по себе парадигма Data-Oriented Programming уже не нова и активно применяется в индустрии разработки игр. Использование DOP в Unity потребует от разработчиков мыслить другими терминами и отказаться от многих привычных инструментов. С вопросом, стоит ли применять DOTS и ECS в вашем проекте, мы попробуем разобраться на митапе.&lt;/em&gt;&lt;/p&gt;
+    "/>
+            <column name="details_url" value="https://corp.mail.ru/ru/press/events/585/"/>
         </insert>
     </changeSet>
 
