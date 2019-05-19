@@ -25,6 +25,7 @@ public class MPGamePlayer implements Cloneable {
     private static final Logger LOGGER = LoggerFactory.getLogger(MPGamePlayer.class);
     private boolean isWinner;
     private int amountRightAnswers;
+    private boolean isReady;
 
     public MPGamePlayer(Long id, Integer currentPosition, LocalDateTime dateTimeStart, List<MPGame> tasks) {
         this.amountRightAnswers = 0;
@@ -47,7 +48,15 @@ public class MPGamePlayer implements Cloneable {
                 e.printStackTrace();
             }
         }
+        this.isReady =  Boolean.FALSE;
+    }
 
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     public boolean isWinner() {
@@ -102,14 +111,14 @@ public class MPGamePlayer implements Cloneable {
      * В случае верного ответа игрока сдвигаем на
      * одну позицию
      */
-    private void movePosition() {
+    public void movePosition() {
         //сдвигать нужо только в случаеб если игрок ответил на все вопросы предыдущей иры
         MPGame mpGame = tasks.get(currentPosition);
-        if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
-                || mpGame.getType().equals("question")
-                || mpGame.getType().equals("chain")) {
+//        if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
+//                || mpGame.getType().equals("question")
+//                || mpGame.getType().equals("chain")) {
             currentPosition += 1;
-        }
+       // }
     }
 
 
@@ -119,6 +128,10 @@ public class MPGamePlayer implements Cloneable {
         String type = tasks.get(currentPosition).getType();
         switch (type) {
             case "match":
+                if(!result){
+                    movePosition();
+                    return true;
+                }
                 TurnMatch turnMatch = (TurnMatch) turn;
                 final String task = resolvedTasks.get(currentPosition).getTask();
                 //все пары
@@ -177,6 +190,10 @@ public class MPGamePlayer implements Cloneable {
         return resolved;
     }
 
+    public void setCurrentPositionTrue() {
+        tasks.get(currentPosition).setResolved(Boolean.TRUE);
+    }
+
     private void removeData(List<Map<String, String>> data1, Map<String, String> answer) {
         Optional<Map.Entry<String, String>> first = answer.entrySet().stream().findFirst();
         if (first.isPresent()) {
@@ -229,6 +246,8 @@ public class MPGamePlayer implements Cloneable {
                 ", resolvedTasks=" + resolvedTasks +
                 ", currentPosition=" + currentPosition +
                 ", isWinner=" + isWinner +
+                ", amountRightAnswers=" + amountRightAnswers +
+                ", isReady=" + isReady +
                 '}';
     }
 

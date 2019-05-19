@@ -25,4 +25,5 @@
     <include file="changelog/20-04-2019-create-rewards-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/20-04-2019-create-users-rewards-table.xml" relativeToChangelogFile="true"/>
     <include file="changelog/15-05-2019-insert-modified-original-content.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/17-05-2019-create-events-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -51,7 +51,7 @@ public class DeliveryStatus extends Message {
     }
 
     public static void main(String[] args) {
-        DeliveryStatus deliveryStatus = new DeliveryStatus( new DeliveryStatus.Payload("READY"));
+        DeliveryStatus deliveryStatus = new DeliveryStatus( new DeliveryStatus.Payload("READY_TO_START_MP_GAME"));
         Gson gson = new Gson();
         System.out.println(gson.toJson(deliveryStatus));
     }
