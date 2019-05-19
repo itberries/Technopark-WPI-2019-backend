@@ -150,6 +150,7 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
 
 
             checkGameEnd(player);
+            LOGGER.info(String.format("ID=%s, pos = %s", player.getId(), player.getCurrentPosition()));
         }
     }
 
