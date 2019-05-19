@@ -114,11 +114,11 @@ public class MPGamePlayer implements Cloneable {
     public void movePosition() {
         //сдвигать нужо только в случаеб если игрок ответил на все вопросы предыдущей иры
         MPGame mpGame = tasks.get(currentPosition);
-        if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
-                || mpGame.getType().equals("question")
-                || mpGame.getType().equals("chain")) {
+//        if (mpGame.getResolved() == Boolean.TRUE && mpGame.getType().equals("match")
+//                || mpGame.getType().equals("question")
+//                || mpGame.getType().equals("chain")) {
             currentPosition += 1;
-        }
+       // }
     }
 
 

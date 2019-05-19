@@ -10,7 +10,12 @@
 {"type":"turnMatch","payload":{"data":{"непрерывный" :"Рациональные числа"}},"mode":"multiplayer"}
 
 
-
+{
+  "type": "deliveryStatus",
+  "payload": {
+    "result": "READY_TO_START_MP_GAME"
+  }
+}
 
 
 
