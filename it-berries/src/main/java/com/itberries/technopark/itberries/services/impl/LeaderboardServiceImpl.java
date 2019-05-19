@@ -26,4 +26,9 @@ public class LeaderboardServiceImpl  implements ILeaderboardService {
     public List<User> getLeaderBoardForUser(Long userId) {
         return userDAO.getLeaderboardForUser(userId);
     }
+
+    @Override
+    public List<User> getLeaderBoardForUserAmongFriends(Long userId, List<Long> friendsIds) {
+        return userDAO.getLeaderboardForUserAmongFriends(userId,friendsIds);
+    }
 }

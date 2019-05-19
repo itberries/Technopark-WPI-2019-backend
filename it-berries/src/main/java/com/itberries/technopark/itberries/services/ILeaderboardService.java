@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ILeaderboardService {
     List<User> getLeaderBoardForUser(Long userId);
+    List<User> getLeaderBoardForUserAmongFriends(Long userId, List<Long> friendsIds);
 }

@@ -74,18 +74,6 @@ public class UserDAOImpl implements IUserDAO {
 
     @Override
     public List<User> getLeaderboardForUser(Long userId) {
-        /*final String sql = "(SELECT u.id, u.score, DENSE_RANK()  OVER (ORDER BY u.score DESC) AS rank\n" +
-                " FROM users u\n" +
-                " LIMIT 10)\n" +
-                "UNION\n" +
-                "(\n" +
-                "  WITH summary AS (\n" +
-                "    SELECT u.id, u.score, DENSE_RANK() OVER (ORDER BY u.score DESC) AS rank\n" +
-                "    FROM users u)\n" +
-                "    SELECT s.*\n" +
-                "    FROM summary s\n" +
-                "    WHERE s.id = :userId\n" +
-                ")";*/
         final String sql = "WITH result AS\n" +
                 "(\n" +
                 "        (SELECT u.id, u.score, DENSE_RANK()  OVER (ORDER BY u.score DESC) AS rank\n" +
@@ -106,6 +94,36 @@ public class UserDAOImpl implements IUserDAO {
                 "ORDER BY r.rank\n";
         try {
             SqlParameterSource namedParameters = new MapSqlParameterSource("userId", userId);
+            return jdbcTemplate.query(sql,namedParameters,userRowMapper);
+        } catch (DataAccessException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> getLeaderboardForUserAmongFriends(Long userId, List<Long> friendsIds) {
+        final String sql = "WITH result AS\n" +
+                "(\n" +
+                "        (SELECT u.id, u.score, DENSE_RANK()  OVER (ORDER BY u.score DESC) AS rank\n" +
+                "         FROM users u\n" +
+                "         WHERE u.score > 0 AND u.id IN (:userIds)\n" +
+                "         LIMIT 10)\n" +
+                "        UNION\n" +
+                "        (\n" +
+                "          WITH summary AS (\n" +
+                "            SELECT u.id, u.score, DENSE_RANK() OVER (ORDER BY u.score DESC) AS rank\n" +
+                "            FROM users u)\n" +
+                "            SELECT s.*\n" +
+                "            FROM summary s\n" +
+                "            WHERE s.id = :userId\n" +
+                "        )\n" +
+                ") SELECT r.*\n" +
+                "FROM result r\n" +
+                "ORDER BY r.rank\n";
+        try {
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+            namedParameters.addValue("userId", userId );
+            namedParameters.addValue("userIds", friendsIds );
             return jdbcTemplate.query(sql,namedParameters,userRowMapper);
         } catch (DataAccessException ex) {
             return null;
