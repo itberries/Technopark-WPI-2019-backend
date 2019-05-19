@@ -6,4 +6,4 @@ WORKDIR /usr/app
 
 RUN sh -c 'touch it-berries-0.0.1-SNAPSHOT.jar'
 
-ENTRYPOINT ["java","-jar","it-berries--0.0.1-SNAPSHOT.jar"]  
+ENTRYPOINT ["java","-jar","it-berries-0.0.1-SNAPSHOT.jar"]
