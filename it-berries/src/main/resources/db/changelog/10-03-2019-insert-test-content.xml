@@ -18,10 +18,6 @@
             <column name="score" value="1500"/>
         </insert>
 
-        <insert tableName="users">
-            <column name="id" value="2147483640"/>
-            <column name="score" value="1500"/>
-        </insert>
 
     </changeSet>
 </databaseChangeLog>
