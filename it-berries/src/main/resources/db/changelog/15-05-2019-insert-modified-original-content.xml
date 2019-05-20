@@ -80,6 +80,7 @@
                 </insert>
             <!-- end step 1 -->
 
+
         <!-- step 74 -->
         <insert tableName="steps">
             <column name="id" value="74"/>
@@ -87,7 +88,7 @@
             <column name="type" value="training"/>
             <column name="subsection_id" value="1"/>
             <column name="parent_id" value="1"/>
-            <column name="child_id" value="2"/>
+            <column name="child_id" value="75"/>
         </insert>
         <insert tableName="cards">
             <column name="id" value="74"/>
@@ -113,39 +114,79 @@
         </insert>
         <!-- end step 74 -->
 
-            <!-- step 2 -->
-            <insert tableName="steps">
-                <column name="id" value="2"/>
-                <column name="name" value="Единица измерения информации"/>
-                <column name="type" value="interactive"/>
-                <column name="subsection_id" value="1"/>
-                <column name="parent_id" value="74"/>
-                <column name="child_id" value="3"/>
-            </insert>
-                <insert tableName="cards">
-                    <column name="id" value="2"/>
-                    <column name="note" value="Чему равна минимальная единица измерения информации?"/>
-                    <column name="image" value=""/>
-                    <column name="parent_id" value="0"/>
-                    <column name="child_id" value="0"/>
-                    <column name="step_id" value="2"/>
-                </insert>
-                <insert tableName="mini_games">
-                    <column name="id" value="1"/>
-                    <column name="step_id" value="2"/>
-                    <column name="type_id" value="3"/>
-                    <column name="parent_id" value="0"/>
-                    <column name="child_id" value="0"/>
-                    <column name="note"
-                            value="{&quot;data&quot;:[&quot;1 байт&quot;,&quot;1 бит&quot;,&quot;1 болт&quot;,&quot;1 килобайт&quot;]}"/>
-                </insert>
-                <insert tableName="answers_on_question">
-                    <column name="answer" value="2"/>
-                    <column name="game_id" value="1"/>
-                </insert>
-            <!-- end step 2 -->
 
-            <!-- step 3 -->
+
+        <!-- step 75 -->
+        <insert tableName="steps">
+            <column name="id" value="75"/>
+            <column name="name" value="Единицы измерения информации"/>
+            <column name="type" value="interactive"/>
+            <column name="subsection_id" value="1"/>
+            <column name="parent_id" value="74"/>
+            <column name="child_id" value="2"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="id" value="75"/>
+            <column name="note" value="Соотнеси единицы измерения информации и их значения."/>
+            <column name="image" value=""/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="step_id" value="75"/>
+        </insert>
+        <insert tableName="mini_games">
+            <column name="id" value="55"/>
+            <column name="step_id" value="75"/>
+            <column name="type_id" value="1"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="note"
+                    value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;8 бит&quot;},{&quot;1 килобайт&quot;:&quot;1024 байта&quot;},{&quot;1 мегабайт&quot;:&quot;1024 килобайта&quot;},{&quot;1 гигабайт&quot;:&quot;1024 мегабайта&quot;}]}"/>
+        </insert>
+        <insert tableName="answers_on_match">
+            <column name="answer"
+                    value="{&quot;data&quot;:[{&quot;1 байт&quot;:&quot;8 бит&quot;},{&quot;1 килобайт&quot;:&quot;1024 байта&quot;},{&quot;1 мегабайт&quot;:&quot;1024 килобайта&quot;},{&quot;1 гигабайт&quot;:&quot;1024 мегабайта&quot;}]}"/>
+            <column name="game_id" value="55"/>
+        </insert>
+        <!-- end step 75 -->
+
+
+
+
+        <!-- step 2 -->
+        <insert tableName="steps">
+            <column name="id" value="2"/>
+            <column name="name" value="Единица измерения информации"/>
+            <column name="type" value="interactive"/>
+            <column name="subsection_id" value="1"/>
+            <column name="parent_id" value="75"/>
+            <column name="child_id" value="3"/>
+        </insert>
+        <insert tableName="cards">
+            <column name="id" value="2"/>
+            <column name="note" value="Чему равна минимальная единица измерения информации?"/>
+            <column name="image" value=""/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="step_id" value="2"/>
+        </insert>
+        <insert tableName="mini_games">
+            <column name="id" value="1"/>
+            <column name="step_id" value="2"/>
+            <column name="type_id" value="3"/>
+            <column name="parent_id" value="0"/>
+            <column name="child_id" value="0"/>
+            <column name="note"
+                    value="{&quot;data&quot;:[&quot;1 байт&quot;,&quot;1 бит&quot;,&quot;1 болт&quot;,&quot;1 килобайт&quot;]}"/>
+        </insert>
+        <insert tableName="answers_on_question">
+            <column name="answer" value="2"/>
+            <column name="game_id" value="1"/>
+        </insert>
+        <!-- end step 2 -->
+
+
+
+        <!-- step 3 -->
             <insert tableName="steps">
                 <column name="id" value="3"/>
                 <column name="name" value="Информационный вес символа произвольного алфавита"/>
