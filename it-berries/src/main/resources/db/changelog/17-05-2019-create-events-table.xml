@@ -35,45 +35,6 @@
     </changeSet>
 
 
-
-    <changeSet author="elena-oshkina" id="add-content-to-table-events">
-
-        <insert tableName="events">
-            <column name="title" value="Открытая экскурсия в Mail.Ru Group"/>
-            <column name="date" value="7 июня, 09.00"/>
-            <column name="city" value="Москва"/>
-            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
-            <column name="image_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
-            <column name="description" value="
-                    &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
-&lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
-&lt;p&gt;Наш мир – это такие проекты как Одноклассники, ВКонтакте, Почта Mail.Ru, Delivery Club, MAPS.ME, игры и многие другие. Мы с радостью расскажем о них, проведем вас по нашей башне, удивим ее захватывающими видами и покажем невероятный и будоражащий мир IT!&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Вам точно будет интересно, если вы:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;* старше 14 лет;&lt;/p&gt;
-&lt;p&gt;* серьезно увлечены сферой IT / уже работаете в IT;&lt;/p&gt;
-&lt;p&gt;* ищете вдохновения для стартапа;&lt;/p&gt;
-&lt;p&gt;* хотите прикоснуться к миру IT, чтобы открыть для себя что-то новое.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Нам же будет интересно рассказать и показать вам:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;* почему мы — созвездие брендов;&lt;/p&gt;
-&lt;p&gt;* как под одной крышей развиваются очень разные бизнесы;&lt;/p&gt;
-&lt;p&gt;* что нас объединяет и заряжает;&lt;/p&gt;
-&lt;p&gt;* как мы успеваем много работать и здорово отдыхать.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Начало в 9:00.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Продолжительность – 1,5 часа.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Максимальное количество человек — 30.&lt;/p&gt;
-&lt;p&gt;Пожалуйста, расскажите в комментариях к заявке (поле «Дополнительно»), почему вы хотите принять участие в экскурсии.&lt;/p&gt;
-&lt;p&gt;Обратите внимание, что &lt;strong&gt;1 заявка – это регистрация 1 человека&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;После регистрации все заявки отправляются на рассмотрение. Письмо-подтверждение и &lt;strong&gt;приглашение участникам придет за несколько дней до мероприятия&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Даты следующих экскурсий скоро появятся в календаре.&lt;/p&gt;
-&lt;p&gt;Следите за обновлениями!&lt;/p&gt;
-&lt;p&gt;До встречи в Mail.Ru Group!&lt;/p&gt;
-
-"/>
-            <column name="details_url" value="https://corp.mail.ru/ru/press/events/577/"/>
-        </insert>
-    </changeSet>
-
-
     <changeSet author="dmitrii_borodin" id="add-content-to-table-events">
 
         <insert tableName="events">
@@ -133,6 +94,58 @@
     &lt;p&gt;&lt;em&gt;Шаблон проектирования ECS и его конкретная реализация в Unity является фундаментом, на котором строятся все остальные технологии Data-Oriented Tech Stack (DOTS). Сама по себе парадигма Data-Oriented Programming уже не нова и активно применяется в индустрии разработки игр. Использование DOP в Unity потребует от разработчиков мыслить другими терминами и отказаться от многих привычных инструментов. С вопросом, стоит ли применять DOTS и ECS в вашем проекте, мы попробуем разобраться на митапе.&lt;/em&gt;&lt;/p&gt;
     "/>
             <column name="details_url" value="https://corp.mail.ru/ru/press/events/585/"/>
+        </insert>
+
+        <insert tableName="events">
+            <column name="title" value="Открытая экскурсия в Mail.Ru Group"/>
+            <column name="date" value="7 июня, 09.00"/>
+            <column name="city" value="Москва"/>
+            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
+            <column name="image_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
+            <column name="description" value="
+                    &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
+&lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
+&lt;p&gt;Наш мир – это такие проекты как Одноклассники, ВКонтакте, Почта Mail.Ru, Delivery Club, MAPS.ME, игры и многие другие. Мы с радостью расскажем о них, проведем вас по нашей башне, удивим ее захватывающими видами и покажем невероятный и будоражащий мир IT!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Вам точно будет интересно, если вы:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;* старше 14 лет;&lt;/p&gt;
+&lt;p&gt;* серьезно увлечены сферой IT / уже работаете в IT;&lt;/p&gt;
+&lt;p&gt;* ищете вдохновения для стартапа;&lt;/p&gt;
+&lt;p&gt;* хотите прикоснуться к миру IT, чтобы открыть для себя что-то новое.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Нам же будет интересно рассказать и показать вам:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;* почему мы — созвездие брендов;&lt;/p&gt;
+&lt;p&gt;* как под одной крышей развиваются очень разные бизнесы;&lt;/p&gt;
+&lt;p&gt;* что нас объединяет и заряжает;&lt;/p&gt;
+&lt;p&gt;* как мы успеваем много работать и здорово отдыхать.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Начало в 9:00.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Продолжительность – 1,5 часа.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Максимальное количество человек — 30.&lt;/p&gt;
+"/>
+            <column name="details_url" value="https://corp.mail.ru/ru/press/events/577/"/>
+        </insert>
+
+        <insert tableName="events">
+            <column name="title" value="Лагерь цифровых профессий для детей 6-17 лет"/>
+            <column name="date" value="июнь-август 2019"/>
+            <column name="city" value="Москва"/>
+            <column name="preview_url" value="http://edurobots.ru/wp-content/uploads/2018/08/Codabra_Logo_Main_Ru.png"/>
+            <column name="image_url" value="https://static.tildacdn.com/tild3064-3739-4564-a239-353865616532/vr-ed.jpg"/>
+            <column name="description" value="
+                   &lt;p&gt;Зарегистрируйтесь сегодня в самый технологичный лагерь этого лета. Подарите возможность
+                   вашему ребенку попробовать себя в роли разработчика игр, дизайнера, видеомейкера или
+                   программиста.&lt;/p&gt;
+                   &lt;strong&gt;Полезное и незабываемое летоbr>для вашего ребенка вместе с Кодаброй&lt;/strong&gt;
+                   &lt;p&gt;15 программ для детей разных возрастов, интересов и уровня подготовки&lt;/p&gt;
+                   &lt;p&gt;Квалифицированные и увлеченные вожатые и преподаватели&lt;/p&gt;
+                   &lt;p&gt;Активные игры в парке, командные задания на развитие софт-навыков&lt;/p&gt;
+                   &lt;strong&gt;Почему ребенку понравится лагерь&lt;/strong&gt;
+                   &lt;p&gt;Разработчик игр, дизайнер, видеомейкер и другие цифровые профессии, которые вдохновят вашего ребенка&lt;/p&gt;
+                   &lt;p&gt;Передовые технологии и платформы от Microsoft, Adobe, Autodesk и Google&lt;/p&gt;
+                   &lt;p&gt;Презентация проекта в пятницу перед семьей и друзьями&lt;/p&gt;
+                   &lt;p&gt;Два вожатых и преподаватель на группу от 10 до 15 человек&lt;/p&gt;
+                   &lt;p&gt;Мастер-классы и общение с ИТ-экспертами из технологичных компаний&lt;/p&gt;
+                   &lt;p&gt;3х разовое питание: второй завтрак, полноценный обед и полдник. Вода и фрукты доступны без ограничения&lt;/p&gt;
+"/>
+            <column name="details_url" value="https://start.codabra.org/camp_msk"/>
         </insert>
     </changeSet>
 
