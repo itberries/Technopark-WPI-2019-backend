@@ -90,7 +90,7 @@
             <column name="child_id" value="2"/>
         </insert>
         <insert tableName="cards">
-            <column name="id" value="10"/>
+            <column name="id" value="74"/>
             <column name="note" value="Соотнеси единицы измерения информации и их значения."/>
             <column name="image" value=""/>
             <column name="parent_id" value="0"/>
