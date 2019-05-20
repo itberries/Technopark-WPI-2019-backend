@@ -67,7 +67,7 @@
             <column name="date" value="25 мая, 14.00"/>
             <column name="city" value="Москва"/>
             <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
-            <column name="image_url" value="https://it-berries.ru/events/preview_url2.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url2.png"/>
             <column name="description" value="
 &lt;p&gt;&lt;strong&gt;&quot;Говорим про ECS&quot;&lt;/strong&gt;&lt;/p&gt;
     &lt;p&gt;На митапе факультета разработки игр GeekUniversity обсудим с практиками, для чего и как применять архитектуру ECS (Entity Component System) и можно ли обойтись без нее. Встреча будет полезна как начинающим, так и практикующим разработчикам на Unity.&lt;/p&gt;
@@ -101,7 +101,7 @@
             <column name="date" value="7 июня, 09.00"/>
             <column name="city" value="Москва"/>
             <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
-            <column name="image_url" value="https://it-berries.ru/events/preview_url3.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url3.png"/>
             <column name="description" value="
                     &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
 &lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
