@@ -11,12 +11,15 @@
         <!-- insert types of games -->
         <insert tableName="mini_games_types">
             <column name="type" value="match"/>
+            <column name="id" value="1"/>
         </insert>
         <insert tableName="mini_games_types">
             <column name="type" value="chain"/>
+            <column name="id" value="2"/>
         </insert>
         <insert tableName="mini_games_types">
             <column name="type" value="question"/>
+            <column name="id" value="3"/>
         </insert>
 
         <!-- insert sections -->
