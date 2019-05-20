@@ -80,8 +80,8 @@
         <!-- step 74 -->
         <insert tableName="steps">
             <column name="id" value="74"/>
-            <column name="name" value="Единицы измерения информации, ч.2"/>
-            <column name="type" value="interactive"/>
+            <column name="name" value="Единицы измерения информации"/>
+            <column name="type" value="training"/>
             <column name="subsection_id" value="1"/>
             <column name="parent_id" value="1"/>
             <column name="child_id" value="2"/>
@@ -114,7 +114,7 @@
             <insert tableName="steps">
                 <column name="id" value="2"/>
                 <column name="name" value="Единица измерения информации"/>
-                <column name="type" value="training"/>
+                <column name="type" value="interactive"/>
                 <column name="subsection_id" value="1"/>
                 <column name="parent_id" value="74"/>
                 <column name="child_id" value="3"/>
