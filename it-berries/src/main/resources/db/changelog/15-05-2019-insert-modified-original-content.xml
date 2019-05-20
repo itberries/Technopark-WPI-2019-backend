@@ -70,7 +70,7 @@
                                                 вес, зависящий от мощности алфавита. Информационный вес символа двоичного
                                                 алфавита принят за минимальную единицу измерения информации и называется
                                                 1 бит. (binary digit - &quot;двоичная цифра&quot;)"/>
-                    <column name="image" value="http://images.myshared.ru/5/487720/slide_1.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step1.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="1"/>
@@ -124,7 +124,7 @@
                                                 требуемой для кодирования всех символов исходного алфавита, соотношением:
                                                 N = 2^i. Разрядность двоичного кода принято считать информационным весом
                                                 символа алфавита. Информационный вес символа алфавита выражается в битах."/>
-                    <column name="image" value="http://informatika.edusite.ru/8_0011.bmp"/>
+                    <column name="image" value="https://it-berries.ru/steps/step3.bmp"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="3"/>
@@ -212,7 +212,7 @@
                                                 складывается из информационных весов составляющих его символов.
                                                 Информационный объем сообщения L равен произведению количества символов
                                                 в сообщении K на информационный вес алфавита i: L = K * i."/>
-                    <column name="image" value="http://images.myshared.ru/6/631306/slide_1.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step6.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="6"/>
@@ -318,7 +318,7 @@
                                                 символа алфавита мощностью 256. На практике для измерения информационных
                                                 объемов используются более крупные единицы измерения (килобайт, мегабайт,
                                                 гигабайт, терабайт и др.)"/>
-                    <column name="image" value="http://images.myshared.ru/5/487720/slide_2.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step9.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="9"/>
@@ -485,7 +485,7 @@
                         чисел (чисел, которые обозначаются цифрами) и способами образования алгоритмических чисел
                         (чисел, получаемых из операций над узловыми числами). Можно выделить следующие виды систем
                         счисления: 1. унарная система; 2. непозиционные системы; 3. позиционные системы;"/>
-                    <column name="image" value="https://новиков-дм.рф/wp-content/uploads/2017/09/8-1-2.png"/>
+                    <column name="image" value="https://it-berries.ru/steps/step14.png"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="14"/>
@@ -540,7 +540,7 @@
                     называется позиционной, если количественный эквивалент цифры зависит от ее позиции в записи числа.
                     (например, 21 и 12 - разные числа). Основание позиционной системы счисления равно количеству цифр,
                     составляющих ее алфавит."/>
-                    <column name="image" value="https://sites.google.com/site/sekretydvoicnojss/_/rsrc/1487905904386/cto-takoe-sistema-scislenia/%D1%81%D1%813.JPG"/>
+                    <column name="image" value="https://it-berries.ru/steps/step16.JPG"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="16"/>
@@ -595,7 +595,7 @@
                     q-1, каждое из которых может быть записано с помощью одного уникального символа; младшей цифрой
                     всегда является 0. В позиционной системе счисления с основанием q любое число может быть представлено
                     в виде:"/>
-                    <column name="image" value="http://images.myshared.ru/17/1067694/slide_8.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step18.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="18"/>
@@ -649,7 +649,7 @@
                     основанием 2. Для записи чисел в двоичной системе счисления используются цифры 0 и 1. На основании
                     формулы из предыдущего раздела для целых двоичных чисел можно записать: A(n-1)A(n-2)..A1A0 = A(n-1) *
                     2 ^ (n-1) + A(n-2) * 2 ^ (n-2) + ... + A0 * 2^0. "/>
-                    <column name="image" value="https://cf.ppt-online.org/files/slide/u/ufDJcjVPrG27lZ1MQ6iFmytpLdOUAxSHICgbqo/slide-15.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step20.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="20"/>
@@ -830,7 +830,7 @@
                     <column name="note" value="Развернутая форма записи &quot;подсказывает&quot; правило перевода
                     натуральных двоичных чисел в десятичную систему счисления: необходимо вычислить сумму степеней двойки,
                     соответствующих единицам в свернутой форме записи двоичного числа."/>
-                    <column name="image" value="https://studfiles.net/html/2706/250/html_iK44_mJiSB.LpT8/img-OnbBEp.png"/>
+                    <column name="image" value="https://it-berries.ru/steps/step26.png"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="26"/>
@@ -886,7 +886,7 @@
                     являющиеся цифрами числа в новой системе сичсления, привести в соответствии с алфавитом новой системы
                     счисления; 3. составить число в новой системе счисления, записывая его, начиная с последнего полученного
                     остатка."/>
-                    <column name="image" value="http://images.myshared.ru/17/1056561/slide_4.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step28.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="28"/>
@@ -1079,7 +1079,7 @@
                     него нельзя сказать, истинно оно или ложно, чтобы не получить противоречие. Побудительные и
                     вопросительные предложения высказываниями не являются. Высказывания могут строиться с использованием
                     знаков различных формальных языков - математики, физики и т.п. Бывают простые и сложные."/>
-                    <column name="image" value="https://fs01.infourok.ru/images/doc/82/98710/img8.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step34.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="34"/>
@@ -1204,7 +1204,7 @@
                     |, +, v, например: А ИЛИ B. Инверсия - логическая операция, которая каждому высказыванию ставит в
                     соответствие новое высказывание, значение которого противоположно исходному. Для записи используют
                     знаки: НЕ, ¬, ˜, !, например: НЕ А."/>
-                    <column name="image" value="http://images.myshared.ru/10/990983/slide_6.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step38.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="38"/>
@@ -1366,7 +1366,7 @@
                     7. выписать наборы входных переменных с учетом того, что они представляют собой ряд n-разрядных двоичных
                     чисел от 0 до 2^n - 1; 8. провести заполнение таблицы по столбцам, выполняя логические операции в
                     соответствии с установленной последовательностью."/>
-                    <column name="image" value="https://sites.google.com/site/webkvestsistemyscislenia/_/rsrc/1505482372764/pismennaa-numeracia-u-drevnih-narodov/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B.JPG"/>
+                    <column name="image" value="https://it-berries.ru/steps/step43.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="43"/>
@@ -1427,7 +1427,7 @@
                     A v A = A (для сложения); 7. законы операций с 0 и 1: A &amp; 0 = 0, A &amp; 1 = A (для умножения),
                     A v 0 = A, A v 1 = 1 (для сложения); 8. законы общей инверсии (законы Де-Моргана): НЕ(A &amp; B) = НЕ А v НЕ B
                     (для умножения), НЕ (A v B) = НЕ А &amp; НЕ B (для сложения)."/>
-                    <column name="image" value="https://ucarecdn.com/eec6dafa-38e2-4239-accc-08b371efb9e2/"/>
+                    <column name="image" value="https://it-berries.ru/steps/step45.JPG"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="45"/>
@@ -1483,7 +1483,7 @@
                     элемент ИЛИ (дизъюнктор) реализует операцию логического сложения. Если хотя бы на одном из входов будет
                     единица, то на выходе элемента также будет единица. Логический элемент НЕ (инвертор) реализует операцию
                     отрицания. Если на входе элемента 0, то на выходе будет 1 и наоборот."/>
-                    <column name="image" value="https://иванов-ам.рф/informatika_10_fgos/ur_26/ur_26_01.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step47.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="47"/>
@@ -1538,7 +1538,7 @@
                     возрастает (точнее не убывает) по каждому аргументу. Из элементарных булевых функций монотонными
                     являются, например, конъюнкция и дизъюнкция. Не являются монотонными, например, штрих Шеффера и
                     стрелка Пирса. "/>
-                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/04d9/00185b50-c66747e0/img6.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step49.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="49"/>
@@ -1786,7 +1786,7 @@
                     подключенные к сети, условно можно разделить на две категории. Те компьютеры сети, которые хранят,
                     сортируют и поставляют общую для сети информацию, управляют общими устройствами, называются серверами.
                     Компьютеры, которые эту информацию используют, называются клиентами."/>
-                    <column name="image" value="https://st2.depositphotos.com/3223379/5350/i/950/depositphotos_53508771-stock-photo-global-computer-network.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step56.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="56"/>
@@ -1840,7 +1840,7 @@
                     <column name="note" value="Основная характеристика подключения компьютера к сети Интернет - скорость
                     передачи данных по имеющемуся каналу связи. Она измеряется в битах в секунду (бит/с), а также Кбит/с
                     (1 Кбит = 1024 бита), Мбит/с и Гбит/с."/>
-                    <column name="image" value="https://ds04.infourok.ru/uploads/ex/0e8f/0010c3e6-a3e3e950/640/img5.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step58.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="58"/>
@@ -2272,7 +2272,7 @@
                     соединения компьютера с другими компьютерами по компьютерной сети; 8. блок питания - преобразует
                     ток электрической сети в ток, подходящий для внутренних компонентов компьютера; 9. порты компьютера -
                     разъемы на системном блоке, предназначенные для подключения внешних устройств."/>
-                    <column name="image" value="https://ds02.infourok.ru/uploads/ex/0564/00087d5b-78b69451/img1.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step70.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="70"/>
@@ -2329,7 +2329,7 @@
                      Также они различаются по способу действия. Принтеры ударного действия наносят удар по красящей ленте,
                      соприкасающейся с бумагой. В матричном принтере удар по красящей ленте наносит группа иголок,
                      установленных в печатающей головке. Принтеры безударного действия распыляют на бумагу чернила."/>
-                    <column name="image" value="http://images.myshared.ru/4/262213/slide_6.jpg"/>
+                    <column name="image" value="https://it-berries.ru/steps/step72.jpg"/>
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="step_id" value="72"/>
