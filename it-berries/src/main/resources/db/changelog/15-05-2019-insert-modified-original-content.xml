@@ -448,11 +448,11 @@
                     <column name="parent_id" value="0"/>
                     <column name="child_id" value="0"/>
                     <column name="note"
-                            value="{&quot;data&quot;:[{&quot;1 Б&quot;:&quot;8 б&quot;},{&quot;1 КБ&quot;:&quot;8192 б&quot;},{&quot;1 МБ&quot;:&quot;8388608 б&quot;},{&quot;1 ГБ&quot;:&quot;8589934592 б&quot;}]}"/>
+                            value="{&quot;data&quot;:[{&quot;1 Байт&quot;:&quot;8 бит&quot;},{&quot;1 КБайт&quot;:&quot;8192 бит&quot;},{&quot;1 МБайт&quot;:&quot;8388608 бит&quot;},{&quot;1 ГБайт&quot;:&quot;8589934592 бит&quot;}]}"/>
                 </insert>
                 <insert tableName="answers_on_match">
                     <column name="answer"
-                            value="{&quot;data&quot;:[{&quot;1 Б&quot;:&quot;8 б&quot;},{&quot;1 КБ&quot;:&quot;8192 б&quot;},{&quot;1 МБ&quot;:&quot;8388608 б&quot;},{&quot;1 ГБ&quot;:&quot;8589934592 б&quot;}]}"/>
+                            value="{&quot;data&quot;:[{&quot;1 Байт&quot;:&quot;8 бит&quot;},{&quot;1 КБайт&quot;:&quot;8192 бит&quot;},{&quot;1 МБайт&quot;:&quot;8388608 бит&quot;},{&quot;1 ГБайт&quot;:&quot;8589934592 бит&quot;}]}"/>
                     <column name="game_id" value="9"/>
                 </insert>
             <!-- end step 13 -->
