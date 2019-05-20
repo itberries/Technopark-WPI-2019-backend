@@ -101,7 +101,7 @@
             <column name="date" value="7 июня, 09.00"/>
             <column name="city" value="Москва"/>
             <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
-            <column name="image_url" value="https://it-berries.ru/events/image_url3.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url3.jpg"/>
             <column name="description" value="
                     &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
 &lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
@@ -128,7 +128,7 @@
             <column name="date" value="июнь-август 2019"/>
             <column name="city" value="Москва"/>
             <column name="preview_url" value="https://it-berries.ru/events/preview_url4.png"/>
-            <column name="image_url" value="https://it-berries.ru/events/image_url4.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url4.jpg"/>
             <column name="description" value="
                    &lt;p&gt;Зарегистрируйтесь сегодня в самый технологичный лагерь этого лета. Подарите возможность
                    вашему ребенку попробовать себя в роли разработчика игр, дизайнера, видеомейкера или
