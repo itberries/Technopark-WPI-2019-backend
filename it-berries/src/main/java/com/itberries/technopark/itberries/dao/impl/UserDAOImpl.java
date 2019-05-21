@@ -112,7 +112,7 @@ public class UserDAOImpl implements IUserDAO {
                 "        (\n" +
                 "          WITH summary AS (\n" +
                 "            SELECT u.id, u.score, DENSE_RANK() OVER (ORDER BY u.score DESC) AS rank\n" +
-                "            FROM users u)\n" +
+                "            FROM users u Where u.id in (:userIds, :userId) )\n" +
                 "            SELECT s.*\n" +
                 "            FROM summary s\n" +
                 "            WHERE s.id = :userId\n" +
