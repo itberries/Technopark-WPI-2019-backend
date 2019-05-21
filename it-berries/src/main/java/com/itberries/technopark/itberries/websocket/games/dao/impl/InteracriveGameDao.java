@@ -49,7 +49,7 @@ public class InteracriveGameDao implements IInteracriveGameDao {
                 "             join cards cr on cr.step_id = st.id\n" +
                 "             join mini_games_types mgt on mg.type_id = mgt.id\n" +
                 "             join answers_on_question a2 on mg.id = a2.game_id) X\n" +
-                "where num <= 1";
+                "where num <= 1 order by id";
         return jdbcTemplate.query(sql, new MapSqlParameterSource(), new MPGameRowMapper());
     }
 }
