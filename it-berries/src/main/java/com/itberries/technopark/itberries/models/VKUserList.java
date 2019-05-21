@@ -5,6 +5,18 @@ import java.util.List;
 public class VKUserList {
     private Integer count;
     private List<VKUser> items;
+    private List<Integer> lists;
+
+    public VKUserList() {
+    }
+
+    public List<Integer> getLists() {
+        return lists;
+    }
+
+    public void setLists(List<Integer> lists) {
+        this.lists = lists;
+    }
 
     public Integer getCount() {
         return count;

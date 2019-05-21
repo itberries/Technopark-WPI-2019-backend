@@ -41,8 +41,8 @@
             <column name="title" value="Обучающий семинар myTarget"/>
             <column name="date" value="24 мая, 10.30"/>
             <column name="city" value="Москва"/>
-            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
-            <column name="image_url" value="https://corp.mail.ru/static/redesign/images/default_event_header.png"/>
+            <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url1.png"/>
             <column name="description" value="
  &lt;p&gt;24 мая myTarget проведет обучающий семинар для клиентов  &lt;br&gt;
             &lt;br&gt;
@@ -66,8 +66,8 @@
             <column name="title" value="MeetUp факультета разработки игр GeekUniversity #2"/>
             <column name="date" value="25 мая, 14.00"/>
             <column name="city" value="Москва"/>
-            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
-            <column name="image_url" value="https://corp.imgsmail.ru/media/images/descriptionblock-9c2cbdf2f06c3936e26d05fdd1dbc1a239e229f4ca71ffab787481bd42ce7f18.png.640x400_q95_box-0,19,528,350_crop_detail.png"/>
+            <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url2.png"/>
             <column name="description" value="
 &lt;p&gt;&lt;strong&gt;&quot;Говорим про ECS&quot;&lt;/strong&gt;&lt;/p&gt;
     &lt;p&gt;На митапе факультета разработки игр GeekUniversity обсудим с практиками, для чего и как применять архитектуру ECS (Entity Component System) и можно ли обойтись без нее. Встреча будет полезна как начинающим, так и практикующим разработчикам на Unity.&lt;/p&gt;
@@ -100,8 +100,8 @@
             <column name="title" value="Открытая экскурсия в Mail.Ru Group"/>
             <column name="date" value="7 июня, 09.00"/>
             <column name="city" value="Москва"/>
-            <column name="preview_url" value="https://files.startupranking.com/startup/thumb/46467_60b7bdd08d1b5ae1e87f4dc39e96a8c91653e1e7_mail-ru-group_m.png"/>
-            <column name="image_url" value="https://corp.imgsmail.ru/media/images/ekskjuptpyy_srmLusM.jpg.640x400_q95_box-96,0,1824,1080_crop_detail.jpg"/>
+            <column name="preview_url" value="https://it-berries.ru/events/preview_url1.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url3.jpg"/>
             <column name="description" value="
                     &lt;p&gt;&lt;strong&gt;7 июня&lt;/strong&gt;, в пятницу, приглашаем на очередную открытую экскурсию в Mail.Ru Group!&lt;/p&gt;
 &lt;p&gt;Приходите узнать, как работает крупнейшая компания рунета, и как офисная среда помогает нам создавать креативные идеи!&lt;/p&gt;
@@ -127,8 +127,8 @@
             <column name="title" value="Лагерь цифровых профессий для детей 6-17 лет"/>
             <column name="date" value="июнь-август 2019"/>
             <column name="city" value="Москва"/>
-            <column name="preview_url" value="http://edurobots.ru/wp-content/uploads/2018/08/Codabra_Logo_Main_Ru.png"/>
-            <column name="image_url" value="https://static.tildacdn.com/tild3064-3739-4564-a239-353865616532/vr-ed.jpg"/>
+            <column name="preview_url" value="https://it-berries.ru/events/preview_url4.png"/>
+            <column name="image_url" value="https://it-berries.ru/events/image_url4.jpg"/>
             <column name="description" value="
                    &lt;p&gt;Зарегистрируйтесь сегодня в самый технологичный лагерь этого лета. Подарите возможность
                    вашему ребенку попробовать себя в роли разработчика игр, дизайнера, видеомейкера или
