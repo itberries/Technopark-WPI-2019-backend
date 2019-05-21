@@ -219,8 +219,8 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                         new GameCompletedMP(new GameCompletedMP.Payload(0, null, "lose", "")));
             } else {
                 //увеличиваем очки обоим пользователям
-                iUserDAO.updateScore(score, mpGameSession.getPlayer1().getId());
-                iUserDAO.updateScore(score, mpGameSession.getPlayer2().getId());
+                iUserDAO.updateScore(score / 2, mpGameSession.getPlayer1().getId());
+                iUserDAO.updateScore(score / 2, mpGameSession.getPlayer2().getId());
 
 
                 Reward reward = iRewardService.updateRewardsByUser(mpGameSession.getPlayer1().getId());
