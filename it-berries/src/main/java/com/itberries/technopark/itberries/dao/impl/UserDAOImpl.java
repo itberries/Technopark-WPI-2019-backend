@@ -105,8 +105,8 @@ public class UserDAOImpl implements IUserDAO {
         final String sql = "WITH result AS\n" +
                 "(\n" +
                 "        (SELECT u.id, u.score, DENSE_RANK()  OVER (ORDER BY u.score DESC) AS rank\n" +
-                "         FROM users u\n" +
-                "         WHERE u.score > 0 AND u.id IN (:userIds)\n" +
+                "         FROM users u \n" +
+                "         WHERE u.score > 0 AND u.id IN (:userIdsб :userId)\n" +
                 "         LIMIT 10)\n" +
                 "        UNION\n" +
                 "        (\n" +
