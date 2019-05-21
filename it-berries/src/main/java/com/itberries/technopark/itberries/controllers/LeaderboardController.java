@@ -1,7 +1,8 @@
 package com.itberries.technopark.itberries.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.itberries.technopark.itberries.models.User;
 import com.itberries.technopark.itberries.models.VKUser;
 import com.itberries.technopark.itberries.models.VKUserList;
@@ -9,10 +10,8 @@ import com.itberries.technopark.itberries.responses.ThereIsNoSuchUserException;
 import com.itberries.technopark.itberries.responses.UserNotAuthorizedException;
 import com.itberries.technopark.itberries.services.ILeaderboardService;
 import com.itberries.technopark.itberries.services.IUserService;
-import com.itberries.technopark.itberries.utils.ParameterStringBuilder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @Api(value = "Контроллер для работы с данными таблицы лидеров")
@@ -86,16 +87,19 @@ public class LeaderboardController {
 
                 con.disconnect();
 
-                ObjectMapper mapper = new ObjectMapper();
-                Map<String,Object> map = mapper.readValue(content.toString(), Map.class);
-                VKUserList vkUserList = mapper.convertValue(map.get("response"), VKUserList.class);
+                ObjectMapper mapper = new ObjectMapper()
+                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                Map<String, Object> map = mapper.readValue(content.toString(), Map.class);
+
+                List<VKUser> vkUserList =  mapper.convertValue(((LinkedHashMap) map.get("response")).get("items"), new TypeReference<List<VKUser>>() {
+                });
                 ArrayList<Long> vkUserIds = new ArrayList<>();
-                for (VKUser vkUser : vkUserList.getItems()) {
+                for (VKUser vkUser : vkUserList) {
                     vkUserIds.add(Long.parseLong(vkUser.getId()));
                 }
 
 
-                return iLeaderboardService.getLeaderBoardForUserAmongFriends(userId,vkUserIds);
+                return iLeaderboardService.getLeaderBoardForUserAmongFriends(userId, vkUserIds);
             } catch (Exception ex) {
                 throw new ThereIsNoSuchUserException();
             }
