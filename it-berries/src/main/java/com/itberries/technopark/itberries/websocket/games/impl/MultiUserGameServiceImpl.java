@@ -273,9 +273,10 @@ public class MultiUserGameServiceImpl implements IMultiUserGameService {
                 sendMessageToUser(mpGameSession.getPlayer2().getId(), new DeliveryStatus(new DeliveryStatus.Payload("OPPONENT_IS_READY")));
                 mpGameSession.getPlayer1().setDateTimeStart(now);
                 mpGameSession.getPlayer2().setDateTimeStart(now);
+                this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
             }
         }
-        this.service.scheduleAtFixedRate(new MultiUserGameServiceImpl.GameDispatcher(), 0, 1, TimeUnit.SECONDS);
+
     }
 
     @Override
